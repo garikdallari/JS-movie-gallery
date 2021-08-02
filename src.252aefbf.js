@@ -59,6 +59,6 @@ var e=require("process"),t=require("./utils"),r=require("./helpers/normalizeHead
 },{"./utils":"S1cf","./helpers/bind":"EDTP","./core/Axios":"OvAf","./core/mergeConfig":"OHvn","./defaults":"BXyq","./cancel/Cancel":"mIKj","./cancel/CancelToken":"tsWd","./cancel/isCancel":"V30M","./helpers/spread":"X8jb","./helpers/isAxiosError":"wICU"}],"dZBD":[function(require,module,exports) {
 module.exports=require("./lib/axios");
 },{"./lib/axios":"nUiQ"}],"Focm":[function(require,module,exports) {
-"use strict";require("./sass/main.scss");const e=require("axios"),s="https://api.themoviedb.org/3/movie/upcoming?api_key=93e18502a4f670f89316c5fc1b091bd6&language=en-US&page=1";async function a(){const a=await e.get(s);console.log(a)}a();
+"use strict";require("./sass/main.scss");const e=require("axios"),s="https://api.themoviedb.org/3/movie/upcoming?api_key=93e18502a4f670f89316c5fc1b091bd6&language=en-US&page=1";async function a(){const{data:a}=await e.get(s);console.log(a.results)}a();
 },{"./sass/main.scss":"clu1","axios":"dZBD"}]},{},["Focm"], null)
-//# sourceMappingURL=/JS-movie-gallery/src.36f1bf0d.js.map
+//# sourceMappingURL=/JS-movie-gallery/src.252aefbf.js.map

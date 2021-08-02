@@ -1,0 +1,51 @@
+// @include for-phone;
+@mixin for-phone {
+  @media screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+// @include for-tablet;
+@mixin for-tablet {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+
+// @include for-desktop;
+@mixin for-desktop {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+
+// @include centeredFlex;
+@mixin centeredFlex($type: flex) {
+  display: $type;
+  justify-content: center;
+  align-items: center;
+}
+
+// ===== Стили текста =====
+// @include font-style (500, 24px, 1.667, 0.02em, $accent-color);
+@mixin font-style($weight, $size, $lh, $ls, $color) {
+  @if $weight {
+    font-weight: $weight;
+  }
+
+  @if $size {
+    font-size: $size;
+  }
+
+  @if $lh {
+    line-height: $lh;
+  }
+
+  @if $ls {
+    letter-spacing: $ls;
+  }
+
+  @if $color {
+    color: $color;
+  }
+}

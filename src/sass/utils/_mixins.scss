@@ -1,6 +1,6 @@
 // @include for-phone;
 @mixin for-phone {
-  @media screen and (max-width: 767px) {
+  @media screen and (max-width: 480px) {
     @content;
   }
 }

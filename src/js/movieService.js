@@ -1,16 +1,15 @@
 const axios = require('axios');
 import { BASE_URL, API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
 import { parseGenres } from './genres';
-
-axios.defaults.baseURL = 'https://api.themoviedb.org/3/'; // ---------------- удалить перед пулом
-
 export default class MovieApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
   }
 
-  async fetchTrendingMovies() {}
+  async fetchTrendingMovies(period) {
+    return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
+  }
 
   async searchMovieByName() {}
 
@@ -46,5 +45,9 @@ export default class MovieApiService {
     const yearRef = document.querySelector(`[data-year-id="${obj.id}"]`);
     const yearVal = yearRef.textContent;
     yearRef.textContent = `| ${yearVal.slice(0, 4)}`;
+  }
+
+  markupTempl(data, el, templ) {
+    el.insertAdjacentHTML('beforeend', templ(data));
   }
 }

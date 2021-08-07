@@ -2,13 +2,11 @@
 
 .container {
   min-width: 320px;
+  max-width: 320px;
   margin-left: auto;
   margin-right: auto;
-
-  @include for-phone {
-    max-width: 480px;
-    padding: 0 20px;
-  }
+  padding-left: 20px;
+  padding-right: 20px;
 
   @include for-tablet {
     max-width: 768px;
@@ -16,7 +14,7 @@
   }
 
   @include for-desktop {
-    max-width: 1344px;
+    max-width: 1024px;
     padding: 0 20px;
   }
 }

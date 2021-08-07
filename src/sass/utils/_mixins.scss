@@ -25,23 +25,3 @@
   justify-content: center;
   align-items: center;
 }
-
-// ===== Стили текста =====
-// @include font-style (500, 24px, 1.667, $accent-color);
-@mixin font-style($weight, $size, $lh, $color) {
-  @if $weight {
-    font-weight: $weight;
-  }
-
-  @if $size {
-    font-size: $size;
-  }
-
-  @if $lh {
-    line-height: $lh;
-  }
-
-  @if $color {
-    color: $color;
-  }
-}

@@ -1,6 +1,10 @@
-@import './utils/base';
-@import './utils/vars';
-@import './utils/mixins';
-@import './components/header';
-@import './components/body';
-@import './components/footer';
+@import './utils/common';
+@import './utils/variables';
+@import './utils/mixin';
+@import './utils/container';
+@import './utils/visually-hidden';
+@import './header';
+@import './cards';
+@import './footer';
+@import './modal-window-card';
+@import './backdrop';

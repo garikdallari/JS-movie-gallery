@@ -1,0 +1,14 @@
+
+{{#each this}}
+  <li class="cards-list__item" id="{{id}}">
+    <div class="cards-list__wrapper">
+      <img class="cards-list__img" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}" data-img-id="{{id}}"/>
+    </div>
+    <div class="cards-list__description">
+      <h2 class="cards-list__description__name">{{original_title}}</h2>
+      <p class="cards-list__description__genre" data-genre-id="{{id}}">{{genre_ids}}"</p>
+      <p class="cards-list__description__genre" data-year-id="{{id}}">{{release_date}}</p>
+      <p class="cards-list__description__genre" data-rating-id="{{id}}">{{vote_average}}</p>
+    </div>
+  </li>
+{{/each}}

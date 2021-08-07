@@ -1,0 +1,14 @@
+.container {
+  padding: 0px 20px;
+  margin: 0 auto;
+
+  @include for-tablet-up {
+    padding: 0px 75px;
+    width: 768px;
+  }
+
+  @include for-desktop-up {
+    padding: 0px 71px;
+    width: 1024px;
+  }
+}

@@ -1,0 +1,25 @@
+.footer {
+  padding-top: 30px;
+  padding-bottom: 28px;
+  background-color: var(--background-color-footer);
+}
+
+.footer-wrapper {
+  text-align: center;
+}
+
+.footer-wrapper__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 2;
+  color: var(--secondary-font-color);
+}
+
+.footer-wrapper__svg {
+  margin: 0px 10px;
+}
+
+.footer-wrapper__underline {
+  text-decoration-line: underline;
+}

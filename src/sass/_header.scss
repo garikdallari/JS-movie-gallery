@@ -170,8 +170,11 @@
   color: var(--primary-font-color);
 }
 
-.nav-menu__item:first-child {
-  margin-right: 39px;
+.nav-menu__item {
+  position: relative;
+  &:first-child {
+    margin-right: 39px;
+  }
 }
 
 .search-form {
@@ -252,4 +255,16 @@
 
 .is-open {
   display: flex;
+}
+
+.nav-menu__link--current-page {
+  &::before {
+    content: '';
+    width: 100%;
+    height: 3px;
+    background-color: var(--background-pseudo-color);
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+  }
 }

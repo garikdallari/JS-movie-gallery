@@ -18,7 +18,7 @@ function openModalOnClick(e) {
     if (!e.target.classList.contains('cards-list__img')) {
         return;
     }
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
     modal.classList.add('is-open');
 
     movieApiService.id = +e.target.getAttribute('data-img-id');

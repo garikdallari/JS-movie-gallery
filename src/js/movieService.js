@@ -9,7 +9,7 @@ export default class MovieApiService {
     this.searchQuery = '';
     this.page = 1;
     this.lang = 'en-EN';
-    this.SearchId =1;
+    this.SearchId = 1;
   }
 
   async fetchTrendingMovies(period) {
@@ -65,7 +65,7 @@ export default class MovieApiService {
   set currentLang(value) {
     this.lang = value;
   }
-    get id() {
+  get id() {
     return this.SearchId;
   }
   set id(newId) {

@@ -71,4 +71,4 @@ module.exports=require("./lib/axios");
 },{"axios":"dZBD","./movieService":"XVqh"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("../node_modules/modern-normalize/modern-normalize.css"),require("./js/change-header"),require("./js/genres");
 },{"./sass/main.scss":"clu1","../node_modules/modern-normalize/modern-normalize.css":"Y5dV","./js/change-header":"d8S0","./js/genres":"pQa5"}]},{},["Focm"], null)
-//# sourceMappingURL=/JS-movie-gallery/src.41614b27.js.map
+//# sourceMappingURL=/JS-movie-gallery/src.9a408f9e.js.map

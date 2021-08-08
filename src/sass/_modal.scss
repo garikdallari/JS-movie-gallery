@@ -1,0 +1,93 @@
+.lightbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--animation-duration) var(--timing-function);
+}
+
+.lightbox.is-open {
+  opacity: 1;
+  pointer-events: initial;
+
+}
+
+.lightbox__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color:var( --background-color-backdrop);
+}
+
+.lightbox__content {
+ 
+  background-color: var(--primary-font-color);
+  border-radius: 5px;
+  padding:48px 20px 41px 20px;
+  @media screen and(max-width: 767px) {
+    max-width: 280px;
+    max-height: 958px;
+    height: 90vh;
+    width: 90vw;
+    overflow: auto;
+    position: relative;
+  }
+
+   @include for-tablet-up {
+    position: absolute;
+    height: 90vh;
+    width: 90vw;
+    width: 618px;
+    height: 562px;
+    padding: 42px 29px 40px 28px;
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform var(--time) var(--time-function);
+  }
+
+  @include for-desktop-up {
+    width: 882px;
+    height: 568px;
+    padding: 50px 30px 40.2px 30px;
+  }
+}
+
+.lightbox.is-open .lightbox__content {
+  transform: scale(1);
+}
+
+.lightbox__button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color var(--animation-duration) var(--timing-function);
+  outline: none;
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+}
+
+.lightbox__button:hover,
+.lightbox__button:focus {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+

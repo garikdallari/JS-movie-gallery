@@ -16,7 +16,11 @@ export default class MovieApiService {
     return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
   }
 
-  async searchMovieByName() {}
+  async searchMovieByWord(searchWord) {
+    const response= await axios.get(`${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`);
+    const movies= await response.data.results;
+    return movies;
+  }
 
   async getMovieInfo() {
      return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);

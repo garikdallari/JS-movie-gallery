@@ -63,17 +63,3 @@ export default class MovieApiService {
     this.lang = value;
   }
 }
-
-// const movieApiService = new MovieApiService();
-// console.log(movieApiService);
-
-// // ======STORE GENRES
-// movieApiService.fetchGenres().then(res => {
-//   localStorage.setItem('genresList', JSON.stringify(res));
-// });
-
-// // ===== parse genres from localStorage
-// function parseGenres() {
-//   const genresList = localStorage.getItem('genresList');
-//   return JSON.parse(genresList);
-// }

@@ -50,7 +50,7 @@ function closeModalOnEsk(e) {
 async function fetchMovieById() {
     const results = await movieApiService.getMovieInfo();
     // console.log(results)
-    content.insertAdjacentHTML( "afterbegin",movieCardById(results));
+    content.insertAdjacentHTML( "afterbegin", movieCardById(results));
     
 
 }

@@ -1,4 +1,3 @@
-import axios from 'axios';
 import MovieApiService from './movieService';
 
 const movieApiService = new MovieApiService();

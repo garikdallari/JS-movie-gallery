@@ -8,6 +8,7 @@ export default class MovieApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
+    this.lang = 'en-EN';
   }
 
   async fetchTrendingMovies(period) {
@@ -19,13 +20,13 @@ export default class MovieApiService {
   async getMovieInfo(id) {}
 
   async fetchGenres() {
-    const res = await axios.get(`genre/movie/list?api_key=${API_KEY}&language=en-US`);
+    const res = await axios.get(`genre/movie/list?api_key=${API_KEY}&language=${this.lang}`);
     const genres = await res.data.genres;
     return genres;
   }
 
   editGenres(obj) {
-    const genresRef = document.querySelector(`[data-id="${obj.id}"]`);
+    const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
     const parsedGenres = [];
 
     for (let i = 0; i < obj.genre_ids.length; i += 1) {
@@ -47,11 +48,32 @@ export default class MovieApiService {
   editDate(obj) {
     const yearRef = document.querySelector(`[data-year-id="${obj.id}"]`);
     const yearVal = yearRef.textContent;
-    console.log(yearVal.slice(0, 4));
     yearRef.textContent = `| ${yearVal.slice(0, 4)}`;
   }
 
   markupTempl(data, el, templ) {
     el.insertAdjacentHTML('beforeend', templ(data));
   }
+
+  get currentLang() {
+    return this.lang;
+  }
+
+  set currentLang(value) {
+    this.lang = value;
+  }
 }
+
+// const movieApiService = new MovieApiService();
+// console.log(movieApiService);
+
+// // ======STORE GENRES
+// movieApiService.fetchGenres().then(res => {
+//   localStorage.setItem('genresList', JSON.stringify(res));
+// });
+
+// // ===== parse genres from localStorage
+// function parseGenres() {
+//   const genresList = localStorage.getItem('genresList');
+//   return JSON.parse(genresList);
+// }

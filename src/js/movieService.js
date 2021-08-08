@@ -50,4 +50,5 @@ export default class MovieApiService {
   markupTempl(data, el, templ) {
     el.insertAdjacentHTML('beforeend', templ(data));
   }
+
 }

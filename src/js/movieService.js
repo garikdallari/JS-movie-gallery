@@ -9,6 +9,7 @@ export default class MovieApiService {
     this.searchQuery = '';
     this.page = 1;
     this.lang = 'en-EN';
+    this.SearchId =1;
   }
 
   async fetchTrendingMovies(period) {
@@ -17,7 +18,9 @@ export default class MovieApiService {
 
   async searchMovieByName() {}
 
-  async getMovieInfo(id) {}
+  async getMovieInfo() {
+     return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
+  }
 
   async fetchGenres() {
     const res = await axios.get(`genre/movie/list?api_key=${API_KEY}&language=${this.lang}`);
@@ -61,5 +64,13 @@ export default class MovieApiService {
 
   set currentLang(value) {
     this.lang = value;
+  }
+    get id() {
+    return this.SearchId;
+  }
+  set id(newId) {
+  
+     this.SearchId = newId;
+   
   }
 }

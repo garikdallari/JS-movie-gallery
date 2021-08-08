@@ -6,3 +6,5 @@ import './js/genres';
 import './js/language';
 import './js/trending-movies';
 import './js/searchMovieByWord';
+import './js/movies-by-id';
+

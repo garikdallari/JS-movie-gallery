@@ -1,4 +1,6 @@
 import './sass/main.scss';
 import '../node_modules/modern-normalize/modern-normalize.css';
+import './js/refs';
 import './js/change-header';
 import './js/genres';
+import './js/trending-movies';

@@ -2,7 +2,7 @@ import MovieApiService from './movieService';
 import refs from './refs';
 import debounce from 'lodash.debounce';
 import galleryCard from '../templates/gallery-card.hbs';
-const {searchFormRef, searchFormInputRef, galleryRef, messageFailure}=refs;
+const {searchFormRef, searchFormInputRef, galleryRef, messageFailure} = refs;
 
 const SearchMovieApiService = new MovieApiService();
 
@@ -10,8 +10,11 @@ function searchMovie(){
   messageFailure.style.display = 'none';
   SearchMovieApiService.searchQuery = searchFormInputRef.value.trim();
   const searchWord = SearchMovieApiService.searchQuery;
-  if (searchWord === ''){
-    return;}
+  
+  if (searchWord === '') {
+    return
+  }
+
   else {
     SearchMovieApiService.searchMovieByWord(searchWord)
    .then(movies => {

@@ -3,4 +3,5 @@ export default {
   searchFormRef: document.querySelector('.search-form'),
   searchFormInputRef: document.querySelector('.search-form__input'),
   messageFailure: document.querySelector('.message-failure'),
+  headerBtns: document.querySelector('.header-menu-btn'),
 };

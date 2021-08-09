@@ -10,11 +10,20 @@ export default class MovieApiService {
     this.page = 1;
     this.lang = 'en-EN';
     this.SearchId = 1;
+    this.time_window = 'day';
+    this.media_type = '/all/';
+    this.home = 'trending';
   }
 
   async fetchTrendingMovies(period) {
     return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
   }
+
+  async fetchDate(page) {
+    const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}`;
+     const response = await axios.get(url);
+     return response.data;
+    };   
 
   async searchMovieByWord(searchWord) {
     const response= await axios.get(`${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`);

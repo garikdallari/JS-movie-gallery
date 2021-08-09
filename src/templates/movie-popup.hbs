@@ -26,9 +26,9 @@
        
         <h3 class="title_about">ABOUT</h3>
         <p class="about_text"> {{data.overview}}</p>
-<span class="button_wrapper"> 
-    <button class="button_watched">add to Watched</button>
-    <button class="button_queue">add to queue</button>
+<span class="button_wrapper" data-value="modal-btns"> 
+    <button class="button_watched" data-action="add-to-watched" data-id="{{data.id}}">add to watched</button>
+    <button class="button_queue" data-action="add-to-queue" data-id="{{data.id}}">add to queue</button>
 </span>
         
     </div>

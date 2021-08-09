@@ -2,14 +2,16 @@ import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 
-const { headerBtns, myLibraryRef, galleryRef, libraryBtns } = refs;
+const { headerBtns, myLibraryRef, galleryRef, libraryBtns, modalRef } = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
 const QUEUE_LIST = 'queue';
 
+// ===== LISTENTERS
 myLibraryRef.addEventListener('click', onLibraryClick);
 libraryBtns.addEventListener('click', onLibraryBtnsClick);
+modalRef.addEventListener('click', onModalBtnsClick);
 
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
@@ -23,14 +25,12 @@ function onLibraryClick(e) {
 
   grabbedData.forEach(movie => {
     movieApiService.editDate(movie);
-    // movieApiService.editGenres(movie);
     editMovieGenres(movie);
   });
 }
 
 function editMovieGenres(obj) {
   const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
-  // console.log(obj.id);
   let parsedGenres = [];
   obj.genres.forEach(genre => {
     parsedGenres.push(genre.name);
@@ -39,26 +39,6 @@ function editMovieGenres(obj) {
   if (parsedGenres.length > 2)
     return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + ' ...');
   genresRef.innerHTML = parsedGenres.join(', ');
-}
-// ===== ADD MOVIE TO THE LIST
-function addMovieToList(movieId, listKey) {
-  movieApiService.id = movieId;
-
-  // ===== check aviability this id in local storage
-  const localList = movieApiService.getLocalStoredList(listKey);
-  const isIdExists = localList.find(movie => movie.id === movieId);
-  if (isIdExists !== undefined) return;
-
-  movieApiService.getMovieInfo().then(res => {
-    if (listKey === WATCHED_LIST) {
-      res.data.isWatched = true;
-    }
-    if (listKey === QUEUE_LIST) {
-      res.data.isQueue = true;
-    }
-
-    movieApiService.updateLocalList(listKey, res.data);
-  });
 }
 
 // ===== LIBRARY BUTTONS CLICK
@@ -79,28 +59,41 @@ function onLibraryBtnsClick(e) {
   }
 }
 
-// ===== CREATE LOCAL_STORAGE LIST
-// function createLocalList(listKey) {
-//   const storedList = JSON.stringify([]);
-//   localStorage.setItem(listKey, storedList);
-// }
+// ===== ON MODAL BUTTONS CLICK
+function onModalBtnsClick(e) {
+  const movieId = e.target.dataset.id;
+  const btn = e.target;
+  const btnAction = btn.dataset.action;
+  const btnText = btn.textContent;
 
-// ===== UPDATE LOCAL_STORAGE LIST
-// function updateLocalList(listKey, data) {
-//   const isListExists = localStorage.getItem(listKey);
-//   if (!isListExists) {
-//     createLocalList(listKey);
-//   }
-//   if (data === undefined) return;
-//   const storedList = getLocalStoredList(listKey);
-//   storedList.push(data);
-//   const updatedList = JSON.stringify(storedList);
+  // ===== close modal
+  if (btnAction === 'close-modal') {
+    movieApiService.clearGallery();
 
-//   localStorage.setItem(listKey, updatedList);
-// }
+    return;
+  }
 
-// ===== GET LOCAL_STORAGE LIST
-// function getLocalStoredList(listKey) {
-//   const stringifyList = localStorage.getItem(listKey);
-//   return JSON.parse(stringifyList);
-// }
+  // ===== add to the list
+  if (btn.nodeName !== 'BUTTON') return;
+
+  if (btnAction === 'add-to-watched') {
+    movieApiService.addToMovieList(movieId, WATCHED_LIST);
+    btnText = 'remove from watched';
+    btnAction = 'remove-from-watched';
+  }
+  if (btnAction === 'add-to-queue') {
+    movieApiService.addToMovieList(movieId, QUEUE_LIST);
+    btnText = 'remove from queue';
+    btnAction = 'remove-from-queue';
+  }
+  if (btnAction === 'remove-from-watched') {
+    movieApiService.removefromMovieList(movieId, WATCHED_LIST);
+    btnText = 'add to watched';
+    btnAction = 'add-to-watched';
+  }
+  if (btnAction === 'remove-from-queue') {
+    movieApiService.removefromMovieList(movieId, QUEUE_LIST);
+    btnText = 'add to queue';
+    btnAction = 'add-to-queue';
+  }
+}

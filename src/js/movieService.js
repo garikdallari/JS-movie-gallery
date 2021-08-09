@@ -53,7 +53,7 @@ export default class MovieApiService {
     }
 
     if (parsedGenres.length > 2)
-      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + ' ...');
+      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
     genresRef.innerHTML = parsedGenres.join(', ');
   }
 
@@ -93,10 +93,10 @@ export default class MovieApiService {
   updateLocalList(listKey, data) {
     const isListExists = localStorage.getItem(listKey);
     if (!isListExists) {
-      createLocalList(listKey);
+      this.createLocalList(listKey);
     }
     if (data === undefined) return;
-    const storedList = getLocalStoredList(listKey);
+    const storedList = this.getLocalStoredList(listKey);
     storedList.push(data);
     const updatedList = JSON.stringify(storedList);
 
@@ -106,5 +106,44 @@ export default class MovieApiService {
   getLocalStoredList(listKey) {
     const stringifyList = localStorage.getItem(listKey);
     return JSON.parse(stringifyList);
+  }
+
+  addToMovieList(movieId, listKey) {
+    this.id = movieId;
+    const WATCHED_LIST = 'watched';
+    const QUEUE_LIST = 'queue';
+
+    // ===== check aviability this id in local storage
+    const localList = this.getLocalStoredList(listKey);
+    const isIdExists = localList.find(movie => movie.id === movieId);
+    if (isIdExists !== undefined) return;
+
+    this.getMovieInfo().then(res => {
+      if (listKey === WATCHED_LIST) {
+        res.data.isWatched = true;
+      }
+      if (listKey === QUEUE_LIST) {
+        res.data.isQueue = true;
+      }
+
+      this.updateLocalList(listKey, res.data);
+    });
+  }
+
+  removefromMovieList(movieId, listKey) {
+    this.id = movieId;
+    const WATCHED_LIST = 'watched';
+    const QUEUE_LIST = 'queue';
+
+    const localList = this.getLocalStoredList(listKey);
+    const isIdExists = localList.find(movie => movie.id === movieId);
+    if (isIdExists !== undefined) return;
+
+    const updatedList = localList.reduce((acc, el) => {
+      el.id !== movieId;
+    }, []);
+    console.log(updatedList);
+
+    this.updateLocalList(listKey, updatedList);
   }
 }

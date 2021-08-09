@@ -267,13 +267,4 @@
 }
 .nav-menu__logo-svg {
   margin-right: 10px;
-  animation: 3s linear infinite rot;
-}
-@keyframes rot {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }

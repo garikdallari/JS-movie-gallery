@@ -46,6 +46,10 @@
   margin-top: 10px;
 }
 
+.card-list__description__box {
+  display: flex;
+}
+
 .cards-list__description__name {
   font-family: var(--font-family);
   font-style: normal;

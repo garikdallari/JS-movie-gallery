@@ -19,28 +19,30 @@ function openModalOnClick(e) {
 
     if (!e.target.classList.contains('cards-list__img')) {
         return;
-    }
+    };
+
     document.body.style.overflow = "hidden";
     modal.classList.add('is-open');
     movieApiService.id = +e.target.getAttribute('data-img-id');
-    window.addEventListener('keydown', closeModalOnEsk);
+    window.addEventListener('keydown', closeModalOnEsc);
     buttonClose.addEventListener('click', closeModalOnClick);
     overley.addEventListener('click', closeModalOnClick);
+
      fetchMovieById();
      
-}
+};
 
 function closeModalOnClick() {
     modal.classList.remove('is-open');
     document.body.style.overflow = "visible";
     const modalContent = content.lastElementChild;
     modalContent.remove();
-    window.removeEventListener('keydown', closeModalOnEsk);
+    window.removeEventListener('keydown', closeModalOnEsc);
     buttonClose.removeEventListener('click',closeModalOnClick);
     overley.removeEventListener('click', closeModalOnClick);
 };
  
-function closeModalOnEsk(e) {
+function closeModalOnEsc(e) {
      if(e.code==="Escape"){
           closeModalOnClick();
      }

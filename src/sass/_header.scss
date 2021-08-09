@@ -139,10 +139,6 @@
   color: var(--primary-font-color);
 }
 
-.nav-menu__logo-svg {
-  margin-right: 10px;
-}
-
 .nav-menu__logo-name {
   opacity: 0;
   font-size: 10px;
@@ -268,4 +264,7 @@
     bottom: -3px;
     left: 0;
   }
+}
+.nav-menu__logo-svg {
+  margin-right: 10px;
 }

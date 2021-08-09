@@ -8,3 +8,5 @@ import './js/trending-movies';
 import './js/searchMovieByWord';
 import './js/movies-by-id';
 import './js/clients-lists';
+
+

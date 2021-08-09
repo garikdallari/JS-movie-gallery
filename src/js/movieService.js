@@ -59,7 +59,6 @@ export default class MovieApiService {
 
   editDate(obj) {
     const yearRef = document.querySelector(`[data-year-id="${obj.id}"]`);
-    console.log(yearRef.textContent);
     const yearVal = yearRef.textContent;
     yearRef.textContent = `| ${yearVal.slice(0, 4)}`;
   }

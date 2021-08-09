@@ -22,12 +22,12 @@ function searchMovie() {
           messageFailure.style.display = 'block';
         } else SearchMovieApiService.markupTempl(movies, galleryRef, galleryCard);
 
-        movies.forEach(movie => {
-          // if (movie.poster_path === null) {
-          //   let img = document.querySelector(`[data-img-id="${movie.id}"]`);
-          //   img.src = 'https://raw.githubusercontent.com/marvall/filmoteka/main/src/images/no-poster.png.org/t/p/original';
-          // }
-        });
+        // movies.forEach(movie => {
+        //   if (movie.poster_path === null) {
+        //     let img = document.querySelector(`[data-img-id="${movie.id}"]`);
+        //     img.src = '../images/cards/test.jpg';
+        //   }
+        // });
       })
       .finally(() => (loader.style.display = 'none'));
   }

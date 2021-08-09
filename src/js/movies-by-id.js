@@ -8,7 +8,8 @@ const { galleryRef } = refs;
 const modal = document.querySelector('.js-lightbox');
 const buttonClose = document.querySelector('.lightbox__button');
 const content = document.querySelector('.lightbox__content');
-const overley =document.querySelector('.lightbox__overlay');
+const overley = document.querySelector('.lightbox__overlay');
+
 
 galleryRef.addEventListener('click', openModalOnClick);
   

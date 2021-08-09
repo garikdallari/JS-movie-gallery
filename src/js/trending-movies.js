@@ -8,7 +8,6 @@ const movieApiService = new MovieApiService();
 
 movieApiService.fetchTrendingMovies('day').then(res => {
   const queryResult = res.data.results;
-  console.log(queryResult);
 
   movieApiService.markupTempl(queryResult, galleryRef, galleryCard);
 

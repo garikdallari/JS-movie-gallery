@@ -92,4 +92,4 @@ var t=arguments[3],e="Expected a function",n=NaN,r="[object Symbol]",i=/^\s+|\s+
 },{"./movieService":"XVqh","./refs":"VyiV","../templates/movie-popup.hbs":"BzRP"}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("../node_modules/modern-normalize/modern-normalize.css"),require("./js/refs"),require("./js/change-header"),require("./js/genres"),require("./js/language"),require("./js/trending-movies"),require("./js/searchMovieByWord"),require("./js/movies-by-id");
 },{"./sass/main.scss":"clu1","../node_modules/modern-normalize/modern-normalize.css":"Y5dV","./js/refs":"VyiV","./js/change-header":"d8S0","./js/genres":"pQa5","./js/language":"BBml","./js/trending-movies":"cUyg","./js/searchMovieByWord":"fbgH","./js/movies-by-id":"Sw7X"}]},{},["Focm"], null)
-//# sourceMappingURL=/JS-movie-gallery/src.d2eef054.js.map
+//# sourceMappingURL=/JS-movie-gallery/src.0b0a05e5.js.map

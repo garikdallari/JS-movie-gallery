@@ -47,10 +47,11 @@ function closeModalOnEsk(e) {
 };
 
 async function fetchMovieById() {
+
     const { data} = await movieApiService.getMovieInfo();
     
     const genres=data.genres.slice(0,3).map(genre=>genre.name).join(" ");
-    
+
     movieApiService.markupTempl(({data,genres}), content, movieCard);
 
 }

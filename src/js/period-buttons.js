@@ -10,24 +10,24 @@ refs.btnTop.addEventListener('click',onClickBtnTop)
 refs.btnUpcoming.addEventListener('click',onClickBtnUpcoming)
 
 function onClickBtnDay() {
-    getMovieByWeek('day');
+    getMovieByPeriod('day');
 }
 
 function onClickBtnWeek() {
-    getMovieByWeek('week');
+    getMovieByPeriod('week');
 }
 
 function onClickBtnTop() {
-    getMovieTopRated();
+    getMovieByType(API.fetchTopRatedMovies());
 }
 
 function onClickBtnUpcoming() {
-    getMovieUpComing();
+    getMovieByType(API.fetchUpcomingMovies());
 }
 
 
 
-async function getMovieByWeek(period) {
+async function getMovieByPeriod(period) {
     try { 
         const response = await API.fetchTrendingMovies(period).then(item => item.data.results);
         const result = movieCard(response);
@@ -38,11 +38,9 @@ async function getMovieByWeek(period) {
     }   
 }
 
-async function getMovieTopRated() {
-
-    try {
-        const response = await API.fetchTopRatedMovies().then(item => item.data.results);
-        console.log(response)
+async function getMovieByType(type) {
+        try {
+        const response = await type.then(item => item.data.results);
         const result = movieCard(response);
         refs.galleryRef.innerHTML = result;
 
@@ -51,16 +49,3 @@ async function getMovieTopRated() {
     }   
 
 }
-
-async function getMovieUpComing() {
-    try {
-        const response = await API.fetchUpcomingMovies().then(item => item.data.results);
-        console.log(response)
-        const result = movieCard(response);
-        refs.galleryRef.innerHTML = result;
-
-} catch (error) {
-        console.log(error);
-    }   
-}
-

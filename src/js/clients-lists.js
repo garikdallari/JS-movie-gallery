@@ -1,46 +1,106 @@
 import refs from './refs';
-import axios from 'axios';
-import { API_KEY } from './searchProps';
+import MovieApiService from './movieService';
+import galleryCard from '../templates/gallery-card.hbs';
 
-const { headerBtns } = refs;
+const { headerBtns, myLibraryRef, galleryRef, libraryBtns } = refs;
 
-// openWatchedList();
+const movieApiService = new MovieApiService();
+const WATCHED_LIST = 'watched';
+const QUEUE_LIST = 'queue';
 
-// ===== CREATE LOCAL_STORAGE LIST
-function createLocalList(listKey) {
-  const storedList = JSON.stringify([]);
-  localStorage.setItem(listKey, storedList);
-}
+myLibraryRef.addEventListener('click', onLibraryClick);
+libraryBtns.addEventListener('click', onLibraryBtnsClick);
 
-// ===== UPDATE LOCAL_STORAGE LIST
-function updateWatchedList(data, listKey) {
-  const isListExist = localStorage.getItem(listKey);
-  if (!isListExist) {
-    createLocalList(listKey);
-  }
-  const storedList = getLocalStoredList(listKey);
-  console.log(storedList);
-  storedList.push(data);
-  console.log(storedList);
-  const updatedList = JSON.stringify(storedList);
+// ===== ON LIBRARY LINK CLICK
+function onLibraryClick(e) {
+  movieApiService.clearGallery();
 
-  console.log(updatedList);
+  // ===== watched list
+  movieApiService.updateLocalList(WATCHED_LIST);
 
-  localStorage.setItem(listKey, updatedList);
-}
+  const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
+  movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
 
-// ===== GET LOCAL_STORAGE LIST
-function getLocalStoredList(listKey) {
-  const stringifyList = localStorage.getItem(listKey);
-  return JSON.parse(stringifyList);
-}
-
-// ===== OPEN LOCAL LIST
-function openWatchedList() {
-  headerBtns.addEventListener('click', e => {
-    if (e.target.textContent !== 'Watched') return;
-    console.log(e.target);
+  grabbedData.forEach(movie => {
+    movieApiService.editDate(movie);
+    // movieApiService.editGenres(movie);
+    editMovieGenres(movie);
   });
 }
 
-function createQueueList() {}
+function editMovieGenres(obj) {
+  const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
+  // console.log(obj.id);
+  let parsedGenres = [];
+  obj.genres.forEach(genre => {
+    parsedGenres.push(genre.name);
+  });
+
+  if (parsedGenres.length > 2)
+    return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + ' ...');
+  genresRef.innerHTML = parsedGenres.join(', ');
+}
+// ===== ADD MOVIE TO THE LIST
+function addMovieToList(movieId, listKey) {
+  movieApiService.id = movieId;
+
+  // ===== check aviability this id in local storage
+  const localList = movieApiService.getLocalStoredList(listKey);
+  const isIdExists = localList.find(movie => movie.id === movieId);
+  if (isIdExists !== undefined) return;
+
+  movieApiService.getMovieInfo().then(res => {
+    if (listKey === WATCHED_LIST) {
+      res.data.isWatched = true;
+    }
+    if (listKey === QUEUE_LIST) {
+      res.data.isQueue = true;
+    }
+
+    movieApiService.updateLocalList(listKey, res.data);
+  });
+}
+
+// ===== LIBRARY BUTTONS CLICK
+function onLibraryBtnsClick(e) {
+  movieApiService.clearGallery();
+  if (e.target.dataset.value === 'watched') {
+    movieApiService.updateLocalList(WATCHED_LIST);
+
+    const grabbedData = movieApiService.getLocalStoredList('watched');
+    movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+  }
+
+  if (e.target.dataset.value === 'queue') {
+    movieApiService.updateLocalList(QUEUE_LIST);
+
+    const grabbedData = movieApiService.getLocalStoredList(QUEUE_LIST);
+    movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+  }
+}
+
+// ===== CREATE LOCAL_STORAGE LIST
+// function createLocalList(listKey) {
+//   const storedList = JSON.stringify([]);
+//   localStorage.setItem(listKey, storedList);
+// }
+
+// ===== UPDATE LOCAL_STORAGE LIST
+// function updateLocalList(listKey, data) {
+//   const isListExists = localStorage.getItem(listKey);
+//   if (!isListExists) {
+//     createLocalList(listKey);
+//   }
+//   if (data === undefined) return;
+//   const storedList = getLocalStoredList(listKey);
+//   storedList.push(data);
+//   const updatedList = JSON.stringify(storedList);
+
+//   localStorage.setItem(listKey, updatedList);
+// }
+
+// ===== GET LOCAL_STORAGE LIST
+// function getLocalStoredList(listKey) {
+//   const stringifyList = localStorage.getItem(listKey);
+//   return JSON.parse(stringifyList);
+// }

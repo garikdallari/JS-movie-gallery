@@ -22,7 +22,8 @@ movieApiService.fetchTrendingMovies('day').then(res => {
     movieApiService.editDate(movie);
 
     movieApiService.editGenres(movie);
-  }).finally(() => loader.off());
+  })
+}).finally(() => loader.off())
 
 
 
@@ -41,6 +42,5 @@ function onHomeClick(e) {
 
       movieApiService.editGenres(movie);
     });
-  });
+  })
 }
-

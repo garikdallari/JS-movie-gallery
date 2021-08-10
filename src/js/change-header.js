@@ -3,6 +3,7 @@ const linkMyHomeRef = document.querySelector('.js-link-home');
 const headerBackgroundImageRef = document.querySelector('.header-background-img');
 const searchFormRef = document.querySelector('.search-form');
 const headerButtonsRef = document.querySelector('.header-menu-btn');
+const periodBtnBox = document.querySelector('.period-buttons');
 
 linkMyLibraryRef.addEventListener('click', onClickLib);
 linkMyHomeRef.addEventListener('click', onClickHome);
@@ -13,6 +14,7 @@ function onClickLib() {
   headerBackgroundImageRef.classList.replace('header-background-img', 'header-background-img-lib');
   linkMyHomeRef.classList.remove('nav-menu__link--current-page');
   linkMyLibraryRef.classList.add('nav-menu__link--current-page');
+  periodBtnBox.style.display = 'none';
 }
 
 function onClickHome() {
@@ -21,4 +23,5 @@ function onClickHome() {
   headerBackgroundImageRef.classList.replace('header-background-img-lib', 'header-background-img');
   linkMyLibraryRef.classList.remove('nav-menu__link--current-page');
   linkMyHomeRef.classList.add('nav-menu__link--current-page');
+  periodBtnBox.style.display = '';
 }

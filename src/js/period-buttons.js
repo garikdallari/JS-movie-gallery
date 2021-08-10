@@ -28,24 +28,32 @@ function onClickBtnUpcoming() {
 
 
 async function getMovieByPeriod(period) {
-    try { 
-        const response = await API.fetchTrendingMovies(period).then(item => item.data.results);
-        const result = movieCard(response);
-        refs.galleryRef.innerHTML = result;
+    try {
+        const response = await API.fetchTrendingMovies(period).then(response => renderMovieCards(response));
+        return response
         
-} catch (error) {
-        console.log(error);
-    }   
+        } catch (error) {
+                console.log(error);
+            }   
 }
 
 async function getMovieByType(type) {
         try {
-        const response = await type.then(item => item.data.results);
-        const result = movieCard(response);
-        refs.galleryRef.innerHTML = result;
+            const response = await type.then(response => renderMovieCards(response));
+            return response
 
-} catch (error) {
-        console.log(error);
-    }   
+        } catch (error) {
+                console.log(error);
+            }   
+}
 
+
+function renderMovieCards(response) {
+    const queryValue = response.data.results;
+    const result = movieCard(queryValue);
+    refs.galleryRef.innerHTML = result;
+    queryValue.forEach(movie => {
+        API.editDate(movie);
+        API.editGenres(movie);
+    })
 }

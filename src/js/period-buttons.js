@@ -4,26 +4,28 @@ import MovieApiService from './movieService';
 import movieCard from "../templates/gallery-card.hbs";
 const API = new MovieApiService;
 
-refs.btnDay.addEventListener('click', onClickBtnDay);
-refs.btnWeek.addEventListener('click', onClickBtnWeek);
-refs.btnTop.addEventListener('click',onClickBtnTop)
-refs.btnUpcoming.addEventListener('click',onClickBtnUpcoming)
+const { btnDay, btnWeek, btnTop, btnUpcoming, galleryRef } = refs;
+
+btnDay.addEventListener('click', onClickBtnDay);
+btnWeek.addEventListener('click', onClickBtnWeek);
+btnTop.addEventListener('click', onClickBtnTop);
+btnUpcoming.addEventListener('click', onClickBtnUpcoming);
 
 function onClickBtnDay() {
     getMovieByPeriod('day');
-}
+};
 
 function onClickBtnWeek() {
     getMovieByPeriod('week');
-}
+};
 
 function onClickBtnTop() {
     getMovieByType(API.fetchTopRatedMovies());
-}
+};
 
 function onClickBtnUpcoming() {
     getMovieByType(API.fetchUpcomingMovies());
-}
+};
 
 
 
@@ -35,7 +37,7 @@ async function getMovieByPeriod(period) {
         } catch (error) {
                 console.log(error);
             }   
-}
+};
 
 async function getMovieByType(type) {
         try {
@@ -45,15 +47,15 @@ async function getMovieByType(type) {
         } catch (error) {
                 console.log(error);
             }   
-}
+};
 
 
 function renderMovieCards(response) {
     const queryValue = response.data.results;
     const result = movieCard(queryValue);
-    refs.galleryRef.innerHTML = result;
+    galleryRef.innerHTML = result;
     queryValue.forEach(movie => {
         API.editDate(movie);
         API.editGenres(movie);
     })
-}
+};

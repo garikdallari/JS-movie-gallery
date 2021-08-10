@@ -1,7 +1,7 @@
 export default {
   galleryRef: document.querySelector('[data-modal-open]'),
   searchFormRef: document.querySelector('.search-form'),
-  searchFormInputRef: document.querySelector('.search-form__input'),
+  searchInputRef: document.querySelector('.search-form__input'),
   messageFailure: document.querySelector('.message-failure'),
   btnDay: document.querySelector('[data-button-day]'),
   btnWeek: document.querySelector('[data-button-week]'),
@@ -10,5 +10,5 @@ export default {
   headerBtns: document.querySelector('.header-menu-btn'),
   myLibraryRef: document.querySelector('.js-link-library'),
   libraryBtns: document.querySelector('[data-value="library-btns"]'),
-
 };
+

@@ -29,7 +29,7 @@ export default class MovieApiService {
 
   async searchMovieByWord(searchWord) {
     const response = await axios.get(
-      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`,
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${this.page}`,
     );
     const movies = await response.data.results;
     return movies;

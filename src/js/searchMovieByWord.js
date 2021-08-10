@@ -1,45 +1,40 @@
 import MovieApiService from './movieService';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
-const { searchFormRef, searchFormInputRef, galleryRef, messageFailure } = refs;
+const { searchFormRef, searchInputRef, galleryRef, messageFailure } = refs;
+import { loader } from './loader';
 
-let loader = document.querySelector('.loader');
+const SearchMovie = new MovieApiService();
 
-const SearchMovieApiService = new MovieApiService();
-
-function searchMovie() {
+function getMovie() {
   messageFailure.style.display = 'none';
-  SearchMovieApiService.searchQuery = searchFormInputRef.value.trim();
-  const searchWord = SearchMovieApiService.searchQuery;
+  SearchMovie.searchQuery = searchInputRef.value.trim();
 
-  if (searchWord === '') {
-    loader.style.display = 'none';
+  if (SearchMovie.searchQuery === '') {
+    loader.off();
     return;
   } else {
-    SearchMovieApiService.searchMovieByWord(searchWord)
+    SearchMovie.clearGallery();
+    SearchMovie.searchMovieByWord()
       .then(movies => {
         if (movies.length === 0) {
           messageFailure.style.display = 'block';
-        } else SearchMovieApiService.markupTempl(movies, galleryRef, galleryCard);
-
-        // movies.forEach(movie => {
-        //   if (movie.poster_path === null) {
-        //     let img = document.querySelector(`[data-img-id="${movie.id}"]`);
-        //     img.src = '../images/cards/test.jpg';
-        //   }
-        // });
+        } else renderMovie(movies);
       })
-      .finally(() => (loader.style.display = 'none'));
+      .finally(() => loader.off());
   }
+}
+
+function renderMovie(movies) {
+  SearchMovie.markupTempl(movies, galleryRef, galleryCard);
+  movies.forEach(movie => {
+    SearchMovie.editDate(movie);
+    SearchMovie.editGenres(movie);
+  });
 }
 
 searchFormRef.addEventListener('submit', event => {
   event.preventDefault();
-  galleryRef.innerHTML = '';
-  loader.style.display = 'flex';
-  searchMovie();
+  loader.on();
+  getMovie();
 });
-
-window.onload = function () {
-  loader.style.display = 'none';
-};

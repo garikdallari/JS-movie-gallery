@@ -31,6 +31,12 @@ export default class MovieApiService {
     return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
   }
 
+   async fetchTrailer() {
+    const response= await axios.get(`movie/${this.SearchId}/videos?api_key=${API_KEY}&language=${this.lang}`);
+    const trailers= await response.data;
+   return trailers;
+  }
+
   async fetchGenres() {
     const res = await axios.get(`genre/movie/list?api_key=${API_KEY}&language=${this.lang}`);
     const genres = await res.data.genres;

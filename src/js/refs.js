@@ -8,4 +8,5 @@ export default {
   homeRef: document.querySelector('.js-link-home'),
   libraryBtns: document.querySelector('[data-value="library-btns"]'),
   modalRef: document.querySelector('.js-lightbox'),
+  overlay: document.querySelector('.lightbox__overlay'),
 };

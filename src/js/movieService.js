@@ -2,6 +2,7 @@ const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
 import { parseGenres } from './genres';
 import refs from './refs';
+import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
 
@@ -13,6 +14,7 @@ export default class MovieApiService {
     this.page = 1;
     this.lang = 'en-EN';
     this.SearchId = 1;
+    this.screenPage = '';
   }
 
   async fetchTrendingMovies(period) {
@@ -81,6 +83,14 @@ export default class MovieApiService {
     this.SearchId = newId;
   }
 
+  set currentScreenPage(value) {
+    this.screenPage = value;
+  }
+
+  get currentScreenPage() {
+    return this.screenPage;
+  }
+
   clearGallery() {
     galleryRef.innerHTML = '';
   }
@@ -141,5 +151,12 @@ export default class MovieApiService {
     });
 
     localStorage.setItem(listKey, JSON.stringify(updatedList));
+  }
+
+  markupGrabbedList() {
+    this.clearGallery();
+    console.log(this.screenPage);
+    const grabbedData = this.getLocalStoredList(this.screenPage);
+    this.markupTempl(grabbedData, galleryRef, galleryCard);
   }
 }

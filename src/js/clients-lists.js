@@ -21,6 +21,7 @@ if (localStorage.getItem(QUEUE_LIST) === null) movieApiService.createLocalList(Q
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   movieApiService.clearGallery();
+  movieApiService.currentScreenPage = 'watched';
 
   // ===== get watched list & render it
   const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
@@ -49,6 +50,7 @@ function onLibraryBtnsClick(e) {
   movieApiService.clearGallery();
   if (e.target.dataset.value === 'watched') {
     movieApiService.updateLocalList(WATCHED_LIST);
+    movieApiService.currentScreenPage = 'watched';
 
     const grabbedData = movieApiService.getLocalStoredList('watched');
     movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
@@ -61,6 +63,7 @@ function onLibraryBtnsClick(e) {
 
   if (e.target.dataset.value === 'queue') {
     movieApiService.updateLocalList(QUEUE_LIST);
+    movieApiService.currentScreenPage = 'queue';
 
     const grabbedData = movieApiService.getLocalStoredList(QUEUE_LIST);
     movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
@@ -139,6 +142,7 @@ export function editQueueBtnText(boolean) {
   }
 }
 
+// ===== add isWAtched property
 export function addIsWatchedProp(data) {
   const localList = movieApiService.getLocalStoredList('watched');
   const movieId = data.id;
@@ -148,6 +152,7 @@ export function addIsWatchedProp(data) {
   return data.isWatched;
 }
 
+// ===== add isQueue Property
 export function addIsQueueProp(data) {
   const localList = movieApiService.getLocalStoredList('queue');
   const movieId = data.id;

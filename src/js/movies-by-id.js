@@ -1,6 +1,12 @@
 import MovieApiService from './movieService';
 import refs from './refs';
 import movieCard from '../templates/movie-popup.hbs';
+import {
+  addIsWatchedProp,
+  addIsQueueProp,
+  editWatchedBtnText,
+  editQueueBtnText,
+} from './clients-lists';
 
 const movieApiService = new MovieApiService();
 const { galleryRef } = refs;
@@ -52,5 +58,13 @@ async function fetchMovieById() {
     .map(genre => genre.name)
     .join(' ');
 
-  movieApiService.markupTempl({ data, genres }, content, movieCard);
+  // check for this movie exist in storage
+  const isWatched = addIsWatchedProp(data);
+  const isQueue = addIsQueueProp(data);
+
+  movieApiService.markupTempl({ data, genres, isWatched, isQueue }, content, movieCard);
+
+  // edit button text
+  editWatchedBtnText(isWatched);
+  editQueueBtnText(isQueue);
 }

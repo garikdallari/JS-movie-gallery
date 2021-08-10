@@ -7,4 +7,8 @@ export default {
   btnWeek: document.querySelector('[data-button-week]'),
   btnTop: document.querySelector('[data-button-top]'),
   btnUpcoming: document.querySelector('[data-button-upcoming]'),
+  headerBtns: document.querySelector('.header-menu-btn'),
+  myLibraryRef: document.querySelector('.js-link-library'),
+  libraryBtns: document.querySelector('[data-value="library-btns"]'),
+
 };

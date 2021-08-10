@@ -1,6 +1,8 @@
 
 import { func } from 'assert-plus';
 import refs from './refs'
+// import {getMovieByPeriod} from './period-buttons'
+
 const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef} = refs;
 
 myLibraryRef.addEventListener('click', onClickLib);
@@ -12,17 +14,19 @@ function onClickLib() {
   replaceElementClass(headerBackgroundImageRef, 'header-background-img', 'header-background-img-lib');
   removeElementClass(homeRef, 'nav-menu__link--current-page');
   addElementClass(myLibraryRef, 'nav-menu__link--current-page');
-  addStyleDisplay(periodBtnBox,'none')
+  addStyleDisplay(periodBtnBox, 'none');
+  // getMovieByPeriod('day');
+
   
 }
 
 function onClickHome() {
   removeElementClass(searchFormRef, 'is-closed');
-  replaceElementClass(headerBtns, 'is-open', 'is-closed')
+  replaceElementClass(headerBtns, 'is-open', 'is-closed');
   replaceElementClass(headerBackgroundImageRef, 'header-background-img-lib', 'header-background-img');
   removeElementClass(myLibraryRef, 'nav-menu__link--current-page');
-  addElementClass(homeRef,'nav-menu__link--current-page')
-  addStyleDisplay(periodBtnBox,'')
+  addElementClass(homeRef, 'nav-menu__link--current-page');
+  addStyleDisplay(periodBtnBox, '');
 }
 
 
@@ -44,3 +48,4 @@ function addStyleDisplay(element, value) {
   element.style.display = value;
   
 }
+

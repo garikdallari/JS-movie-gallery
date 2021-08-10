@@ -1,13 +1,13 @@
-import './refs';
+import refs from './refs';
 import MovieApiService from './movieService'
-import '../templates/gallery-card.hbs';
+import galleryCard from '../templates/gallery-card.hbs';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
-
+const { galleryRef } = refs;
 const movieApiService = new MovieApiService();
 const options = {
-    total_pages: 0,
-    itemsPerPage: 20,
+    totalItems: 20000,
+    itemsPerPage: 22,
     visiblePages: 5,
     page: 1,
     centerAlign: true,
@@ -30,15 +30,13 @@ const options = {
             '</a>'
     }
 };
-
-const pagination = new Pagination('#tui-pagination-container', options);
+const container = document.getElementById('tui-pagination-container');
+const pagination = new Pagination(container, options);
 const page = pagination.getCurrentPage();
-
 movieApiService.fetchDate(page).then(response => {
     pagination.reset(response.total_pages);
      renderMoveGallery(response.results);
  });
-
 pagination.on('afterMove', (event) => {
     const currentPage = event.page;
     clearGallery();
@@ -46,11 +44,9 @@ pagination.on('afterMove', (event) => {
         renderMoveGallery(response.results);
     } )
 });
-
  function renderMoveGallery(data) {
-    refs.galleryRef.insertAdjacentHTML('beforeend', templateCard(data));
+    galleryRef.insertAdjacentHTML('beforeend', galleryCard(data));
 }
-
 function clearGallery() {
-     refs.galleryRef.innerHTML = '';
+     galleryRef.innerHTML = '';
 }

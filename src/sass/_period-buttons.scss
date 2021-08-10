@@ -1,7 +1,7 @@
 .period-buttons {
   display: flex;
   justify-content: center;
-  margin-top: 25px;
+  padding-top: 25px;
 
   font-family: var(--font-family);
   font-style: normal;
@@ -12,7 +12,7 @@
 }
 
 .period-buttons__btn {
-  padding: 10px 20px;
+  padding: 7px 20px;
   color: #fff;
   text-transform: uppercase;
   text-decoration: none;

@@ -2,6 +2,7 @@ const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
 import { parseGenres } from './genres';
 import refs from './refs';
+import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
 
@@ -67,7 +68,7 @@ export default class MovieApiService {
     }
 
     if (parsedGenres.length > 2)
-      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + ' ...');
+      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
     genresRef.innerHTML = parsedGenres.join(', ');
   }
 
@@ -105,12 +106,9 @@ export default class MovieApiService {
   }
 
   updateLocalList(listKey, data) {
-    const isListExists = localStorage.getItem(listKey);
-    if (!isListExists) {
-      createLocalList(listKey);
-    }
     if (data === undefined) return;
-    const storedList = getLocalStoredList(listKey);
+
+    const storedList = this.getLocalStoredList(listKey);
     storedList.push(data);
     const updatedList = JSON.stringify(storedList);
 
@@ -120,5 +118,48 @@ export default class MovieApiService {
   getLocalStoredList(listKey) {
     const stringifyList = localStorage.getItem(listKey);
     return JSON.parse(stringifyList);
+  }
+
+  addToMovieList(movieId, listKey) {
+    this.id = movieId;
+    const WATCHED_LIST = 'watched';
+    const QUEUE_LIST = 'queue';
+
+    // ===== check aviability this id in local storage
+    const localList = this.getLocalStoredList(listKey);
+    const isIdExists = localList.some(movie => movieId === movie.id);
+    if (isIdExists) return;
+
+    this.getMovieInfo().then(res => {
+      if (listKey === WATCHED_LIST) {
+        res.data.isWatched = true;
+      }
+      if (listKey === QUEUE_LIST) {
+        res.data.isQueue = true;
+      }
+
+      this.updateLocalList(listKey, res.data);
+    });
+  }
+
+  removefromMovieList(movieId, listKey) {
+    this.id = movieId;
+
+    const localList = this.getLocalStoredList(listKey);
+    const isIdExists = localList.find(movie => movie.id === movieId);
+    if (isIdExists === undefined) return;
+
+    const updatedList = localList.filter(movie => {
+      return movie.id !== movieId;
+    });
+
+    localStorage.setItem(listKey, JSON.stringify(updatedList));
+  }
+
+  markupGrabbedList() {
+    this.clearGallery();
+    console.log(this.screenPage);
+    const grabbedData = this.getLocalStoredList(this.screenPage);
+    this.markupTempl(grabbedData, galleryRef, galleryCard);
   }
 }

@@ -13,5 +13,8 @@ export default {
   libraryBtns: document.querySelector('[data-value="library-btns"]'),
   modalRef: document.querySelector('.js-lightbox'),
   overlay: document.querySelector('.lightbox__overlay'),
+  headerBackgroundImageRef: document.querySelector('.header-background-img'),
+  periodBtnBox : document.querySelector('.period-buttons'),
+
 };
 

@@ -6,6 +6,7 @@ import {
   addIsQueueProp,
   editWatchedBtnText,
   editQueueBtnText,
+  markupGrabbedList,
 } from './clients-lists';
 
 const movieApiService = new MovieApiService();
@@ -42,6 +43,9 @@ function closeModalOnClick() {
   window.removeEventListener('keydown', closeModalOnEsc);
   buttonClose.removeEventListener('click', closeModalOnClick);
   overley.removeEventListener('click', closeModalOnClick);
+
+  // =====after modal close we get the library screen
+  markupGrabbedList('watched');
 }
 
 function closeModalOnEsc(e) {

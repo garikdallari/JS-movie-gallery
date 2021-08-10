@@ -2,14 +2,16 @@ import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 
-const { headerBtns, myLibraryRef, galleryRef, libraryBtns, modalRef } = refs;
+const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef } = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
 const QUEUE_LIST = 'queue';
+let pageForExport = null;
 
 // ===== LISTENTERS
 myLibraryRef.addEventListener('click', onLibraryClick);
+homeRef.addEventListener('click', onHomeRefClick);
 
 libraryBtns.addEventListener('click', onLibraryBtnsClick);
 modalRef.addEventListener('click', onModalBtnsClick);
@@ -18,9 +20,16 @@ modalRef.addEventListener('click', onModalBtnsClick);
 if (localStorage.getItem(WATCHED_LIST) === null) movieApiService.createLocalList(WATCHED_LIST);
 if (localStorage.getItem(QUEUE_LIST) === null) movieApiService.createLocalList(QUEUE_LIST);
 
+// ===== ON HOME BUTTON CLICK
+function onHomeRefClick() {
+  pageForExport = null;
+}
+
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   movieApiService.clearGallery();
+
+  pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it
   const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
@@ -50,6 +59,8 @@ function onLibraryBtnsClick(e) {
   if (e.target.dataset.value === 'watched') {
     movieApiService.updateLocalList(WATCHED_LIST);
 
+    pageForExport = WATCHED_LIST;
+
     const grabbedData = movieApiService.getLocalStoredList('watched');
     movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
 
@@ -62,6 +73,8 @@ function onLibraryBtnsClick(e) {
   if (e.target.dataset.value === 'queue') {
     movieApiService.updateLocalList(QUEUE_LIST);
 
+    pageForExport = QUEUE_LIST;
+
     const grabbedData = movieApiService.getLocalStoredList(QUEUE_LIST);
     movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
 
@@ -72,8 +85,10 @@ function onLibraryBtnsClick(e) {
   }
 }
 
+export { pageForExport };
+
 // ===== ON MODAL BUTTONS CLICK
-export function onModalBtnsClick(e) {
+function onModalBtnsClick(e) {
   const movieId = Number(e.target.dataset.id);
   const btn = e.target;
 
@@ -81,7 +96,6 @@ export function onModalBtnsClick(e) {
   if (btn.nodeName !== 'BUTTON') return;
 
   if (btn.dataset.action === 'add-to-watched') {
-    console.log('watched');
     btn.textContent = 'remove from watched';
     btn.dataset.action = 'remove-from-watched';
 
@@ -98,7 +112,6 @@ export function onModalBtnsClick(e) {
   }
 
   if (btn.dataset.action === 'remove-from-watched') {
-    console.log('not watched');
     btn.textContent = 'add to watched';
     btn.dataset.action = 'add-to-watched';
 
@@ -118,6 +131,7 @@ export function onModalBtnsClick(e) {
 }
 
 export function markupGrabbedList(listKey) {
+  if (listKey === null) return;
   movieApiService.clearGallery();
 
   const grabbedData = movieApiService.getLocalStoredList(listKey);

@@ -7,6 +7,7 @@ import {
   editWatchedBtnText,
   editQueueBtnText,
   markupGrabbedList,
+  pageForExport,
 } from './clients-lists';
 
 const movieApiService = new MovieApiService();
@@ -44,8 +45,7 @@ function closeModalOnClick() {
   buttonClose.removeEventListener('click', closeModalOnClick);
   overley.removeEventListener('click', closeModalOnClick);
 
-  // =====after modal close we get the library screen
-  // markupGrabbedList('queue');
+  markupGrabbedList(pageForExport);
 }
 
 function closeModalOnEsc(e) {
@@ -62,7 +62,7 @@ async function fetchMovieById() {
     .map(genre => genre.name)
     .join(' ');
 
-  // check for this movie exist in storage
+  // check for this movie if it exists in storage
   const isWatched = addIsWatchedProp(data);
   const isQueue = addIsQueueProp(data);
 

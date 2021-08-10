@@ -14,7 +14,6 @@ export default class MovieApiService {
     this.page = 1;
     this.lang = 'en-EN';
     this.SearchId = 1;
-    this.screenPage = '';
   }
 
   async fetchTrendingMovies(period) {
@@ -83,14 +82,6 @@ export default class MovieApiService {
     this.SearchId = newId;
   }
 
-  set currentScreenPage(value) {
-    this.screenPage = value;
-  }
-
-  get currentScreenPage() {
-    return this.screenPage;
-  }
-
   clearGallery() {
     galleryRef.innerHTML = '';
   }
@@ -124,8 +115,6 @@ export default class MovieApiService {
     const localList = this.getLocalStoredList(listKey);
     const isIdExists = localList.some(movie => movieId === movie.id);
     if (isIdExists) return;
-
-    let isWatched; //------------------------------------ delete
 
     this.getMovieInfo().then(res => {
       if (listKey === WATCHED_LIST) {

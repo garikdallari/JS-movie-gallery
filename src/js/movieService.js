@@ -19,9 +19,9 @@ export default class MovieApiService {
     return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
   }
 
-  async searchMovieByWord(searchWord) {
+  async searchMovieByWord() {
     const response = await axios.get(
-      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`,
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${this.page}`,
     );
     const movies = await response.data.results;
     return movies;

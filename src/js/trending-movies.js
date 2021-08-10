@@ -1,12 +1,14 @@
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 import refs from './refs';
-
-const { galleryRef } = refs;
+import {loader} from './loader';
+const { galleryRef} = refs;
 
 const movieApiService = new MovieApiService();
 
+
 movieApiService.fetchTrendingMovies('day').then(res => {
+ 
   const queryResult = res.data.results;
 
   movieApiService.markupTempl(queryResult, galleryRef, galleryCard);
@@ -17,4 +19,5 @@ movieApiService.fetchTrendingMovies('day').then(res => {
 
     movieApiService.editGenres(movie);
   });
-});
+})
+.finally(() => loader.off());

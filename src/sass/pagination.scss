@@ -7,8 +7,8 @@
     width: 40px;
     height: 40px;
     padding-top: 13px;
-    text-align: center;
-    justify-content: center; 
+    text-align: center; 
+    justify-content: center;
 
     font-style: normal;
     font-weight: 500;
@@ -29,6 +29,7 @@
     border-color: #FF6B08;
     border-radius: 5px;
     cursor: pointer;
+    
 }
 
 // .tui-pagination .tui-first-child.tui-is-selected {
@@ -37,8 +38,12 @@
 
 .tui-pagination .tui-last-child.tui-is-selected {
     border-right: 1px solid #FF6B08;
+    
 }
+
+
 
 .tui-pagination .tui-ico-ellip {
     margin-top: 11px;
+    
 }

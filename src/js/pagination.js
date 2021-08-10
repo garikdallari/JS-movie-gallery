@@ -1,15 +1,18 @@
+
 import refs from './refs';
-import MovieApiService from './movieService'
+import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
+import '../sass/pagination.scss';
+
 const { galleryRef } = refs;
 const movieApiService = new MovieApiService();
 const options = {
     totalItems: 20000,
-    itemsPerPage: 22,
+    itemsPerPage: 20,
     visiblePages: 5,
-    page: 1,
+    page: 0,
     centerAlign: true,
     firstItemClassName: 'tui-first-child',
     lastItemClassName: 'tui-last-child',

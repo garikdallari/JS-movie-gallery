@@ -1,14 +1,18 @@
 .period-buttons {
-  display: flex;
-  justify-content: center;
-  padding-top: 25px;
+  display: none;
 
-  font-family: var(--font-family);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.16;
-  color: var(--cards-name-font-color);
+  @include for-tablet-up {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.16;
+    color: var(--cards-name-font-color);
+  }
 }
 
 .period-buttons__btn {

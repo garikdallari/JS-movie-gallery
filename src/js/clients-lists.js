@@ -21,7 +21,6 @@ if (localStorage.getItem(QUEUE_LIST) === null) movieApiService.createLocalList(Q
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   movieApiService.clearGallery();
-  movieApiService.currentScreenPage = 'watched';
 
   // ===== get watched list & render it
   const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
@@ -50,7 +49,6 @@ function onLibraryBtnsClick(e) {
   movieApiService.clearGallery();
   if (e.target.dataset.value === 'watched') {
     movieApiService.updateLocalList(WATCHED_LIST);
-    movieApiService.currentScreenPage = 'watched';
 
     const grabbedData = movieApiService.getLocalStoredList('watched');
     movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
@@ -63,7 +61,6 @@ function onLibraryBtnsClick(e) {
 
   if (e.target.dataset.value === 'queue') {
     movieApiService.updateLocalList(QUEUE_LIST);
-    movieApiService.currentScreenPage = 'queue';
 
     const grabbedData = movieApiService.getLocalStoredList(QUEUE_LIST);
     movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
@@ -84,10 +81,12 @@ export function onModalBtnsClick(e) {
   if (btn.nodeName !== 'BUTTON') return;
 
   if (btn.dataset.action === 'add-to-watched') {
+    console.log('watched');
     btn.textContent = 'remove from watched';
     btn.dataset.action = 'remove-from-watched';
 
     movieApiService.addToMovieList(movieId, WATCHED_LIST);
+    return;
   }
 
   if (btn.dataset.action === 'add-to-queue') {
@@ -95,28 +94,32 @@ export function onModalBtnsClick(e) {
     btn.dataset.action = 'remove-from-queue';
 
     movieApiService.addToMovieList(movieId, QUEUE_LIST);
+    return;
   }
 
   if (btn.dataset.action === 'remove-from-watched') {
+    console.log('not watched');
     btn.textContent = 'add to watched';
     btn.dataset.action = 'add-to-watched';
 
     movieApiService.removefromMovieList(movieId, WATCHED_LIST);
 
-    markupGrabbedList(WATCHED_LIST);
+    return;
   }
+
   if (btn.dataset.action === 'remove-from-queue') {
     btn.textContent = 'add to queue';
     btn.dataset.action = 'add-to-queue';
 
     movieApiService.removefromMovieList(movieId, QUEUE_LIST);
 
-    markupGrabbedList(QUEUE_LIST);
+    return;
   }
 }
 
 export function markupGrabbedList(listKey) {
   movieApiService.clearGallery();
+
   const grabbedData = movieApiService.getLocalStoredList(listKey);
   movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
 }

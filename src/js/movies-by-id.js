@@ -45,7 +45,7 @@ function closeModalOnClick() {
   overley.removeEventListener('click', closeModalOnClick);
 
   // =====after modal close we get the library screen
-  markupGrabbedList('watched');
+  // markupGrabbedList('queue');
 }
 
 function closeModalOnEsc(e) {

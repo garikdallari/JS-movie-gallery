@@ -1,6 +1,9 @@
 const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
 import { parseGenres } from './genres';
+import refs from './refs';
+
+const { galleryRef } = refs;
 
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
@@ -25,13 +28,21 @@ export default class MovieApiService {
   }
 
   async searchMovieByWord(searchWord) {
-    const response= await axios.get(`${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`);
-    const movies= await response.data.results;
+    const response = await axios.get(
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`,
+    );
+    const movies = await response.data.results;
     return movies;
   }
 
   async getMovieInfo() {
-     return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
+    return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
+  }
+
+   async fetchTrailer() {
+    const response= await axios.get(`movie/${this.SearchId}/videos?api_key=${API_KEY}&language=${this.lang}`);
+    const trailers= await response.data;
+   return trailers;
   }
 
   async fetchGenres() {
@@ -81,8 +92,33 @@ export default class MovieApiService {
     return this.SearchId;
   }
   set id(newId) {
-  
-     this.SearchId = newId;
-   
+    this.SearchId = newId;
+  }
+
+  clearGallery() {
+    galleryRef.innerHTML = '';
+  }
+
+  createLocalList(listKey) {
+    const storedList = JSON.stringify([]);
+    localStorage.setItem(listKey, storedList);
+  }
+
+  updateLocalList(listKey, data) {
+    const isListExists = localStorage.getItem(listKey);
+    if (!isListExists) {
+      createLocalList(listKey);
+    }
+    if (data === undefined) return;
+    const storedList = getLocalStoredList(listKey);
+    storedList.push(data);
+    const updatedList = JSON.stringify(storedList);
+
+    localStorage.setItem(listKey, updatedList);
+  }
+
+  getLocalStoredList(listKey) {
+    const stringifyList = localStorage.getItem(listKey);
+    return JSON.parse(stringifyList);
   }
 }

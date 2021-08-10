@@ -41,6 +41,11 @@ function closeModalOnClick() {
     window.removeEventListener('keydown', closeModalOnEsc);
     buttonClose.removeEventListener('click',closeModalOnClick);
     overley.removeEventListener('click', closeModalOnClick);
+<<<<<<< Updated upstream
+=======
+    content.removeEventListener('click', closeTrailer);
+    content.removeEventListener('click', openTrailer)
+>>>>>>> Stashed changes
 };
  
 function closeModalOnEsc(e) {
@@ -51,10 +56,27 @@ function closeModalOnEsc(e) {
 
 async function fetchMovieById() {
 
+<<<<<<< Updated upstream
     const { data} = await movieApiService.getMovieInfo();
     
     const genres=data.genres.slice(0,3).map(genre=>genre.name).join(" ");
 
     movieApiService.markupTempl(({data,genres}), content, movieCard);
 
+=======
+const { data} = await movieApiService.getMovieInfo();
+const genres=data.genres.slice(0,3).map(genre=>genre.name).join(" ");
+    const { results } = await movieApiService.fetchTrailer()
+    console.log(results)
+  let key;
+    if(results.length === 0){
+        key='bTqVqk7FSmY';
+       movieApiService.markupTempl(({data,genres,key}), content, movieCard); 
+    }
+    else{
+       key = results[0].key; 
+      movieApiService.markupTempl(({data,genres,key}), content, movieCard);
+    }
+  
+>>>>>>> Stashed changes
 }

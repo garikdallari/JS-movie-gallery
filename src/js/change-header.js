@@ -1,7 +1,6 @@
 
 import { func } from 'assert-plus';
 import refs from './refs'
-// import {getMovieByPeriod} from './period-buttons'
 
 const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef} = refs;
 
@@ -15,7 +14,6 @@ function onClickLib() {
   removeElementClass(homeRef, 'nav-menu__link--current-page');
   addElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, 'none');
-  // getMovieByPeriod('day');
 
   
 }

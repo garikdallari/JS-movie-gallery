@@ -20,9 +20,17 @@ export default class MovieApiService {
     return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
   }
 
+   async fetchTopRatedMovies() {
+     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  }
+
+  async fetchUpcomingMovies() {
+    return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  }
+
   async searchMovieByWord(searchWord) {
     const response = await axios.get(
-      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`,
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${this.page}`,
     );
     const movies = await response.data.results;
     return movies;
@@ -30,6 +38,12 @@ export default class MovieApiService {
 
   async getMovieInfo() {
     return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
+  }
+
+   async fetchTrailer() {
+    const response= await axios.get(`movie/${this.SearchId}/videos?api_key=${API_KEY}&language=${this.lang}`);
+    const trailers= await response.data;
+   return trailers;
   }
 
   async fetchGenres() {

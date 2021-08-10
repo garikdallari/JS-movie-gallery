@@ -3,8 +3,12 @@
   padding-bottom: 40px;
 
   @include for-tablet-up {
-    padding-top: 60px;
+    padding-top: 40px;
     padding-bottom: 50px;
+  }
+
+  @include for-desktop-up {
+    padding-top: 30px;
   }
 }
 

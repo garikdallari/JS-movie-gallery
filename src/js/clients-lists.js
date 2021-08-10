@@ -13,6 +13,10 @@ myLibraryRef.addEventListener('click', onLibraryClick);
 libraryBtns.addEventListener('click', onLibraryBtnsClick);
 modalRef.addEventListener('click', onModalBtnsClick);
 
+// ===== CREATE EMPTY LISTS
+if (localStorage.getItem(WATCHED_LIST) === null) movieApiService.createLocalList(WATCHED_LIST);
+if (localStorage.getItem(QUEUE_LIST) === null) movieApiService.createLocalList(QUEUE_LIST);
+
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   movieApiService.clearGallery();
@@ -94,8 +98,8 @@ export function onModalBtnsClick(e) {
       movieApiService.createLocalList(WATCHED_LIST);
     }
     movieApiService.addToMovieList(movieId, WATCHED_LIST);
-    // btn.textContent = 'remove from watched';
-    // btn.dataset.action = 'remove-from-watched';
+    btn.textContent = 'remove from watched';
+    btn.dataset.action = 'remove-from-watched';
 
     markupGrabbedList(WATCHED_LIST);
   }
@@ -110,8 +114,8 @@ export function onModalBtnsClick(e) {
   // }
   if (btn.dataset.action === 'remove-from-watched') {
     movieApiService.removefromMovieList(movieId, WATCHED_LIST);
-    btn.textContent = 'add to watched';
-    btn.dataset.action = 'add-to-watched';
+    // btn.textContent = 'add to watched';
+    // btn.dataset.action = 'add-to-watched';
 
     markupGrabbedList(WATCHED_LIST);
   }
@@ -133,8 +137,14 @@ function markupGrabbedList(listKey) {
 // ============ fucntions for movie-by-id.js
 
 export function editWatchedBtnText(boolean) {
-  const watchedBtn = document.querySelector('[data-action="add-to-watched"]');
-  if (!boolean) {
+  // console.log(watchedBtn);
+  if (boolean) {
+    const watchedBtn = document.querySelector('.button_watched');
+    // console.log('object');
+    watchedBtn.textContent = 'remove from watched';
+    watchedBtn.dataset.action = 'remove-from-watched';
+  } else {
+    // const watchedOffBtn = document.querySelector('[data-action="remove-from-watched"]');
     watchedBtn.textContent = 'remove from watched';
     watchedBtn.dataset.action = 'remove-from-watched';
   }
@@ -142,6 +152,7 @@ export function editWatchedBtnText(boolean) {
 
 export function editQueueBtnText(boolean) {
   const queueBtn = document.querySelector('[data-action="add-to-queue"]');
+  // console.log(queueBtn);
   if (!boolean) {
     queueBtn.textContent = 'remove from queue';
     queueBtn.dataset.action = 'remove-from-queue';
@@ -149,30 +160,20 @@ export function editQueueBtnText(boolean) {
 }
 
 export function addIsWatchedProp(data) {
-  // if list is absent create empty list
-  movieApiService.updateLocalList(WATCHED_LIST);
-
+  // movieApiService.updateLocalList(WATCHED_LIST, data);
   const localList = movieApiService.getLocalStoredList('watched');
   const movieId = data.id;
-  console.log(localList);
   const isIdExists = localList.some(movie => movieId === movie.id);
-  if (isIdExists) {
-    data.isWatched = false;
-  } else {
-    data.isWatched = true;
-  }
+  isIdExists ? (data.isWatched = true) : (data.isWatched = false);
 
-  const isWatched = data.isWatched;
-  return isWatched;
+  console.log(data.isWatched); //-----------------------------delete
+  return data.isWatched;
 }
 
 export function addIsQueueProp(data) {
-  // if list is absent create empty list
-  movieApiService.updateLocalList(QUEUE_LIST);
-
   const localList = movieApiService.getLocalStoredList('queue');
   const movieId = data.id;
-  // console.log(localList);
+  console.log(localList);
   const isIdExists = localList.some(movie => movieId === movie.id);
   if (isIdExists) {
     data.isQueue = false;

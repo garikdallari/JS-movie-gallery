@@ -91,10 +91,10 @@ export default class MovieApiService {
   }
 
   updateLocalList(listKey, data) {
-    const isListExists = localStorage.getItem(listKey);
-    if (!isListExists) {
-      this.createLocalList(listKey);
-    }
+    // const isListExists = localStorage.getItem(listKey);
+    // if (!isListExists) {
+    //   this.createLocalList(listKey);
+    // }
     if (data === undefined) return;
     const storedList = this.getLocalStoredList(listKey);
     storedList.push(data);
@@ -119,7 +119,7 @@ export default class MovieApiService {
     const isIdExists = localList.some(movie => movieId === movie.id);
     if (isIdExists) return;
 
-    let isWatched;
+    let isWatched; //------------------------------------ delete
 
     this.getMovieInfo().then(res => {
       if (listKey === WATCHED_LIST) {
@@ -140,11 +140,11 @@ export default class MovieApiService {
 
     const localList = this.getLocalStoredList(listKey);
     const isIdExists = localList.find(movie => movie.id === movieId);
-    console.log(isIdExists);
+    // console.log(isIdExists);
     if (isIdExists === undefined) return;
 
     const updatedList = localList.filter(movie => {
-      console.log(movie);
+      // console.log(movie);
       return movie.id !== movieId;
     });
     console.log(updatedList);

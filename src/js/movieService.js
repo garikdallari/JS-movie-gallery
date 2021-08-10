@@ -19,6 +19,14 @@ export default class MovieApiService {
     return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
   }
 
+   async fetchTopRatedMovies() {
+     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  }
+
+  async fetchUpcomingMovies() {
+    return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  }
+
   async searchMovieByWord(searchWord) {
     const response = await axios.get(
       `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`,

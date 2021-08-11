@@ -64,6 +64,7 @@
 
 .card-list__description__box {
   display: flex;
+  align-items: center;
 }
 
 .cards-list__description__name {
@@ -82,4 +83,16 @@
   font-size: 12px;
   line-height: 1.33;
   color: var(--accent-font-color);
+}
+
+.cards-list__description__genre-rating {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  width: 36px;
+  height: 16px;
+  background-color: var(--background-color-rating);
+  color: var(--primary-font-color);
+  border-radius: 5px;
 }

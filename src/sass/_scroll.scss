@@ -1,0 +1,75 @@
+.scrollToTopBtn {
+  position: fixed;
+  bottom: 13px;
+  right: 9px;
+  display: none;
+  padding: 8px 4px;
+  cursor: pointer;
+  transform: translateY(100px);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.3s;
+  border: none;
+  background-color: transparent;
+
+  @include for-tablet-up {
+    display: block;
+    bottom: 13px;
+    right: 9px;
+  }
+
+  @include for-desktop-up {
+    display: block;
+    bottom: 13px;
+    right: 50px;
+  }
+}
+
+.showScrollBtn {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.scroll {
+  width: 50px;
+  height: 50px;
+  border: 2px solid tomato;
+  border-radius: 50%;
+  position: relative;
+  animation: down 1.5s infinite;
+  -webkit-animation: down 1.5s infinite;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 14px;
+    width: 18px;
+    height: 18px;
+    border-left: 2px solid tomato;
+    border-bottom: 2px solid tomato;
+    transform: rotate(136deg);
+  }
+}
+
+@keyframes down {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translateY(-15px);
+  }
+  40% {
+    transform: translate(0);
+  }
+}
+
+@-webkit-keyframes down {
+  0% {
+    transform: translate(0);
+  }
+  20% {
+    transform: translateY(-15px);
+  }
+  40% {
+    transform: translate(0);
+  }
+}

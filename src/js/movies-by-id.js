@@ -33,6 +33,7 @@ function openModalOnClick(e) {
     overley.addEventListener('click', closeModalOnClick);
     fetchMovieById();
     content.addEventListener('click',openTrailer)
+    
     content.addEventListener('click', closeTrailer)
 };
 
@@ -40,6 +41,8 @@ function openModalOnClick(e) {
 function openTrailer(e) {
         if (e.target.classList.contains("button_open")) {
             document.querySelector(".plyr__video-embed").style.display = 'block';
+        
+        
         }
 }
 function closeTrailer(e) {
@@ -73,26 +76,27 @@ async function fetchMovieById() {
 
 const { data} = await movieApiService.getMovieInfo();
 const genres=data.genres.slice(0,3).map(genre=>genre.name).join(" ");
-  
-    // check for this movie if it exists in storage
-  const isWatched = addIsWatchedProp(data);
-  const isQueue = addIsQueueProp(data);
 
-  movieApiService.markupTempl({ data, genres, isWatched, isQueue }, content, movieCard);
-
-  // edit button text
-  editWatchedBtnText(isWatched);
-  editQueueBtnText(isQueue);
   
 const  {results} = await movieApiService.fetchTrailer()
   let key;
     if(results.length === 0){
-        key='bTqVqk7FSmY';
+        key='W9nZ6u15yis';
        movieApiService.markupTempl(({data,genres,key}), content, movieCard); 
     }
     else{
        key = results[0].key; 
       movieApiService.markupTempl(({data,genres,key}), content, movieCard);
-    }
+  }
+
+      // check for this movie if it exists in storage
+  const isWatched = addIsWatchedProp(data);
+  const isQueue = addIsQueueProp(data);
+
+  // movieApiService.markupTempl({ data, genres, isWatched, isQueue }, content, movieCard);
+
+  // edit button text
+  editWatchedBtnText(isWatched);
+  editQueueBtnText(isQueue);
 
 }

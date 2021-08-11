@@ -2,7 +2,7 @@ import MovieApiService from './movieService';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 const { searchFormRef, searchInputRef, galleryRef, messageFailure } = refs;
-import { loader } from './loader';
+import { loader } from './loaders';
 
 const SearchMovie = new MovieApiService();
 

@@ -79,7 +79,6 @@ line-height: 23.5px;
   padding: 0;
   height: 44px;
   width: 112.6px;
- 
   border-radius: 5px;
   font-family: var(--font-family);
   font-size: 12px;
@@ -89,6 +88,7 @@ line-height: 23.5px;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
+  cursor: pointer;
   @include for-tablet-up {
     height: 44px;
     width: 125px;
@@ -106,6 +106,10 @@ line-height: 23.5px;
 .button_queue:focus{
 background-color:var(--accent-background-btn-color) 
 }
+.button_open:hover,
+.button_open:focus{
+background-color:var(--accent-background-btn-color) 
+}
 .button_queue {
   padding: 0;
    height: 44px;
@@ -120,6 +124,7 @@ background-color:var(--accent-background-btn-color)
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
+  cursor: pointer;
    @include for-tablet-up {
     height: 44px;
     width: 125px;
@@ -130,10 +135,43 @@ background-color:var(--accent-background-btn-color)
   }
 }
 
+.button_open {
+  padding: 0;
+   margin-left: 15px;
+  border-radius: 5px;
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0em;
+  text-transform: uppercase;
+  color: var(--cards-name-font-color);
+  background-color: transparent;
+  cursor: pointer;
+   @include for-tablet-up  {
+    margin-left: 0;
+    margin-top:5px;
+    height: 44px;
+    width: 125px;
+  }
+  @include for-desktop-up {
+    margin-top:0;
+    margin-left: 15px;
+    height: 44px;
+    width: 136px;
+  }
+}
+
 .button_wrapper{
      
-    display:flex
-
+    display:flex;
+     @include for-tablet-up {
+     flex-wrap:wrap;
+     justify-content:center;
+    }
+ @include for-desktop-up {
+   flex-wrap: nowrap;
+ }
 }
 
 .list_name {
@@ -166,18 +204,61 @@ background-color:var(--accent-background-btn-color)
   width: 36px;
   border-radius: 5px;
   color:var(--primary-font-color);
-  background-color: rgba(255, 107, 1, 1);
+  background-color: var(--accent-background-btn-color);
   text-align: center;
 }
 .list_text_vote_count {
+  margin-left:2px;
   margin-right: 3px;
-  color: rgba(140, 140, 140, 1);
+  color: var( --cards-description-font-color);
 }
 .list {
   @include for-tablet-up {
-    width: 215px;
+    min-width: 215px;
   }
    @include for-desktop-up {
     width: 266px;
   }
+}
+.trailer_button {
+  position: absolute;
+  bottom: 31%;
+  left: 91%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+   background-image: url('../images/close.svg');
+  background-color: var(--accent-background-btn-color);
+  background-position: center;
+  background-size: 60%;
+  background-repeat: no-repeat;
+    @include for-tablet-up  {
+    
+    bottom: 83%;
+    left: 94%;
+  }
+   
+  @include for-desktop-up {
+    bottom: 81%;
+    left: 85%;
+  }
+}
+
+iframe {
+  position:absolute;
+  bottom:11%;
+  max-width:250px;
+  @include for-tablet-up  {
+  max-width:280px;
+    top:90px;
+  }
+  @include for-desktop-up {
+  max-width:300px;
+  top: 100px;
+}
 }

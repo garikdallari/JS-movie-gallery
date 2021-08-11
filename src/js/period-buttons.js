@@ -2,7 +2,9 @@ import { func } from "assert-plus";
 import refs from "./refs"
 import MovieApiService from './movieService';
 import movieCard from "../templates/gallery-card.hbs";
+import { loader } from './loaders';
 const API = new MovieApiService;
+
 
 const { btnDay, btnWeek, btnTop, btnUpcoming, galleryRef } = refs;
 
@@ -12,19 +14,27 @@ btnTop.addEventListener('click', onClickBtnTop);
 btnUpcoming.addEventListener('click', onClickBtnUpcoming);
 
 function onClickBtnDay() {
-    getMovieByPeriod('day');
+    API.clearGallery();
+    loader.on();
+    getMovieByPeriod('day').finally(()=>loader.off());
 };
 
 function onClickBtnWeek() {
-    getMovieByPeriod('week');
+    API.clearGallery();
+    loader.on();
+    getMovieByPeriod('week').finally(()=>loader.off());
 };
 
 function onClickBtnTop() {
-    getMovieByType(API.fetchTopRatedMovies());
+    API.clearGallery();
+    loader.on();
+    getMovieByType(API.fetchTopRatedMovies()).finally(()=>loader.off());
 };
 
 function onClickBtnUpcoming() {
-    getMovieByType(API.fetchUpcomingMovies());
+    API.clearGallery();
+    loader.on();
+    getMovieByType(API.fetchUpcomingMovies()).finally(()=>loader.off());
 };
 
 

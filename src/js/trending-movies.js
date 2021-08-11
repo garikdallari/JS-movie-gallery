@@ -2,14 +2,13 @@ import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 import refs from './refs';
 
-import {loader} from './loader';
+import {loader} from './loaders';
 const { galleryRef, homeRef } = refs;
 
-homeRef.addEventListener('click', onHomeClick);
-
 const movieApiService = new MovieApiService();
+loader.on();
 
-
+homeRef.addEventListener('click', onHomeClick);
 
 movieApiService.fetchTrendingMovies('day').then(res => {
  

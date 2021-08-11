@@ -26,6 +26,8 @@
   flex-basis: calc(100% / 3 - 30px);
 }
 
+//
+
 .cards-list__wrapper {
   width: 274px;
   height: 398px;
@@ -44,6 +46,11 @@
   display: block;
   width: 100%;
   height: 100%;
+  &:hover {
+    cursor: pointer;
+    box-shadow: 10px -10px 20px rgb(255 107 1 / 50%);
+    transition: box-shadow 200ms ease-out;
+  }
 }
 
 .cards-list__description {

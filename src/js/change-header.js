@@ -1,27 +1,49 @@
-const linkMyLibraryRef = document.querySelector('.js-link-library');
-const linkMyHomeRef = document.querySelector('.js-link-home');
-const headerBackgroundImageRef = document.querySelector('.header-background-img');
-const searchFormRef = document.querySelector('.search-form');
-const headerButtonsRef = document.querySelector('.header-menu-btn');
-const periodBtnBox = document.querySelector('.period-buttons');
 
-linkMyLibraryRef.addEventListener('click', onClickLib);
-linkMyHomeRef.addEventListener('click', onClickHome);
+import { func } from 'assert-plus';
+import refs from './refs'
+
+const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef} = refs;
+
+myLibraryRef.addEventListener('click', onClickLib);
+homeRef.addEventListener('click', onClickHome);
 
 function onClickLib() {
-  searchFormRef.classList.add('is-closed');
-  headerButtonsRef.classList.replace('is-closed', 'is-open');
-  headerBackgroundImageRef.classList.replace('header-background-img', 'header-background-img-lib');
-  linkMyHomeRef.classList.remove('nav-menu__link--current-page');
-  linkMyLibraryRef.classList.add('nav-menu__link--current-page');
-  periodBtnBox.style.display = 'none';
+  addElementClass(searchFormRef, 'is-closed');
+  replaceElementClass(headerBtns, 'is-closed', 'is-open');
+  replaceElementClass(headerBackgroundImageRef, 'header-background-img', 'header-background-img-lib');
+  removeElementClass(homeRef, 'nav-menu__link--current-page');
+  addElementClass(myLibraryRef, 'nav-menu__link--current-page');
+  addStyleDisplay(periodBtnBox, 'none');
+
+  
 }
 
 function onClickHome() {
-  searchFormRef.classList.remove('is-closed');
-  headerButtonsRef.classList.replace('is-open', 'is-closed');
-  headerBackgroundImageRef.classList.replace('header-background-img-lib', 'header-background-img');
-  linkMyLibraryRef.classList.remove('nav-menu__link--current-page');
-  linkMyHomeRef.classList.add('nav-menu__link--current-page');
-  periodBtnBox.style.display = '';
+  removeElementClass(searchFormRef, 'is-closed');
+  replaceElementClass(headerBtns, 'is-open', 'is-closed');
+  replaceElementClass(headerBackgroundImageRef, 'header-background-img-lib', 'header-background-img');
+  removeElementClass(myLibraryRef, 'nav-menu__link--current-page');
+  addElementClass(homeRef, 'nav-menu__link--current-page');
+  addStyleDisplay(periodBtnBox, '');
 }
+
+
+function replaceElementClass(element, remove, add) {
+  element.classList.replace(remove, add);
+};
+
+function addElementClass(element, name) {
+  element.classList.add(name);
+  
+}
+
+function removeElementClass(element, name) {
+  element.classList.remove(name);
+  
+}
+
+function addStyleDisplay(element, value) {
+  element.style.display = value;
+  
+}
+

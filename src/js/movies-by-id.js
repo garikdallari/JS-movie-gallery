@@ -76,7 +76,7 @@ async function fetchMovieById() {
 
 const { data} = await movieApiService.getMovieInfo();
 const genres=data.genres.slice(0,3).map(genre=>genre.name).join(" ");
-  
+
   
 const  {results} = await movieApiService.fetchTrailer()
   let key;
@@ -88,6 +88,7 @@ const  {results} = await movieApiService.fetchTrailer()
        key = results[0].key; 
       movieApiService.markupTempl(({data,genres,key}), content, movieCard);
   }
+
       // check for this movie if it exists in storage
   const isWatched = addIsWatchedProp(data);
   const isQueue = addIsQueueProp(data);

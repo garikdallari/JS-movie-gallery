@@ -11,4 +11,5 @@ import './js/movies-by-id';
 import './js/period-buttons';
 import './js/clients-lists';
 import './js/scroll';
+import './js/pagination';
 

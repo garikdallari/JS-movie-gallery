@@ -10,7 +10,7 @@ const options = {
     totalItems: 20000,
     itemsPerPage: 22,
     visiblePages: 5,
-    page: 1,
+    page: 0,
     centerAlign: true,
     firstItemClassName: 'tui-first-child',
     lastItemClassName: 'tui-last-child',
@@ -30,7 +30,9 @@ const options = {
             '<span class="tui-ico-ellip">...</span>' +
             '</a>'
     }
-};
+
+}; 
+
 const container = document.getElementById('tui-pagination-container');
 const pagination = new Pagination(container, options);
 const page = pagination.getCurrentPage();
@@ -41,18 +43,21 @@ movieApiService.fetchDate(page).then(response => {
      renderMoveGallery(response.results);
  });
 
+ 
 pagination.on('afterMove', (event) => {
     const currentPage = event.page;
+   
     clearGallery();
     movieApiService.fetchDate(currentPage).then(response => {
         renderMoveGallery(response.results);
+        
     } )
 });
-
  function renderMoveGallery(data) {
     galleryRef.insertAdjacentHTML('beforeend', galleryCard(data));
-}
-
+};
 function clearGallery() {
      galleryRef.innerHTML = '';
-}
+    
+};
+

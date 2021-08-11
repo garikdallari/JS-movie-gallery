@@ -180,4 +180,4 @@ document.addEventListener("scroll",t);const o=document.querySelector(".scrollToT
 },{}],"Focm":[function(require,module,exports) {
 "use strict";require("./sass/main.scss"),require("../node_modules/modern-normalize/modern-normalize.css"),require("./js/loaders"),require("./js/refs"),require("./js/change-header"),require("./js/genres"),require("./js/language"),require("./js/trending-movies"),require("./js/search-movie"),require("./js/movies-by-id"),require("./js/period-buttons"),require("./js/clients-lists"),require("./js/scroll");
 },{"./sass/main.scss":"clu1","../node_modules/modern-normalize/modern-normalize.css":"Y5dV","./js/loaders":"cDy1","./js/refs":"VyiV","./js/change-header":"d8S0","./js/genres":"pQa5","./js/language":"BBml","./js/trending-movies":"cUyg","./js/search-movie":"tFZy","./js/movies-by-id":"Sw7X","./js/period-buttons":"jERz","./js/clients-lists":"vmc1","./js/scroll":"N8YO"}]},{},["Focm"], null)
-//# sourceMappingURL=/JS-movie-gallery/src.a8fde9f5.js.map
+//# sourceMappingURL=/JS-movie-gallery/src.d91c27f4.js.map

@@ -136,6 +136,11 @@ export function markupGrabbedList(listKey) {
 
   const grabbedData = movieApiService.getLocalStoredList(listKey);
   movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+
+  grabbedData.forEach(movie => {
+    movieApiService.editDate(movie);
+    editMovieGenres(movie);
+  });
 }
 
 // ============ fucntions for movie-by-id.js

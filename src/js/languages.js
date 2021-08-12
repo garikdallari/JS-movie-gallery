@@ -1,6 +1,11 @@
+import MovieApiService from './movieService';
 import refs from './refs';
 const { searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, 
   btnWeek, btnTop,  btnUpcoming} = refs;
+
+  
+const x= new MovieApiService();
+
 
 const EnBtn = document.getElementById('en-btn');
 const UaBtn = document.getElementById('ua-btn');
@@ -11,51 +16,94 @@ console.log (queueBtn);
 const langBtns = document.querySelector('.lang');
 const footerText1 = document.querySelector('.footer-wrapper__text--rights');
 const footerText2 = document.querySelector('.footer-wrapper__text--by');
+
 langBtns.addEventListener('click', changeLang);
+
+const en={ 
+  library: 'LIBRARY',
+  home: 'HOME',
+  placeholder: 'Search movies',
+  messageFailure: 'Search result not successful. Enter the correct movie name and try again',
+  day:'DAY',
+  week: 'WEEK',
+  top: 'top rated',
+  upcoming: 'upcoming',
+  footerText1: '© 2021 | All Rights Reserved | Developed with ',
+  footerText2: 'by',
+  watched: 'WATCHED',
+  queue: 'queue',
+}
 
 const ru={ 
   library: 'БИБЛИОТЕКА',
   home: 'ГЛАВНАЯ',
-  placeholder: 'Поиск фильма',
-  messageFailure: 'Поиск не дал результатов. Пожалуйста, попробуйте ещё раз',
+  placeholder: 'Поиск фильмов',
+  messageFailure: 'Поиск не дал результатов. Введите корректное имя фильма и попробуйте ещё раз',
   day:'ДЕНЬ',
   week: 'НЕДЕЛЯ',
   top: 'ПОПУЛЯРНЫЕ',
   upcoming: 'ПРЕМЬЕРА',
-  footerText1: ' © 2020 | Все права защищены | Создано ',
+  footerText1: ' © 2021 | Все права защищены | Создано c',
   footerText2: '',
   watched: 'ПРОСМОТРЕНЫЕ',
-  queue: 'ПОcМОТРЕТЬ ПОЗЖЕ',
+  queue: 'ПОCМОТРЕТЬ ПОЗЖЕ',
 }
+
+const ua={ 
+  library: 'БІБЛІОТЕКА',
+  home: 'ГОЛОВНА',
+  placeholder: 'Пошук фільмів',
+  messageFailure: "Поиск не дал результатов. Введіть коректне ім'я фільму і спробуйте ще раз",
+  day:'ДЕНЬ',
+  week: 'НЕДіЛЯ',
+  top: 'ПОПУЛЯНІ',
+  upcoming: "ПРЕМ'ЄРА",
+  footerText1: ' © 2021 | Всі права захищені | Створено з',
+  footerText2: '',
+  watched: 'ПЕРЕГЛЯНУТІ',
+  queue: 'НА МАЙБУТНЄ',
+}
+
+const currentLang=localStorage.getItem("currentLanguage");
+const d=JSON.parse(currentLang);
+console.log (d);
+if (d===null){setTextcontent(en)}
+else {setTextcontent(d);
+ 
+}
+
 
 function changeLang(event) {
   switch (event.target) {
     case UaBtn:
-      myLibraryRef.textContent='rdf-rdf';
-      console.log('ua');
+      setTextcontent(ua);
+      localStorage.setItem("currentLanguage",JSON.stringify(ua));
       break;
 
     case EnBtn:
-      console.log('en');
+      setTextcontent(en);
+      localStorage.setItem("currentLanguage",JSON.stringify(en));
       break;
-
+  
     case RuBtn:
-      searchInputRef.placeholder = ru.placeholder;
-      myLibraryRef.textContent=ru.library;
-      homeRef.textContent=ru.home;
-      messageFailure.textContent=ru.messageFailure; 
-      btnDay.textContent=ru.day;
-      btnWeek.textContent=ru.week;
-      btnTop.textContent=ru.top;
-      btnUpcoming.textContent=ru.upcoming;
-      footerText1.textContent=ru.footerText1;
-      footerText2.textContent=ru.footerText2;
-      watchedBtn.textContent=ru.watched;
-      queueBtn.textContent=ru.queue;
-      console.log('ru');
-      break;
+     setTextcontent(ru);
+     localStorage.setItem("currentLanguage",JSON.stringify(ru));
+     break;
   }
 }
 
-
+function setTextcontent (lang) {
+    myLibraryRef.textContent=lang.library;
+    homeRef.textContent=lang.home;
+    messageFailure.textContent=lang.messageFailure; 
+    btnDay.textContent=lang.day;
+    btnWeek.textContent=lang.week;
+    btnTop.textContent=lang.top;
+    btnUpcoming.textContent=lang.upcoming;
+    footerText1.textContent=lang.footerText1;
+    footerText2.textContent=lang.footerText2;
+    watchedBtn.textContent=lang.watched;
+    queueBtn.textContent=lang.queue;
+    searchInputRef.placeholder = lang.placeholder;
+}
 

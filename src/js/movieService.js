@@ -1,6 +1,10 @@
 const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
 import { parseGenres } from './genres';
+import refs from './refs';
+import galleryCard from '../templates/gallery-card.hbs';
+
+const { galleryRef } = refs;
 
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
@@ -10,20 +14,45 @@ export default class MovieApiService {
     this.page = 1;
     this.lang = 'en-EN';
     this.SearchId = 1;
+    this.time_window = 'day';
+    this.media_type = '/movie/';
+    this.home = 'trending';
   }
 
   async fetchTrendingMovies(period) {
     return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
   }
 
+  async fetchDate(page) {
+    const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}`;
+     const response = await axios.get(url);
+     return response.data;
+    }; 
+
+   async fetchTopRatedMovies() {
+     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  }
+
+  async fetchUpcomingMovies() {
+    return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  }
+
   async searchMovieByWord(searchWord) {
-    const response= await axios.get(`${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}`);
-    const movies= await response.data.results;
+    const response = await axios.get(
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${this.page}`,
+    );
+    const movies = await response.data.results;
     return movies;
   }
 
   async getMovieInfo() {
-     return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
+    return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
+  }
+
+   async fetchTrailer() {
+    const response= await axios.get(`movie/${this.SearchId}/videos?api_key=${API_KEY}&language=${this.lang}`);
+    const trailers= await response.data;
+   return trailers;
   }
 
   async fetchGenres() {
@@ -48,7 +77,7 @@ export default class MovieApiService {
     }
 
     if (parsedGenres.length > 2)
-      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + ' ...');
+      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
     genresRef.innerHTML = parsedGenres.join(', ');
   }
 
@@ -73,8 +102,73 @@ export default class MovieApiService {
     return this.SearchId;
   }
   set id(newId) {
-  
-     this.SearchId = newId;
-   
+    this.SearchId = newId;
+  }
+
+  clearGallery() {
+    galleryRef.innerHTML = '';
+  }
+
+  createLocalList(listKey) {
+    const storedList = JSON.stringify([]);
+    localStorage.setItem(listKey, storedList);
+  }
+
+  updateLocalList(listKey, data) {
+    if (data === undefined) return;
+
+    const storedList = this.getLocalStoredList(listKey);
+    storedList.push(data);
+    const updatedList = JSON.stringify(storedList);
+
+    localStorage.setItem(listKey, updatedList);
+  }
+
+  getLocalStoredList(listKey) {
+    const stringifyList = localStorage.getItem(listKey);
+    return JSON.parse(stringifyList);
+  }
+
+  addToMovieList(movieId, listKey) {
+    this.id = movieId;
+    const WATCHED_LIST = 'watched';
+    const QUEUE_LIST = 'queue';
+
+    // ===== check aviability this id in local storage
+    const localList = this.getLocalStoredList(listKey);
+    const isIdExists = localList.some(movie => movieId === movie.id);
+    if (isIdExists) return;
+
+    this.getMovieInfo().then(res => {
+      if (listKey === WATCHED_LIST) {
+        res.data.isWatched = true;
+      }
+      if (listKey === QUEUE_LIST) {
+        res.data.isQueue = true;
+      }
+
+      this.updateLocalList(listKey, res.data);
+    });
+  }
+
+  removefromMovieList(movieId, listKey) {
+    this.id = movieId;
+
+    const localList = this.getLocalStoredList(listKey);
+    const isIdExists = localList.find(movie => movie.id === movieId);
+    if (isIdExists === undefined) return;
+
+    const updatedList = localList.filter(movie => {
+      return movie.id !== movieId;
+    });
+
+    localStorage.setItem(listKey, JSON.stringify(updatedList));
+  }
+
+  markupGrabbedList() {
+    this.clearGallery();
+    console.log(this.screenPage);
+    const grabbedData = this.getLocalStoredList(this.screenPage);
+    this.markupTempl(grabbedData, galleryRef, galleryCard);
   }
 }

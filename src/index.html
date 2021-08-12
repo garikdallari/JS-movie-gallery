@@ -4,7 +4,7 @@
     <link rel="shortcut icon" href="./images/favicon/film.ico" type="image/x-icon" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Filmoteka</title>
+    <title>Movie Gallery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,11 +14,16 @@
   </head>
   <body>
     <include src="./partials/header.html"></include>
-    <main><include src="./partials/cards.html"></include></main>
+    <main>
+      <include src="./partials/period-buttons.html"></include>
+      <include src="./partials/cards.html"></include>
+      <include src="./partials/scroll.html"></include>
+    </main>
+    <div id = "tui-pagination-container" class = "tui-pagination"> </div>
     <include src="./partials/footer.html"></include>
-  <include src="./partials/modal.html"></include>
-  <include src="./partials/teamModal.html"></include>
-  
+    <include src="./partials/modal.html"></include>
+    <include src="./partials/teamModal.html"></include>
+
     <script src="./index.js"></script>
   </body>
 </html>

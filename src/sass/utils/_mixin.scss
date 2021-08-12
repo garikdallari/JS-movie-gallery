@@ -4,22 +4,6 @@
   align-items: center;
 }
 
-// @mixin pseudo($display: block, $pos: absolute, $content: '') {
-//   content: $content;
-//   display: $display;
-//   position: $pos;
-// }
-
-// @mixin pseudo($color: black, $marginRight: 20px, $width: 60px, $marginLeft: 0px) {
-//   content: '';
-//   width: $width;
-//   height: 1px;
-//   background-color: $color;
-//   display: flex;
-//   margin-right: $marginRight;
-//   margin-left: $marginLeft;
-// }
-
 @mixin for-phone-up {
   @media screen and (min-width: 320px) {
     @content;

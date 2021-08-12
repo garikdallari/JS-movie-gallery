@@ -1,3 +1,4 @@
+@import './loaders';
 @import './utils/common';
 @import './utils/variables';
 @import './utils/mixin';
@@ -11,3 +12,7 @@
 @import './teamModal';
 // @import './modal-window-card';
 // @import './backdrop';
+@import './period-buttons';
+@import './scroll';
+@import './pagination.scss';
+

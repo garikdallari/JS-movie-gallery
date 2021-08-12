@@ -1,0 +1,41 @@
+.period-buttons {
+  display: none;
+
+  @include for-tablet-up {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+
+    font-family: var(--font-family);
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.16;
+    color: var(--cards-name-font-color);
+  }
+}
+
+.period-buttons__btn {
+  padding: 7px 20px;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #56a2bd;
+
+  border-radius: 50px;
+  display: inline-block;
+  border: none;
+  transition: all 0.4s ease 0s;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+
+  &:hover {
+    text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    background-color: tomato;
+    transition: all 0.4s ease 0s;
+  }
+}

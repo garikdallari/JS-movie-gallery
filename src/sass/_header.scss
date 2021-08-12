@@ -184,12 +184,21 @@
   }
 }
 
+.search-form__wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: right 0.3s ease;
+}
+
 .search-form__input {
   width: 100%;
   background-color: transparent;
   border: none;
   border-bottom: 0.5px solid var(--border-bottom-input);
-  color: var(--primary-font-color);
+  color:rgba(221, 221, 221, 0.753);
+  padding: 4px;
+  transition: all 0.3s ease;
 
   &::placeholder {
     font-family: var(--font-family);
@@ -198,21 +207,27 @@
     font-size: 14px;
     line-height: 1.14;
     color: var(--cards-description-font-color);
-    opacity: 1; 
-    transition: opacity 0.3s ease;;
+    opacity: 1;
+    transition: opacity 0.3s ease;
   }
+
   &:focus {
-    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);}
+    outline:none;
+    border:none;
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 0.753);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
 
-  &:focus::placeholder{
-    opacity: 0; 
-    transition: opacity 0.3s ease;}
-}
+  &:focus + .search-form__wrapper {
+    right: -20px;
+    transition: right 0.3s ease;
+  }
 
-.search-form__wrapper {
-  position: absolute;
-  top: 0;
-  right: 0;
+  &:focus::placeholder {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
 }
 
 .message-failure {

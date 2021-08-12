@@ -3,15 +3,16 @@ import refs from "./refs"
 import MovieApiService from './movieService';
 import movieCard from "../templates/gallery-card.hbs";
 import { loader } from './loaders';
+import throttle from 'lodash.throttle';
 const API = new MovieApiService;
-
 
 const { btnDay, btnWeek, btnTop, btnUpcoming, galleryRef } = refs;
 
-btnDay.addEventListener('click', onClickBtnDay);
-btnWeek.addEventListener('click', onClickBtnWeek);
-btnTop.addEventListener('click', onClickBtnTop);
-btnUpcoming.addEventListener('click', onClickBtnUpcoming);
+const THROTTLE_DELAY = 1000;
+btnDay.addEventListener('click', throttle(onClickBtnDay, THROTTLE_DELAY));
+btnWeek.addEventListener('click', throttle(onClickBtnWeek, THROTTLE_DELAY));
+btnTop.addEventListener('click', throttle(onClickBtnTop, THROTTLE_DELAY));
+btnUpcoming.addEventListener('click',throttle(onClickBtnUpcoming, THROTTLE_DELAY));
 
 function onClickBtnDay() {
     API.clearGallery();

@@ -8,8 +8,10 @@ import './js/language';
 import './js/trending-movies';
 import './js/search-movie';
 import './js/movies-by-id';
+import './js/teamModal';
 import './js/period-buttons';
 import './js/clients-lists';
 import './js/scroll';
 import './js/pagination';
+
 

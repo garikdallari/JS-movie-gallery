@@ -197,8 +197,16 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 1.14;
-    color: var(--primary-font-color);
+    color: var(--cards-description-font-color);
+    opacity: 1; 
+    transition: opacity 0.3s ease;;
   }
+  &:focus {
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 1);}
+
+  &:focus::placeholder{
+    opacity: 0; 
+    transition: opacity 0.3s ease;}
 }
 
 .search-form__wrapper {

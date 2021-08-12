@@ -38,10 +38,13 @@ const options = {
 const container = document.getElementById('tui-pagination-container');
 const pagination = new Pagination(container, options);
 const page = pagination.getCurrentPage();
-movieApiService.fetchDate(page).then(response => {
-    pagination.reset(response.total_pages);
-     renderMoveGallery(response.results);
- });
+
+
+
+// movieApiService.fetchDate(page).then(response => {
+//     pagination.reset(response.total_pages);
+//      renderMoveGallery(response.results);
+//  });
 
  
 pagination.on('afterMove', (event) => {
@@ -53,9 +56,11 @@ pagination.on('afterMove', (event) => {
         
     } )
 });
+
  function renderMoveGallery(data) {
     galleryRef.insertAdjacentHTML('beforeend', galleryCard(data));
 }
 function clearGallery() {
      galleryRef.innerHTML = '';
 }
+

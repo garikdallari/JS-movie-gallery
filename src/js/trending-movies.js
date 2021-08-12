@@ -13,7 +13,7 @@ homeRef.addEventListener('click', onHomeClick);
 movieApiService.fetchTrendingMovies('day').then(res => {
  
   const queryResult = res.data.results;
-
+  
   movieApiService.markupTempl(queryResult, galleryRef, galleryCard);
 
   // ====== edit date & genres

@@ -15,7 +15,7 @@ export default class MovieApiService {
     this.lang = 'en-EN';
     this.SearchId = 1;
     this.time_window = 'day';
-    this.media_type = '/all/';
+    this.media_type = '/movie/';
     this.home = 'trending';
   }
 

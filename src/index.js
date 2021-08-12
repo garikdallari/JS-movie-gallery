@@ -2,6 +2,7 @@ import './sass/main.scss';
 import '../node_modules/modern-normalize/modern-normalize.css';
 import './js/loaders';
 import './js/refs';
+import './js/languages'
 import './js/change-header';
 import './js/genres';
 import './js/language';

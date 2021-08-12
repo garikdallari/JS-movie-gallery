@@ -16,7 +16,8 @@ btnUpcoming.addEventListener('click', onClickBtnUpcoming);
 function onClickBtnDay() {
     API.clearGallery();
     loader.on();
-    getMovieByPeriod('day').finally(()=>loader.off());
+    getMovieByPeriod('day').finally(() => loader.off());
+    // btnDay.style.backgroundColor = 'tomato';
 };
 
 function onClickBtnWeek() {

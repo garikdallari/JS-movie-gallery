@@ -18,49 +18,6 @@ modalRef.addEventListener('click', onModalBtnsClick);
 // ===== CREATE EMPTY LISTS
 createEmptyLists();
 
-// ===== ON MODAL BUTTONS CLICK
-function onModalBtnsClick(e) {
-  const movieId = Number(e.target.dataset.id);
-  const btn = e.target;
-
-  // ===== add to the list
-  if (btn.nodeName !== 'BUTTON') return;
-
-  if (btn.dataset.action === 'add-to-watched') {
-    btn.textContent = 'remove from watched';
-    btn.dataset.action = 'remove-from-watched';
-
-    movieApiService.addToMovieList(movieId, WATCHED_LIST);
-    return;
-  }
-
-  if (btn.dataset.action === 'add-to-queue') {
-    btn.textContent = 'remove from queue';
-    btn.dataset.action = 'remove-from-queue';
-
-    movieApiService.addToMovieList(movieId, QUEUE_LIST);
-    return;
-  }
-
-  if (btn.dataset.action === 'remove-from-watched') {
-    btn.textContent = 'add to watched';
-    btn.dataset.action = 'add-to-watched';
-
-    movieApiService.removefromMovieList(movieId, WATCHED_LIST);
-
-    return;
-  }
-
-  if (btn.dataset.action === 'remove-from-queue') {
-    btn.textContent = 'add to queue';
-    btn.dataset.action = 'add-to-queue';
-
-    movieApiService.removefromMovieList(movieId, QUEUE_LIST);
-
-    return;
-  }
-}
-
 // ===== FUNCTIONS'S DECLARATIONS
 function createEmptyLists() {
   if (localStorage.getItem(WATCHED_LIST) === null) movieApiService.createLocalList(WATCHED_LIST);
@@ -85,22 +42,41 @@ function onLibraryClick(e) {
 // ===== LIBRARY BUTTONS CLICK
 function onLibraryBtnsClick(e) {
   movieApiService.clearGallery();
-  if (e.target.dataset.value === 'watched') {
-    movieApiService.updateLocalList(WATCHED_LIST);
+  const btn = e.target;
 
-    pageForExport = WATCHED_LIST;
+  renderPageByLibBtnClick(btn, WATCHED_LIST);
+  renderPageByLibBtnClick(btn, QUEUE_LIST);
+}
 
-    const grabbedData = updateCurrentPage(WATCHED_LIST);
-    editDateAndGenres(grabbedData);
-  }
+function renderPageByLibBtnClick(btnRef, listKey) {
+  if (btnRef.dataset.value !== listKey) return;
+  pageForExport = listKey;
+  movieApiService.updateLocalList(listKey);
+  const grabbedData = updateCurrentPage(listKey);
+  editDateAndGenres(grabbedData);
+}
 
-  if (e.target.dataset.value === 'queue') {
-    movieApiService.updateLocalList(QUEUE_LIST);
+// ===== ON MODAL BUTTONS CLICK
+function onModalBtnsClick(e) {
+  const movieId = Number(e.target.dataset.id);
+  const btn = e.target;
 
-    pageForExport = QUEUE_LIST;
+  // ===== add/remove from the list
+  if (btn.nodeName !== 'BUTTON') return;
 
-    const grabbedData = updateCurrentPage(QUEUE_LIST);
-    editDateAndGenres(grabbedData);
+  switchBtnTextByCkicking(btn, movieId, WATCHED_LIST);
+  switchBtnTextByCkicking(btn, movieId, QUEUE_LIST);
+}
+
+function switchBtnTextByCkicking(btnRef, movieId, listKey) {
+  if (btnRef.dataset.action === `remove-from-${listKey}`) {
+    btnRef.textContent = `add to ${listKey}`;
+    btnRef.dataset.action = `add-to-${listKey}`;
+    movieApiService.removefromMovieList(movieId, listKey);
+  } else if (btnRef.dataset.action === `add-to-${listKey}`) {
+    btnRef.textContent = `remove from ${listKey}`;
+    btnRef.dataset.action = `remove-from-${listKey}`;
+    movieApiService.addToMovieList(movieId, listKey);
   }
 }
 

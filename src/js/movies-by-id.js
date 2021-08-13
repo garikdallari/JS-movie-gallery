@@ -87,8 +87,8 @@ async function fetchMovieById() {
   }
 
   // check for this movie if it exists in storage
-  const isWatched = addProp(data, WATCHED_LIST);
   const isQueue = addProp(data, QUEUE_LIST);
+  const isWatched = addProp(data, WATCHED_LIST);
 
   // movieApiService.markupTempl({ data, genres, isWatched, isQueue }, content, movieCard);
 

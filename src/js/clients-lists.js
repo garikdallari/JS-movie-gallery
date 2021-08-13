@@ -111,7 +111,6 @@ function markupGrabbedList(listKey) {
 
   const grabbedData = updateCurrentPage(listKey);
   editDateAndGenres(grabbedData);
-
 }
 
 // ============ fucntions for movie-by-id.js

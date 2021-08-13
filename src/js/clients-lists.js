@@ -12,7 +12,6 @@ let pageForExport = null;
 // ===== LISTENTERS
 myLibraryRef.addEventListener('click', onLibraryClick);
 homeRef.addEventListener('click', onHomeRefClick);
-
 libraryBtns.addEventListener('click', onLibraryBtnsClick);
 modalRef.addEventListener('click', onModalBtnsClick);
 
@@ -32,10 +31,25 @@ function onLibraryClick(e) {
   pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it
-  const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
-  movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+  // const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
+  // movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
 
-  grabbedData.forEach(movie => {
+  // grabbedData.forEach(movie => {
+  //   movieApiService.editDate(movie);
+  //   editMovieGenres(movie);
+  // });
+
+  updateCurrentPage(WATCHED_LIST);
+  editDateAndGenres(grabbedData);
+}
+// <<<<<<<<<---------
+function updateCurrentPage(listKey) {
+  const grabbedData = movieApiService.getLocalStoredList(listKey);
+  movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+}
+
+function editDateAndGenres(array) {
+  array.forEach(movie => {
     movieApiService.editDate(movie);
     editMovieGenres(movie);
   });
@@ -52,6 +66,7 @@ function editMovieGenres(obj) {
     return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
   genresRef.innerHTML = parsedGenres.join(', ');
 }
+// --------- >>>>>>>>>
 
 // ===== LIBRARY BUTTONS CLICK
 function onLibraryBtnsClick(e) {
@@ -136,6 +151,12 @@ export function markupGrabbedList(listKey) {
 
   const grabbedData = movieApiService.getLocalStoredList(listKey);
   movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+
+  editDateAndGenres(grabbedData);
+  // grabbedData.forEach(movie => {
+  //   movieApiService.editDate(movie);
+  //   editMovieGenres(movie);
+  // });
 }
 
 // ============ fucntions for movie-by-id.js

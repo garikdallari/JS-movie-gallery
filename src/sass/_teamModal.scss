@@ -2,15 +2,16 @@
 
 @import 'https://fonts.googleapis.com/css?family=Prompt:400,700';
 
-
-ul {
-  margin: 10px 0 10px 30px;
+h1,
+h2 {
+  font-weight: 500;
+  margin: 0px 0px 5px 0px;
 }
-li, p {
-  margin: 0 0 10px 0;
+h2 {
+  font-size: 16px;
 }
-h1 {
-  margin: 0 0 20px 0;
+li {
+  list-style-type: none;
 }
 
 
@@ -198,31 +199,7 @@ h1 {
 
 //**************************************************TEAM-CARD-MARKUP***********
 
-html {
-  height: 100%;
-}
 
-h1,
-h2 {
-  font-weight: 500;
-  margin: 0px 0px 5px 0px;
-}
-
-h1 {
-  font-size: 24px;
-}
-
-h2 {
-  font-size: 16px;
-}
-
-p {
-  margin: 0px;
-}
-
-li {
-  list-style-type: none;
-}
 
 .profile-card {
   background: #FFB300;
@@ -443,22 +420,21 @@ box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
   
     color: black;
     background-color: white;
-    transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 
         &:focus,&:hover{
       fill: #FF5722;
       color: #FF5722;
 
-      -webkit-box-shadow: 0px 0px 10px 1px rgba(193, 100, 13, 0.88);
--moz-box-shadow: 0px 0px 10px 1px rgba(193, 100, 13, 0.88);
-box-shadow: 0px 0px 10px 1px rgba(193, 100, 13, 0.88);
+      // -webkit-box-shadow: 0px 0px 7px 1px rgba(90, 48, 9, 0.48);
+      // -moz-box-shadow: 0px 0px 7px 1px rgba(90, 48, 9, 0.48);
+      // box-shadow: 0px 0px 7px 1px rgba(90, 48, 9, 0.48);
 
-      transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+      transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     }
   }
 
   &__icon {
     fill: currentColor;
-    transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
   }
 }

@@ -6,7 +6,7 @@ import { loader } from './loaders';
 import throttle from 'lodash.throttle';
 const API = new MovieApiService;
 
-const { btnDay, btnWeek, btnTop, btnUpcoming, galleryRef } = refs;
+const { btnDay, btnWeek, btnTop, btnUpcoming, galleryRef} = refs;
 
 const THROTTLE_DELAY = 1000;
 btnDay.addEventListener('click', throttle(onClickBtnDay, THROTTLE_DELAY));
@@ -86,4 +86,4 @@ function addsActiveButton(element) {
 }
 
 
-export {addsActiveButton}
+export { addsActiveButton };

@@ -14,7 +14,8 @@ export default {
   modalRef: document.querySelector('.js-lightbox'),
   overlay: document.querySelector('.lightbox__overlay'),
   headerBackgroundImageRef: document.querySelector('.header-background-img'),
-  periodBtnBox : document.querySelector('.period-buttons'),
+  periodBtnBox: document.querySelector('.period-buttons'),
+  paginationBox: document.querySelector('.tui-pagination'),
 
 };
 

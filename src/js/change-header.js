@@ -2,7 +2,7 @@
 import { func } from 'assert-plus';
 import refs from './refs'
 
-const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef} = refs;
+const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox} = refs;
 
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
@@ -14,6 +14,7 @@ function onClickLib() {
   removeElementClass(homeRef, 'nav-menu__link--current-page');
   addElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, 'none');
+  removePagination();
 
   
 }
@@ -25,6 +26,7 @@ function onClickHome() {
   removeElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addElementClass(homeRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, '');
+  addsPagination()
 }
 
 
@@ -47,3 +49,12 @@ function addStyleDisplay(element, value) {
   
 }
 
+
+function removePagination() {
+  paginationBox.classList.add('tui-pagination--closed');
+
+}
+
+function addsPagination() {
+  paginationBox.classList.remove('tui-pagination--closed');
+}

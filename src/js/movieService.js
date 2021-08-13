@@ -5,16 +5,16 @@ import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
-const currentLang=localStorage.getItem("currentLanguage");
-const d=JSON.parse(currentLang);
-console.log(d.language)
+const localLang=localStorage.getItem("currentLanguage");
+const parseLocalLang=JSON.parse(localLang);
+
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
 export default class MovieApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.lang = d.language;
+    this.lang = parseLocalLang.language;
     this.SearchId = 1;
     this.time_window = 'day';
     this.media_type = '/movie/';

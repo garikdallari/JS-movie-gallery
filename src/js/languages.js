@@ -1,11 +1,9 @@
 import MovieApiService from './movieService';
 import refs from './refs';
 const { searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, 
-  btnWeek, btnTop,  btnUpcoming} = refs;
+  btnWeek, btnTop,  btnUpcoming, modalRef} = refs;
 
-  
 const x= new MovieApiService();
-console.log (x.lang);
 
 const EnBtn = document.getElementById('en-btn');
 const UaBtn = document.getElementById('ua-btn');
@@ -15,7 +13,9 @@ const queueBtn= document.querySelector('[data-value="queue"]');
 const langBtns = document.querySelector('.lang');
 const footerText1 = document.querySelector('.footer-wrapper__text--rights');
 const footerText2 = document.querySelector('.footer-wrapper__text--by');
-
+const addToWatched =document.querySelector('.button_watched');
+const addToQueue =document.querySelector('.button_queue');
+const openTrailer =document.querySelector('.button_open');
 langBtns.addEventListener('click', changeLang);
 
 const en={ 
@@ -32,7 +32,11 @@ const en={
   footerText2: 'by',
   watched: 'WATCHED',
   queue: 'queue',
+  addToWatched: 'add To Watched',
+  addToQueue: 'add To Queue',
+  openTrailer: 'трейлер',
 }
+
 
 const ru={ 
   language: 'ru-RU',
@@ -47,7 +51,10 @@ const ru={
   footerText1: ' © 2021 | Все права защищены | Создано c',
   footerText2: '',
   watched: 'ПРОСМОТРЕНЫЕ',
-  queue: 'ПОCМОТРЕТЬ ПОЗЖЕ',
+  queue: 'ПОCМОТРЕТЬ',
+  addToWatched: 'В ПРОСМОТРЕНЫЕ',
+  addToQueue: 'посмотреть позже',
+  openTrailer: 'трейлер',
 }
 
 const ua={ 
@@ -63,7 +70,10 @@ const ua={
   footerText1: ' © 2021 | Всі права захищені | Створено з',
   footerText2: '',
   watched: 'ПЕРЕГЛЯНУТІ',
-  queue: 'НА МАЙБУТНЄ',
+  queue: 'ЧЕРГА',
+  addToWatched: 'В ПЕРЕГЛЯНУТІ',
+  addToQueue: 'В чергу',
+  openTrailer: 'трейлер',
 }
 
 const current=localStorage.getItem("currentLanguage");
@@ -76,8 +86,6 @@ else {
   setTextcontent(m)
   x.lang=m.language;
 }
-
-
 
 function changeLang(event) {
   switch (event.target) {
@@ -110,6 +118,13 @@ function setTextcontent (lang) {
     footerText2.textContent=lang.footerText2;
     watchedBtn.textContent=lang.watched;
     queueBtn.textContent=lang.queue;
-    searchInputRef.placeholder = lang.placeholder;
-}
+    searchInputRef.placeholder = lang.placeholder;}
+    
+    // if (modalRef.classList.contains('.is-open')){
+    //   console.log (modalRef.classList.contains('.is-open'));
+    //   addToWatched.textContent=lang.addToWatched;
+    // addToQueue.textContent=lang.addToQueue;
+    // openTrailer.textContent=lang.openTrailer;
+    // }
+
 

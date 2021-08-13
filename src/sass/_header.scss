@@ -297,11 +297,12 @@
 .header-menu-btn__item--active {
   background-color: var(--accent-background-btn-color);
   border: none;
+}
 
 .lang {
   position: absolute;
-  right:0;
-  top:0;
+  right: 0;
+  top: 0;
 
   font-size: 12px;
 }
@@ -312,6 +313,6 @@
   width: 30px;
   height: 30px;
   outline: none;
-  border: none ;
+  border: none;
   cursor: pointer;
 }

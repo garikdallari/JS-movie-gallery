@@ -1,9 +1,10 @@
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 import refs from './refs';
+import { addsActiveButton } from './period-buttons';
 
 import {loader} from './loaders';
-const { galleryRef, homeRef } = refs;
+const { galleryRef, homeRef, btnDay } = refs;
 
 const movieApiService = new MovieApiService();
 loader.on();
@@ -29,7 +30,7 @@ movieApiService.fetchTrendingMovies('day').then(res => {
 // ===== ON HOME LINK CLICK
 function onHomeClick(e) {
   movieApiService.clearGallery();
-
+  addsActiveButton(btnDay);
   movieApiService.fetchTrendingMovies('day').then(res => {
     const queryResult = res.data.results;
 

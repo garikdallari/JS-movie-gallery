@@ -1,6 +1,6 @@
 const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
-import { parseGenres } from './genres';
+import { getGenresList } from './genres';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
@@ -25,12 +25,12 @@ export default class MovieApiService {
 
   async fetchDate(page) {
     const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}`;
-     const response = await axios.get(url);
-     return response.data;
-    }; 
+    const response = await axios.get(url);
+    return response.data;
+  }
 
-   async fetchTopRatedMovies() {
-     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  async fetchTopRatedMovies() {
+    return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
   }
 
   async fetchUpcomingMovies() {
@@ -49,10 +49,12 @@ export default class MovieApiService {
     return axios.get(`movie/${this.SearchId}?api_key=${API_KEY}&language=${this.lang}`);
   }
 
-   async fetchTrailer() {
-    const response= await axios.get(`movie/${this.SearchId}/videos?api_key=${API_KEY}&language=${this.lang}`);
-    const trailers= await response.data;
-   return trailers;
+  async fetchTrailer() {
+    const response = await axios.get(
+      `movie/${this.SearchId}/videos?api_key=${API_KEY}&language=${this.lang}`,
+    );
+    const trailers = await response.data;
+    return trailers;
   }
 
   async fetchGenres() {
@@ -63,22 +65,22 @@ export default class MovieApiService {
 
   editGenres(obj) {
     const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
-    const parsedGenres = [];
+    const genresObj = getGenresList();
+    const editedGenresList = [];
 
     for (let i = 0; i < obj.genre_ids.length; i += 1) {
       obj.genre_ids.map(genre => {
-        const genresObj = parseGenres();
         genresObj.forEach(genreSet => {
           if (genre === genreSet.id) {
-            parsedGenres.push(genreSet.name);
+            editedGenresList.push(genreSet.name);
           }
         });
       });
     }
 
-    if (parsedGenres.length > 2)
-      return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
-    genresRef.innerHTML = parsedGenres.join(', ');
+    if (editedGenresList.length > 2)
+      return (genresRef.innerHTML = editedGenresList.splice(0, 3).join(', ') + '&nbsp;');
+    genresRef.innerHTML = editedGenresList.join(', ');
   }
 
   editDate(obj) {

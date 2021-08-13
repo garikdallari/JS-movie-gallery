@@ -108,6 +108,7 @@
 .button_watched:focus {
   background-color: var(--accent-background-btn-color);
   border: none;
+  color: var(--primary-font-color);
 }
 
 .button_queue {
@@ -224,9 +225,11 @@
   }
 }
 .trailer_button {
-  position: fixed;
-  bottom: 50%;
-  right: 5%;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  z-index: 1;
+  top: 47%;
+  left: 95%;
   width: 30px;
   height: 30px;
   display: flex;
@@ -241,8 +244,8 @@
   transition: transform var(--time) var(--time-function);
 
   @include for-tablet-up {
-    bottom: 85%;
-    left: 90%;
+    top: 3%;
+    left: 92%;
   }
 
   @include for-desktop-up {
@@ -252,20 +255,19 @@
 }
 .trailer_button:hover,
 .trailer_button:focus {
-  transform: scale(1.3);
+  transform: scale(1);
 }
 iframe {
   width: 280px;
   height: 250px;
   position: fixed;
   top: 50%;
-  left: 22%;
+  left: 50%;
+  transform: translate(-50%, -10px);
   @include for-tablet-up {
     transform: translate(-50%, -50%);
-    height: 450px;
+    height: 420px;
     width: 570px;
-
-    left: 50%;
   }
   @include for-desktop-up {
     height: 490px;

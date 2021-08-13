@@ -3,38 +3,43 @@ import refs from "./refs"
 import MovieApiService from './movieService';
 import movieCard from "../templates/gallery-card.hbs";
 import { loader } from './loaders';
+import throttle from 'lodash.throttle';
 const API = new MovieApiService;
-
 
 const { btnDay, btnWeek, btnTop, btnUpcoming, galleryRef } = refs;
 
-btnDay.addEventListener('click', onClickBtnDay);
-btnWeek.addEventListener('click', onClickBtnWeek);
-btnTop.addEventListener('click', onClickBtnTop);
-btnUpcoming.addEventListener('click', onClickBtnUpcoming);
+const THROTTLE_DELAY = 1000;
+btnDay.addEventListener('click', throttle(onClickBtnDay, THROTTLE_DELAY));
+btnWeek.addEventListener('click', throttle(onClickBtnWeek, THROTTLE_DELAY));
+btnTop.addEventListener('click', throttle(onClickBtnTop, THROTTLE_DELAY));
+btnUpcoming.addEventListener('click',throttle(onClickBtnUpcoming, THROTTLE_DELAY));
 
 function onClickBtnDay() {
     API.clearGallery();
     loader.on();
-    getMovieByPeriod('day').finally(()=>loader.off());
+    getMovieByPeriod('day').finally(() => loader.off());
+    addsActiveButton(btnDay);
 };
 
 function onClickBtnWeek() {
     API.clearGallery();
     loader.on();
-    getMovieByPeriod('week').finally(()=>loader.off());
+    getMovieByPeriod('week').finally(() => loader.off());
+    addsActiveButton(btnWeek);
 };
 
 function onClickBtnTop() {
     API.clearGallery();
     loader.on();
-    getMovieByType(API.fetchTopRatedMovies()).finally(()=>loader.off());
+    getMovieByType(API.fetchTopRatedMovies()).finally(() => loader.off());
+    addsActiveButton(btnTop);
 };
 
 function onClickBtnUpcoming() {
     API.clearGallery();
     loader.on();
-    getMovieByType(API.fetchUpcomingMovies()).finally(()=>loader.off());
+    getMovieByType(API.fetchUpcomingMovies()).finally(() => loader.off());
+    addsActiveButton(btnUpcoming);
 };
 
 
@@ -69,3 +74,16 @@ function renderMovieCards(response) {
         API.editGenres(movie);
     })
 };
+
+
+
+function addsActiveButton(element) {
+    const currentActiveBtn = document.querySelector('.period-buttons__btn--active');
+    if (currentActiveBtn) {
+        currentActiveBtn.classList.remove('period-buttons__btn--active');
+    }
+    element.classList.add('period-buttons__btn--active');
+}
+
+
+export {addsActiveButton}

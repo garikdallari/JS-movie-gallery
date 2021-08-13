@@ -1,4 +1,5 @@
 .footer {
+  margin-top: auto;
   padding-top: 30px;
   padding-bottom: 28px;
   background-color: var(--background-color-footer);
@@ -22,4 +23,5 @@
 
 .footer-wrapper__underline {
   text-decoration-line: underline;
+  cursor: pointer;
 }

@@ -8,7 +8,7 @@ movieApiService.fetchGenres().then(res => {
 });
 
 // ===== parse genres from localStorage
-export function parseGenres() {
+export function getGenresList() {
   const genresList = localStorage.getItem('genresList');
   return JSON.parse(genresList);
 }

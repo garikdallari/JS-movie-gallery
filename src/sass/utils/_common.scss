@@ -20,3 +20,10 @@ h3 {
   margin: 0px;
   padding: 0px;
 }
+
+.content {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}

@@ -5,6 +5,8 @@ import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
+const localLang=localStorage.getItem("currentLanguage");
+const parseLocalLang=JSON.parse(localLang);
 
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
@@ -20,14 +22,17 @@ export default class MovieApiService {
   }
 
   async fetchTrendingMovies(period) {
-    return axios.get(`trending/movie/${period}?api_key=${API_KEY}`);
+    return axios.get(`trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}`);
   }
 
   async fetchDate(page) {
-    const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}`;
-    const response = await axios.get(url);
-    return response.data;
-  }
+
+    const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}&language=${this.lang}`;
+     const response = await axios.get(url);
+     return response.data;
+    }; 
+
+
 
   async fetchTopRatedMovies() {
     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);

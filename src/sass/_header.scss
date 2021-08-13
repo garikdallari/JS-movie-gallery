@@ -197,6 +197,7 @@
   border: none;
   border-bottom: 0.5px solid var(--border-bottom-input);
   color: rgba(221, 221, 221, 0.753);
+
   padding: 4px;
   transition: all 0.3s ease;
 
@@ -288,6 +289,7 @@
     left: 0;
   }
 }
+
 .nav-menu__logo-svg {
   margin-right: 10px;
 }
@@ -295,4 +297,21 @@
 .header-menu-btn__item--active {
   background-color: var(--accent-background-btn-color);
   border: none;
+
+.lang {
+  position: absolute;
+  right:0;
+  top:0;
+
+  font-size: 12px;
+}
+
+.lang-btn {
+  background-color: transparent;
+  color: var(--primary-font-color);
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: none ;
+  cursor: pointer;
 }

@@ -1,3 +1,4 @@
+import { Notify} from "notiflix";
 import MovieApiService from './movieService';
 import refs from './refs';
 import movieCard from '../templates/movie-popup.hbs';
@@ -22,11 +23,12 @@ const overley = document.querySelector('.lightbox__overlay');
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
-  e.preventDefault();
+  // e.preventDefault();
 
   if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
+
   document.body.style.overflow = 'hidden';
   modal.classList.add('is-open');
   movieApiService.id = +e.target.getAttribute('data-img-id');
@@ -36,7 +38,7 @@ function openModalOnClick(e) {
   fetchMovieById();
   content.addEventListener('click', openTrailer);
 
-  content.addEventListener('click', closeTrailer);
+ 
 }
 
 function openTrailer(e) {
@@ -49,6 +51,7 @@ function closeTrailer(e) {
     document.querySelector('.plyr__video-embed').style.display = 'none';
   }
 }
+
 function closeModalOnClick() {
   modal.classList.remove('is-open');
   document.body.style.overflow = 'visible';
@@ -69,6 +72,52 @@ function closeModalOnEsc(e) {
   }
 }
 
+
+function openTrailer(e) {
+  if (!e.target.classList.contains("button_open")) {
+    return;
+  }
+   document.querySelector(".plyr__video-embed").style.display = 'block';
+   const backdrop = document.querySelector(".backdrop");
+   backdrop.classList.add("backdrop-is-open");
+   const btnCloseTrailer = document.querySelector(".trailer_button")
+   btnCloseTrailer.addEventListener("click", closeTrailer);
+   const overlayForTrailer = document.querySelector(".backdrop_overlay");
+   overlayForTrailer.addEventListener("click", closeTrailer);
+           
+        
+        
+}
+
+
+
+function closeTrailer(e) {
+  console.log(e.target)
+  
+  document.querySelector(".plyr__video-embed").style.display = 'none';
+  const backdrop = document.querySelector(".backdrop");
+  backdrop.classList.remove("backdrop-is-open");
+  const overlayForTrailer = document.querySelector(".backdrop_overlay");
+  overlayForTrailer.removeEventListener("click", closeTrailer);
+    
+   const btnCloseTrailer = document.querySelector(".trailer_button")
+   btnCloseTrailer.removeEventListener("click", closeTrailer);
+    stopPlayer();
+  
+ 
+};
+function stopPlayer() {
+      const  iframe = document.querySelector('.ytplayer');
+        let src = iframe.getAttribute('src');
+
+        iframe.setAttribute('src', '');
+      
+        iframe.setAttribute('src', src);
+        }
+
+
+
+
 async function fetchMovieById() {
   const { data } = await movieApiService.getMovieInfo();
   const genres = data.genres
@@ -78,12 +127,17 @@ async function fetchMovieById() {
 
   const { results } = await movieApiService.fetchTrailer();
   let key;
-  if (results.length === 0) {
-    key = 'W9nZ6u15yis';
-    movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-  } else {
-    key = results[0].key;
-    movieApiService.markupTempl({ data, genres, key }, content, movieCard);
+
+    if(results.length === 0){
+      key='W9nZ6u15yis';
+      movieApiService.markupTempl(({ data, genres, key }), content, movieCard);
+      Notify.init({ distance:"150px",fontSize:"15px", warning: {background:"#ff6f09",}, }); 
+      Notify.warning("Sorry!We  don't have a trailer for this movie.");
+    }
+    else{
+       key = results[0].key; 
+      movieApiService.markupTempl(({data,genres,key}), content, movieCard);
+
   }
 
   // check for this movie if it exists in storage

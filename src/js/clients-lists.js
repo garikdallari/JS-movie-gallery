@@ -16,91 +16,7 @@ libraryBtns.addEventListener('click', onLibraryBtnsClick);
 modalRef.addEventListener('click', onModalBtnsClick);
 
 // ===== CREATE EMPTY LISTS
-if (localStorage.getItem(WATCHED_LIST) === null) movieApiService.createLocalList(WATCHED_LIST);
-if (localStorage.getItem(QUEUE_LIST) === null) movieApiService.createLocalList(QUEUE_LIST);
-
-// ===== ON HOME BUTTON CLICK
-function onHomeRefClick() {
-  pageForExport = null;
-}
-
-// ===== ON LIBRARY LINK CLICK
-function onLibraryClick(e) {
-  movieApiService.clearGallery();
-
-  pageForExport = WATCHED_LIST;
-
-  // ===== get watched list & render it
-  // const grabbedData = movieApiService.getLocalStoredList(WATCHED_LIST);
-  // movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
-
-  // grabbedData.forEach(movie => {
-  //   movieApiService.editDate(movie);
-  //   editMovieGenres(movie);
-  // });
-
-  updateCurrentPage(WATCHED_LIST);
-  editDateAndGenres(grabbedData);
-}
-// <<<<<<<<<---------
-function updateCurrentPage(listKey) {
-  const grabbedData = movieApiService.getLocalStoredList(listKey);
-  movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
-}
-
-function editDateAndGenres(array) {
-  array.forEach(movie => {
-    movieApiService.editDate(movie);
-    editMovieGenres(movie);
-  });
-}
-
-function editMovieGenres(obj) {
-  const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
-  let parsedGenres = [];
-  obj.genres.forEach(genre => {
-    parsedGenres.push(genre.name);
-  });
-
-  if (parsedGenres.length > 2)
-    return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
-  genresRef.innerHTML = parsedGenres.join(', ');
-}
-// --------- >>>>>>>>>
-
-// ===== LIBRARY BUTTONS CLICK
-function onLibraryBtnsClick(e) {
-  movieApiService.clearGallery();
-  if (e.target.dataset.value === 'watched') {
-    movieApiService.updateLocalList(WATCHED_LIST);
-
-    pageForExport = WATCHED_LIST;
-
-    const grabbedData = movieApiService.getLocalStoredList('watched');
-    movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
-
-    grabbedData.forEach(movie => {
-      movieApiService.editDate(movie);
-      editMovieGenres(movie);
-    });
-  }
-
-  if (e.target.dataset.value === 'queue') {
-    movieApiService.updateLocalList(QUEUE_LIST);
-
-    pageForExport = QUEUE_LIST;
-
-    const grabbedData = movieApiService.getLocalStoredList(QUEUE_LIST);
-    movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
-
-    grabbedData.forEach(movie => {
-      movieApiService.editDate(movie);
-      editMovieGenres(movie);
-    });
-  }
-}
-
-export { pageForExport };
+createEmptyLists();
 
 // ===== ON MODAL BUTTONS CLICK
 function onModalBtnsClick(e) {
@@ -145,62 +61,101 @@ function onModalBtnsClick(e) {
   }
 }
 
-export function markupGrabbedList(listKey) {
+// ===== FUNCTIONS'S DECLARATIONS
+function createEmptyLists() {
+  if (localStorage.getItem(WATCHED_LIST) === null) movieApiService.createLocalList(WATCHED_LIST);
+  if (localStorage.getItem(QUEUE_LIST) === null) movieApiService.createLocalList(QUEUE_LIST);
+}
+
+function onHomeRefClick() {
+  pageForExport = null;
+}
+
+// ===== ON LIBRARY LINK CLICK
+function onLibraryClick(e) {
+  movieApiService.clearGallery();
+
+  pageForExport = WATCHED_LIST;
+
+  // ===== get watched list & render it
+  const grabbedData = updateCurrentPage(WATCHED_LIST);
+  editDateAndGenres(grabbedData);
+}
+
+// ===== LIBRARY BUTTONS CLICK
+function onLibraryBtnsClick(e) {
+  movieApiService.clearGallery();
+  if (e.target.dataset.value === 'watched') {
+    movieApiService.updateLocalList(WATCHED_LIST);
+
+    pageForExport = WATCHED_LIST;
+
+    const grabbedData = updateCurrentPage(WATCHED_LIST);
+    editDateAndGenres(grabbedData);
+  }
+
+  if (e.target.dataset.value === 'queue') {
+    movieApiService.updateLocalList(QUEUE_LIST);
+
+    pageForExport = QUEUE_LIST;
+
+    const grabbedData = updateCurrentPage(QUEUE_LIST);
+    editDateAndGenres(grabbedData);
+  }
+}
+
+function updateCurrentPage(listKey) {
+  const grabbedData = movieApiService.getLocalStoredList(listKey);
+  movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
+  return grabbedData;
+}
+
+function editDateAndGenres(array) {
+  array.forEach(movie => {
+    movieApiService.editDate(movie);
+    editMovieGenres(movie);
+  });
+}
+
+function editMovieGenres(obj) {
+  const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
+  let parsedGenres = [];
+  obj.genres.forEach(genre => {
+    parsedGenres.push(genre.name);
+  });
+
+  if (parsedGenres.length > 2)
+    return (genresRef.innerHTML = parsedGenres.splice(0, 3).join(', ') + '&nbsp;');
+  genresRef.innerHTML = parsedGenres.join(', ');
+}
+
+function markupGrabbedList(listKey) {
   if (listKey === null) return;
   movieApiService.clearGallery();
 
-  const grabbedData = movieApiService.getLocalStoredList(listKey);
-  movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
-
+  const grabbedData = updateCurrentPage(listKey);
   editDateAndGenres(grabbedData);
-  // grabbedData.forEach(movie => {
-  //   movieApiService.editDate(movie);
-  //   editMovieGenres(movie);
-  // });
 }
 
 // ============ fucntions for movie-by-id.js
 
-export function editWatchedBtnText(boolean) {
-  const watchedBtn = document.querySelector('.button_watched');
-  if (boolean) {
-    watchedBtn.textContent = 'remove from watched';
-    watchedBtn.dataset.action = 'remove-from-watched';
+function toggleBtnText(isInList, listKey) {
+  const targetBtn = document.querySelector(`.${listKey}`);
+  if (isInList) {
+    targetBtn.textContent = `remove from ${listKey}`;
+    targetBtn.dataset.action = `remove-from-${listKey}`;
   } else {
-    watchedBtn.textContent = 'add to watched';
-    watchedBtn.dataset.action = 'add-to-watched';
+    targetBtn.textContent = `add to ${listKey}`;
+    targetBtn.dataset.action = `add-to-${listKey}`;
   }
 }
 
-export function editQueueBtnText(boolean) {
-  const queueBtn = document.querySelector('[data-action="add-to-queue"]');
-  if (!boolean) {
-    queueBtn.textContent = 'remove from queue';
-    queueBtn.dataset.action = 'remove-from-queue';
-  }
-}
-
-// ===== add isWAtched property
-export function addIsWatchedProp(data) {
-  const localList = movieApiService.getLocalStoredList('watched');
+// ===== add watched or queue property
+function addProp(data, listKey) {
+  const localList = movieApiService.getLocalStoredList(listKey);
   const movieId = data.id;
   const isIdExists = localList.some(movie => movieId === movie.id);
-  isIdExists ? (data.isWatched = true) : (data.isWatched = false);
-
-  return data.isWatched;
+  return isIdExists ? (data[`${listKey}`] = true) : (data[`${listKey}`] = false);
 }
 
-// ===== add isQueue Property
-export function addIsQueueProp(data) {
-  const localList = movieApiService.getLocalStoredList('queue');
-  const movieId = data.id;
-  const isIdExists = localList.some(movie => movieId === movie.id);
-  if (isIdExists) {
-    data.isQueue = false;
-  } else {
-    data.isQueue = true;
-  }
-
-  const isQueue = data.isQueue;
-  return isQueue;
-}
+export { WATCHED_LIST, QUEUE_LIST, pageForExport, markupGrabbedList, addProp, toggleBtnText };

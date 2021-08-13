@@ -18,25 +18,28 @@ function onClickBtnDay() {
     API.clearGallery();
     loader.on();
     getMovieByPeriod('day').finally(() => loader.off());
-    // btnDay.style.backgroundColor = 'tomato';
+    addsActiveButton(btnDay);
 };
 
 function onClickBtnWeek() {
     API.clearGallery();
     loader.on();
-    getMovieByPeriod('week').finally(()=>loader.off());
+    getMovieByPeriod('week').finally(() => loader.off());
+    addsActiveButton(btnWeek);
 };
 
 function onClickBtnTop() {
     API.clearGallery();
     loader.on();
-    getMovieByType(API.fetchTopRatedMovies()).finally(()=>loader.off());
+    getMovieByType(API.fetchTopRatedMovies()).finally(() => loader.off());
+    addsActiveButton(btnTop);
 };
 
 function onClickBtnUpcoming() {
     API.clearGallery();
     loader.on();
-    getMovieByType(API.fetchUpcomingMovies()).finally(()=>loader.off());
+    getMovieByType(API.fetchUpcomingMovies()).finally(() => loader.off());
+    addsActiveButton(btnUpcoming);
 };
 
 
@@ -71,3 +74,13 @@ function renderMovieCards(response) {
         API.editGenres(movie);
     })
 };
+
+
+
+function addsActiveButton(element) {
+    const currentActiveBtn = document.querySelector('.period-buttons__btn--active');
+    if (currentActiveBtn) {
+        currentActiveBtn.classList.remove('period-buttons__btn--active');
+    }
+    element.classList.add('period-buttons__btn--active');
+}

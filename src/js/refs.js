@@ -16,6 +16,8 @@ export default {
   headerBackgroundImageRef: document.querySelector('.header-background-img'),
   periodBtnBox: document.querySelector('.period-buttons'),
   paginationBox: document.querySelector('.tui-pagination'),
+  watchedBtn: document.querySelector('[data-value="watched"]'),
+  queueBtn: document.querySelector('[data-value="queue"]'),
 
 };
 

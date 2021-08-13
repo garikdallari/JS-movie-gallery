@@ -2,10 +2,11 @@
 import { func } from 'assert-plus';
 import refs from './refs'
 
-const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox} = refs;
+const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox,watchedBtn,queueBtn} = refs;
 
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
+headerBtns.addEventListener('click', onClickMenuBtns);
 
 function onClickLib() {
   addElementClass(searchFormRef, 'is-closed');
@@ -14,9 +15,9 @@ function onClickLib() {
   removeElementClass(homeRef, 'nav-menu__link--current-page');
   addElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, 'none');
+  addElementClass(watchedBtn, 'header-menu-btn__item--active');
+  removeElementClass(queueBtn, 'header-menu-btn__item--active');
   removePagination();
-
-  
 }
 
 function onClickHome() {
@@ -26,7 +27,11 @@ function onClickHome() {
   removeElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addElementClass(homeRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, '');
-  addsPagination()
+  addsPagination();
+}
+
+function onClickMenuBtns(evt) {
+  addActiveBtn(evt);
 }
 
 
@@ -49,7 +54,6 @@ function addStyleDisplay(element, value) {
   
 }
 
-
 function removePagination() {
   paginationBox.classList.add('tui-pagination--closed');
 
@@ -58,3 +62,18 @@ function removePagination() {
 function addsPagination() {
   paginationBox.classList.remove('tui-pagination--closed');
 }
+
+function addActiveBtn(evt) {
+  if (evt.target.nodeName !== "BUTTON") {
+    return
+  }
+  const currentBtn = evt.target;
+  const currentActiveBtn = document.querySelector('.header-menu-btn__item--active');
+    if (currentActiveBtn) {
+        currentActiveBtn.classList.remove('header-menu-btn__item--active');
+    }
+    currentBtn.classList.add('header-menu-btn__item--active');
+  
+}
+
+

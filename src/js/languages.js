@@ -76,16 +76,15 @@ const ua={
   openTrailer: 'трейлер',
 }
 
-const current=localStorage.getItem("currentLanguage");
-const m=JSON.parse(current);
 
-if (m===null){
-  setTextcontent(en)
-}
-else {
-  setTextcontent(m)
-  x.lang=m.language;
-}
+    const localLang = localStorage.getItem('currentLanguage');
+    const parselocalLang = JSON.parse(localLang);
+    if (parselocalLang === null) {
+      setTextcontent(en);
+    } else {
+      setTextcontent(parselocalLang);
+    }
+
 
 function changeLang(event) {
   switch (event.target) {
@@ -120,11 +119,5 @@ function setTextcontent (lang) {
     queueBtn.textContent=lang.queue;
     searchInputRef.placeholder = lang.placeholder;}
     
-    // if (modalRef.classList.contains('.is-open')){
-    //   console.log (modalRef.classList.contains('.is-open'));
-    //   addToWatched.textContent=lang.addToWatched;
-    // addToQueue.textContent=lang.addToQueue;
-    // openTrailer.textContent=lang.openTrailer;
-    // }
 
-
+    console.log (modalRef.classList.contains('.is-open'));

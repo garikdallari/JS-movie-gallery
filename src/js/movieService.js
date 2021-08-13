@@ -5,16 +5,15 @@ import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
-const localLang=localStorage.getItem("currentLanguage");
-const parseLocalLang=JSON.parse(localLang);
 
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
 export default class MovieApiService {
-  constructor() {
+  
+    constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.lang = 'en-EN';
+    this.lang = `${this.getCurrentClientLang()}`;
     this.SearchId = 1;
     this.time_window = 'day';
     this.media_type = '/movie/';
@@ -26,13 +25,10 @@ export default class MovieApiService {
   }
 
   async fetchDate(page) {
-
     const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}&language=${this.lang}`;
-     const response = await axios.get(url);
-     return response.data;
-    }; 
-
-
+    const response = await axios.get(url);
+    return response.data;
+  }
 
   async fetchTopRatedMovies() {
     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
@@ -177,5 +173,17 @@ export default class MovieApiService {
     console.log(this.screenPage);
     const grabbedData = this.getLocalStoredList(this.screenPage);
     this.markupTempl(grabbedData, galleryRef, galleryCard);
+  }
+
+  getCurrentClientLang() {
+    const localLang = localStorage.getItem('currentLanguage');
+    const parselocalLang = JSON.parse(localLang);
+
+    if (parselocalLang === null) {
+      this.lang = 'en-EN';
+    } else {
+      this.lang = parselocalLang.language;
+    }
+    return this.lang;
   }
 }

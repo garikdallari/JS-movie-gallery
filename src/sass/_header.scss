@@ -196,7 +196,7 @@
   background-color: transparent;
   border: none;
   border-bottom: 0.5px solid var(--border-bottom-input);
-  color:rgba(221, 221, 221, 0.753);
+  color: var(--primary-font-color);
   padding: 4px;
   transition: all 0.3s ease;
 
@@ -288,6 +288,25 @@
     left: 0;
   }
 }
+
 .nav-menu__logo-svg {
   margin-right: 10px;
+}
+
+.lang {
+  position: absolute;
+  right:0;
+  top:0;
+
+  font-size: 12px;
+}
+
+.lang-btn {
+  background-color: transparent;
+  color: var(--primary-font-color);
+  width: 30px;
+  height: 30px;
+  outline: none;
+  border: none ;
+  cursor: pointer;
 }

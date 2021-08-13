@@ -14,7 +14,7 @@ export default class MovieApiService {
   constructor() {
     this.searchQuery = '';
     this.page = 1;
-    this.lang = parseLocalLang.language;
+    this.lang = 'en-EN';
     this.SearchId = 1;
     this.time_window = 'day';
     this.media_type = '/movie/';

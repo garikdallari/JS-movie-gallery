@@ -5,14 +5,13 @@ const { searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay,
 
   
 const x= new MovieApiService();
-
+console.log (x.lang);
 
 const EnBtn = document.getElementById('en-btn');
 const UaBtn = document.getElementById('ua-btn');
 const RuBtn = document.getElementById('ru-btn');
 const watchedBtn= document.querySelector('[data-value="watched"]');
 const queueBtn= document.querySelector('[data-value="queue"]');
-console.log (queueBtn);
 const langBtns = document.querySelector('.lang');
 const footerText1 = document.querySelector('.footer-wrapper__text--rights');
 const footerText2 = document.querySelector('.footer-wrapper__text--by');
@@ -20,6 +19,7 @@ const footerText2 = document.querySelector('.footer-wrapper__text--by');
 langBtns.addEventListener('click', changeLang);
 
 const en={ 
+  language: 'en-EN',
   library: 'LIBRARY',
   home: 'HOME',
   placeholder: 'Search movies',
@@ -35,6 +35,7 @@ const en={
 }
 
 const ru={ 
+  language: 'ru-RU',
   library: 'БИБЛИОТЕКА',
   home: 'ГЛАВНАЯ',
   placeholder: 'Поиск фильмов',
@@ -50,6 +51,7 @@ const ru={
 }
 
 const ua={ 
+  language: 'uk-UA',
   library: 'БІБЛІОТЕКА',
   home: 'ГОЛОВНА',
   placeholder: 'Пошук фільмів',
@@ -64,13 +66,17 @@ const ua={
   queue: 'НА МАЙБУТНЄ',
 }
 
-const currentLang=localStorage.getItem("currentLanguage");
-const d=JSON.parse(currentLang);
-console.log (d);
-if (d===null){setTextcontent(en)}
-else {setTextcontent(d);
- 
+const current=localStorage.getItem("currentLanguage");
+const m=JSON.parse(current);
+
+if (m===null){
+  setTextcontent(en)
 }
+else {
+  setTextcontent(m)
+  x.lang=m.language;
+}
+
 
 
 function changeLang(event) {

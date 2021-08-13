@@ -38,7 +38,7 @@ function openModalOnClick(e) {
   fetchMovieById();
   content.addEventListener('click', openTrailer);
 
-  content.addEventListener('click', closeTrailer);
+ 
 }
 
 function openTrailer(e) {

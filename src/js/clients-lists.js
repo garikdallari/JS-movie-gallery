@@ -2,7 +2,7 @@ import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 
-const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef } = refs;
+const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef, currentActiveBtn} = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
@@ -31,6 +31,7 @@ function onHomeRefClick() {
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   movieApiService.clearGallery();
+  currentActiveBtn.classList.remove('period-buttons__btn--active');
 
   pageForExport = WATCHED_LIST;
 

@@ -18,6 +18,7 @@ export default {
   paginationBox: document.querySelector('.tui-pagination'),
   watchedBtn: document.querySelector('[data-value="watched"]'),
   queueBtn: document.querySelector('[data-value="queue"]'),
+  currentActiveBtn: document.querySelector('.period-buttons__btn--active'),
 
 };
 

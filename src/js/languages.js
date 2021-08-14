@@ -1,8 +1,24 @@
 import MovieApiService from './movieService';
 import refs from './refs';
-const { searchInputRef,  messageFailure,  myLibraryRef,  homeRef,  btnDay,
-  btnWeek,  btnTop,  btnUpcoming,  modalRef,   galleryRef } = refs;
-import { onClickBtnDay, addsActiveButton } from '../js/period-buttons';
+const {
+  searchInputRef,
+  messageFailure,
+  myLibraryRef,
+  homeRef,
+  btnDay,
+  btnWeek,
+  btnTop,
+  btnUpcoming,
+  modalRef,
+  galleryRef,
+  currentActiveBtn
+} = refs;
+import {
+  onClickBtnDay,
+  onClickBtnWeek,
+  onClickBtnUpcoming,
+  onClickBtnTop,
+} from '../js/period-buttons';
 const x = new MovieApiService();
 
 const EnBtn = document.getElementById('en-btn');
@@ -16,6 +32,7 @@ const footerText2 = document.querySelector('.footer-wrapper__text--by');
 const addToWatched = document.querySelector('.button_watched');
 const addToQueue = document.querySelector('.button_queue');
 const openTrailer = document.querySelector('.button_open');
+
 langBtns.addEventListener('click', changeLang);
 
 const en = {
@@ -99,31 +116,22 @@ function changeLang(event) {
   switch (event.target) {
     case UaBtn:
       localStorage.setItem('currentLanguage', JSON.stringify(ua));
-
-      // x.fetchGenres()
-      //   .then(res => {
-      //     localStorage.setItem('genresList', JSON.stringify(res));
-      //   })
-      //   .then(() => {
-      //     const currentActiveBtn = document.querySelector('.period-buttons__btn--active');
-      //     if (currentActiveBtn === btnDay) {
-      //       x.getCurrentClientLang();
-      //       onClickBtnDay();
-      //     }
-          setTextcontent(ua);
-        // });
+      changeCardsLang();
+      setTextcontent(ua);
       setCurrentLangBtn(UaBtn);
       break;
 
     case EnBtn:
-      setTextcontent(en);
       localStorage.setItem('currentLanguage', JSON.stringify(en));
+      changeCardsLang();
+      setTextcontent(en);
       setCurrentLangBtn(EnBtn);
       break;
 
     case RuBtn:
-      setTextcontent(ru);
       localStorage.setItem('currentLanguage', JSON.stringify(ru));
+      changeCardsLang();
+      setTextcontent(ru);
       setCurrentLangBtn(RuBtn);
       break;
   }
@@ -150,4 +158,42 @@ function setCurrentLangBtn(langBtn) {
   });
   langBtn.classList.add('lang-btn--current');
 }
+
+
+function changeCardsLang() {
+   switch (currentActiveBtn) {
+    case btnTop:
+      x.getCurrentClientLang();
+      x.fetchGenres().then(res => {
+        localStorage.setItem('genresList', JSON.stringify(res));
+        onClickBtnTop();
+      });
+      break;
+     
+    case btnDay:
+      x.getCurrentClientLang();
+      x.fetchGenres().then(res => {
+        localStorage.setItem('genresList', JSON.stringify(res));
+        onClickBtnDay();
+      });
+      break;
+    case btnWeek:
+      x.getCurrentClientLang();
+      x.fetchGenres().then(res => {
+        localStorage.setItem('genresList', JSON.stringify(res));
+        onClickBtnWeek();
+      });
+      break;
+
+    case btnUpcoming:
+      x.getCurrentClientLang();
+      x.fetchGenres().then(res => {
+        localStorage.setItem('genresList', JSON.stringify(res));
+        onClickBtnUpcoming();
+      });
+      break;
+    
+   }
+}
+
 // console.log (modalRef.classList.contains('.is-open'));

@@ -107,4 +107,4 @@ function addsActiveButton(element) {
   element.classList.add('period-buttons__btn--active');
 }
 
-export { addsActiveButton };
+export { addsActiveButton, onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop};

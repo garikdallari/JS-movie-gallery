@@ -6,6 +6,9 @@ import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
 
+const localLang = localStorage.getItem('currentLanguage');
+const parseLocalLang = JSON.parse(localLang);
+
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
 export default class MovieApiService {

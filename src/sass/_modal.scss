@@ -30,9 +30,11 @@
   background-color: var(--primary-font-color);
   border-radius: 5px;
   padding: 48px 20px 41px 20px;
-  width: 280px;
+  // width: 280px;
+  width: 90vw;
+  height: 90vh;
   // height: 958px;
-  overflow: auto;
+  overflow-y: auto;
   position: relative;
 
   @include for-tablet-up {
@@ -93,7 +95,7 @@
   pointer-events: initial;
 }
 .backdrop_overlay {
-  position: absolute;
+  position: fixed;
   min-width: 100vw;
   height: 100vh;
   background-color: var(--background-color-backdrop);

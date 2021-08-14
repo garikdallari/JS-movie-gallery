@@ -1,30 +1,30 @@
 import MovieApiService from './movieService';
 import refs from './refs';
-const { searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, 
-  btnWeek, btnTop,  btnUpcoming, modalRef} = refs;
-
-const x= new MovieApiService();
+const { searchInputRef,  messageFailure,  myLibraryRef,  homeRef,  btnDay,
+  btnWeek,  btnTop,  btnUpcoming,  modalRef,   galleryRef } = refs;
+import { onClickBtnDay, addsActiveButton } from '../js/period-buttons';
+const x = new MovieApiService();
 
 const EnBtn = document.getElementById('en-btn');
 const UaBtn = document.getElementById('ua-btn');
 const RuBtn = document.getElementById('ru-btn');
-const watchedBtn= document.querySelector('[data-value="watched"]');
-const queueBtn= document.querySelector('[data-value="queue"]');
+const watchedBtn = document.querySelector('[data-value="watched"]');
+const queueBtn = document.querySelector('[data-value="queue"]');
 const langBtns = document.querySelector('.lang');
 const footerText1 = document.querySelector('.footer-wrapper__text--rights');
 const footerText2 = document.querySelector('.footer-wrapper__text--by');
-const addToWatched =document.querySelector('.button_watched');
-const addToQueue =document.querySelector('.button_queue');
-const openTrailer =document.querySelector('.button_open');
+const addToWatched = document.querySelector('.button_watched');
+const addToQueue = document.querySelector('.button_queue');
+const openTrailer = document.querySelector('.button_open');
 langBtns.addEventListener('click', changeLang);
 
-const en={ 
+const en = {
   language: 'en-EN',
   library: 'LIBRARY',
   home: 'HOME',
   placeholder: 'Search movies',
   messageFailure: 'Search result not successful. Enter the correct movie name and try again',
-  day:'DAY',
+  day: 'DAY',
   week: 'WEEK',
   top: 'top rated',
   upcoming: 'upcoming',
@@ -35,16 +35,16 @@ const en={
   addToWatched: 'add To Watched',
   addToQueue: 'add To Queue',
   openTrailer: 'трейлер',
-}
+  btn: 'EnBtn',
+};
 
-
-const ru={ 
+const ru = {
   language: 'ru-RU',
   library: 'БИБЛИОТЕКА',
   home: 'ГЛАВНАЯ',
   placeholder: 'Поиск фильмов',
   messageFailure: 'Поиск не дал результатов. Введите корректное имя фильма и попробуйте ещё раз',
-  day:'ДЕНЬ',
+  day: 'ДЕНЬ',
   week: 'НЕДЕЛЯ',
   top: 'ПОПУЛЯРНЫЕ',
   upcoming: 'ПРЕМЬЕРА',
@@ -55,15 +55,16 @@ const ru={
   addToWatched: 'В ПРОСМОТРЕНЫЕ',
   addToQueue: 'посмотреть позже',
   openTrailer: 'трейлер',
-}
+  btn: 'RuBtn',
+};
 
-const ua={ 
+const ua = {
   language: 'uk-UA',
   library: 'БІБЛІОТЕКА',
   home: 'ГОЛОВНА',
   placeholder: 'Пошук фільмів',
-  messageFailure: "Поиск не дал результатов. Введіть коректне ім'я фільму і спробуйте ще раз",
-  day:'ДЕНЬ',
+  messageFailure: "Результат пошуку невдалий. Введіть коректне ім'я фільму і спробуйте ще раз",
+  day: 'ДЕНЬ',
   week: 'НЕДіЛЯ',
   top: 'ПОПУЛЯНІ',
   upcoming: "ПРЕМ'ЄРА",
@@ -74,57 +75,79 @@ const ua={
   addToWatched: 'В ПЕРЕГЛЯНУТІ',
   addToQueue: 'В чергу',
   openTrailer: 'трейлер',
-}
+  btn: 'UaBtn',
+};
 
-const current=localStorage.getItem("currentLanguage");
-const m=JSON.parse(current);
+const localLang = localStorage.getItem('currentLanguage');
+const parselocalLang = JSON.parse(localLang);
 
-if (m===null){
-  setTextcontent(en)
-}
-else {
-  setTextcontent(m)
-  x.lang=m.language;
+if (parselocalLang === null) {
+  setTextcontent(en);
+  setCurrentLangBtn(EnBtn);
+} else {
+  setTextcontent(parselocalLang);
+  if (parselocalLang.btn === 'UaBtn') {
+    setCurrentLangBtn(UaBtn);
+  } else if (parselocalLang.btn === 'RuBtn') {
+    setCurrentLangBtn(RuBtn);
+  } else {
+    setCurrentLangBtn(EnBtn);
+  }
 }
 
 function changeLang(event) {
   switch (event.target) {
     case UaBtn:
-      setTextcontent(ua);
-      localStorage.setItem("currentLanguage",JSON.stringify(ua));
+      localStorage.setItem('currentLanguage', JSON.stringify(ua));
+
+      // x.fetchGenres()
+      //   .then(res => {
+      //     localStorage.setItem('genresList', JSON.stringify(res));
+      //   })
+      //   .then(() => {
+      //     const currentActiveBtn = document.querySelector('.period-buttons__btn--active');
+      //     if (currentActiveBtn === btnDay) {
+      //       x.getCurrentClientLang();
+      //       onClickBtnDay();
+      //     }
+          setTextcontent(ua);
+        // });
+      setCurrentLangBtn(UaBtn);
       break;
 
     case EnBtn:
       setTextcontent(en);
-      localStorage.setItem("currentLanguage",JSON.stringify(en));
+      localStorage.setItem('currentLanguage', JSON.stringify(en));
+      setCurrentLangBtn(EnBtn);
       break;
-  
+
     case RuBtn:
-     setTextcontent(ru);
-     localStorage.setItem("currentLanguage",JSON.stringify(ru));
-     break;
+      setTextcontent(ru);
+      localStorage.setItem('currentLanguage', JSON.stringify(ru));
+      setCurrentLangBtn(RuBtn);
+      break;
   }
 }
 
-function setTextcontent (lang) {
-    myLibraryRef.textContent=lang.library;
-    homeRef.textContent=lang.home;
-    messageFailure.textContent=lang.messageFailure; 
-    btnDay.textContent=lang.day;
-    btnWeek.textContent=lang.week;
-    btnTop.textContent=lang.top;
-    btnUpcoming.textContent=lang.upcoming;
-    footerText1.textContent=lang.footerText1;
-    footerText2.textContent=lang.footerText2;
-    watchedBtn.textContent=lang.watched;
-    queueBtn.textContent=lang.queue;
-    searchInputRef.placeholder = lang.placeholder;}
-    
-    // if (modalRef.classList.contains('.is-open')){
-    //   console.log (modalRef.classList.contains('.is-open'));
-    //   addToWatched.textContent=lang.addToWatched;
-    // addToQueue.textContent=lang.addToQueue;
-    // openTrailer.textContent=lang.openTrailer;
-    // }
+function setTextcontent(lang) {
+  myLibraryRef.textContent = lang.library;
+  homeRef.textContent = lang.home;
+  messageFailure.textContent = lang.messageFailure;
+  btnDay.textContent = lang.day;
+  btnWeek.textContent = lang.week;
+  btnTop.textContent = lang.top;
+  btnUpcoming.textContent = lang.upcoming;
+  footerText1.textContent = lang.footerText1;
+  footerText2.textContent = lang.footerText2;
+  watchedBtn.textContent = lang.watched;
+  queueBtn.textContent = lang.queue;
+  searchInputRef.placeholder = lang.placeholder;
+}
 
-
+function setCurrentLangBtn(langBtn) {
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.remove('lang-btn--current');
+  });
+  langBtn.classList.add('lang-btn--current');
+}
+// console.log (modalRef.classList.contains('.is-open'));

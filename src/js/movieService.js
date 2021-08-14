@@ -5,8 +5,8 @@ import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
 const { galleryRef } = refs;
-const localLang=localStorage.getItem("currentLanguage");
-const parseLocalLang=JSON.parse(localLang);
+const localLang = localStorage.getItem('currentLanguage');
+const parseLocalLang = JSON.parse(localLang);
 
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
@@ -21,18 +21,17 @@ export default class MovieApiService {
     this.home = 'trending';
   }
 
-  async fetchTrendingMovies(period) {
-    return axios.get(`trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}`);
+  async fetchTrendingMovies(period, page = 1) {
+    return axios.get(
+      `trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}&page=${page}`,
+    );
   }
 
   async fetchDate(page) {
-
     const url = `${axios.defaults.baseURL}${this.home}${this.media_type}${this.time_window}?api_key=${API_KEY}&page=${page}&language=${this.lang}`;
-     const response = await axios.get(url);
-     return response.data;
-    }; 
-
-
+    const response = await axios.get(url);
+    return response.data;
+  }
 
   async fetchTopRatedMovies() {
     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
@@ -42,12 +41,13 @@ export default class MovieApiService {
     return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=1`);
   }
 
-  async searchMovieByWord(searchWord) {
+  async searchMovieByWord(page = 1) {
     const response = await axios.get(
-      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${this.page}`,
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}`,
     );
-    const movies = await response.data.results;
-    return movies;
+    return response;
+    // const movies = await response.data.results;
+    // return movies;
   }
 
   async getMovieInfo() {

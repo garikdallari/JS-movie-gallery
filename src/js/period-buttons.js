@@ -8,7 +8,14 @@ import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-import { paginContainer, paginOptions, onPeriodPagination } from './pagination';
+import {
+  paginContainer,
+  paginOptions,
+  onPeriodPagination,
+  onTopRatedPagination,
+  onUpcomingPagination,
+  getTotalItemsFromStorage,
+} from './pagination';
 
 const API = new MovieApiService();
 
@@ -57,6 +64,10 @@ function onClickBtnTop() {
   loader.on();
   getMovieByType(API.fetchTopRatedMovies()).finally(() => loader.off());
   addsActiveButton(btnTop);
+
+  const totalItems = getTotalItemsFromStorage();
+  const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+  onTopRatedPagination(pagination);
 }
 
 function onClickBtnUpcoming() {
@@ -64,6 +75,10 @@ function onClickBtnUpcoming() {
   loader.on();
   getMovieByType(API.fetchUpcomingMovies()).finally(() => loader.off());
   addsActiveButton(btnUpcoming);
+
+  const totalItems = getTotalItemsFromStorage();
+  const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+  onUpcomingPagination(pagination);
 }
 
 async function getMovieByPeriod(period) {
@@ -79,7 +94,10 @@ async function getMovieByPeriod(period) {
 
 async function getMovieByType(type) {
   try {
-    const response = await type.then(response => renderMovieCards(response));
+    const response = await type.then(response => {
+      localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
+      renderMovieCards(response);
+    });
     return response;
   } catch (error) {
     console.log(error);

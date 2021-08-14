@@ -52,6 +52,22 @@ function onPeriodPagination(pagination, period) {
   });
 }
 
+function onTopRatedPagination(pagination) {
+  pagination.on('afterMove', event => {
+    const currentPage = event.page;
+    movieApiService.clearGallery();
+    fetchTopRatedMovie(currentPage);
+  });
+}
+
+function onUpcomingPagination(pagination) {
+  pagination.on('afterMove', event => {
+    const currentPage = event.page;
+    movieApiService.clearGallery();
+    fetchUpcomingMovies(currentPage);
+  });
+}
+
 function fetchMovieByPage(page, query) {
   movieApiService.searchQuery = query;
   movieApiService
@@ -91,9 +107,52 @@ function fetchMovieByPeriod(period, page) {
       }
     });
 }
+
+function fetchTopRatedMovie(page) {
+  movieApiService
+    .fetchTopRatedMovies(page)
+    .then(res => res.data.results)
+    .then(movies => {
+      if (movies.length === 0) {
+        messageFailure.style.display = 'block';
+      } else {
+        movieApiService.markupTempl(movies, galleryRef, galleryCard);
+        movies.forEach(movie => {
+          movieApiService.editDate(movie);
+          movieApiService.editGenres(movie);
+        });
+      }
+    });
+}
+
+function fetchUpcomingMovies(page) {
+  movieApiService
+    .fetchUpcomingMovies(page)
+    .then(res => res.data.results)
+    .then(movies => {
+      if (movies.length === 0) {
+        messageFailure.style.display = 'block';
+      } else {
+        movieApiService.markupTempl(movies, galleryRef, galleryCard);
+        movies.forEach(movie => {
+          movieApiService.editDate(movie);
+          movieApiService.editGenres(movie);
+        });
+      }
+    });
+}
+
 function getTotalItemsFromStorage() {
   const result = localStorage.getItem('totalItems');
   return JSON.parse(result);
 }
 
-export { paginContainer, paginOptions, onPagination, onPeriodPagination, getTotalItemsFromStorage };
+export {
+  paginContainer,
+  paginOptions,
+  onPagination,
+  onPeriodPagination,
+  getTotalItemsFromStorage,
+  onTopRatedPagination,
+  onUpcomingPagination,
+};

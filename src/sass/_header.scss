@@ -249,7 +249,7 @@
 }
 
 .header-menu-btn__item {
-  width: 129.53px;
+  min-width: 129.53px;
   height: 44px;
   background-color: var(--background-color-btn);
 
@@ -316,4 +316,20 @@
   outline: none;
   border: none;
   cursor: pointer;
+  transition: all 0.3s ease;
+  &:focus, &:hover {
+    box-shadow: 0 0 10px 5px   rgba(221, 221, 221, 0.753);
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    font-size: 14px;
+  }
+}
+
+.lang-btn--current {
+color: var(--accent-background-btn-color);
+transition: all 0.3s ease;
+box-shadow: 0 0 10px 5px  var(--accent-background-btn-color);
+font-size: 12px;
+border-radius: 5px;
+font-weight: bolder ;
 }

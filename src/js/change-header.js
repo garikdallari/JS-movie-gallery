@@ -2,13 +2,14 @@
 import { func } from 'assert-plus';
 import refs from './refs'
 
-const { searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox,watchedBtn,queueBtn} = refs;
+const { messageFailure, searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox,watchedBtn,queueBtn} = refs;
 
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
 headerBtns.addEventListener('click', onClickMenuBtns);
 
 function onClickLib() {
+  messageFailure.style.display = 'none';
   addElementClass(searchFormRef, 'is-closed');
   replaceElementClass(headerBtns, 'is-closed', 'is-open');
   replaceElementClass(headerBackgroundImageRef, 'header-background-img', 'header-background-img-lib');

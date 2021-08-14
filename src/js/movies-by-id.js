@@ -15,62 +15,56 @@ import {
 
 const movieApiService = new MovieApiService();
 const { galleryRef } = refs;
-const modal = document.querySelector('.js-lightbox');
-const buttonClose = document.querySelector('.lightbox__button');
-const content = document.querySelector('.lightbox__content');
-const overley = document.querySelector('.lightbox__overlay');
+const links = {
+  modal: document.querySelector('.js-lightbox'),
+  buttonClose:document.querySelector('.lightbox__button'),
+  content :document.querySelector('.lightbox__content'),
+  overley : document.querySelector('.lightbox__overlay'),
+};
 
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
   // e.preventDefault();
-
-  if (!e.target.classList.contains('cards-list__img')) {
+if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
 
   document.body.style.overflow = 'hidden';
-  modal.classList.add('is-open');
+  links.modal.classList.add('is-open');
   movieApiService.id = +e.target.getAttribute('data-img-id');
   window.addEventListener('keydown', closeModalOnEsc);
-  buttonClose.addEventListener('click', closeModalOnClick);
-  overley.addEventListener('click', closeModalOnClick);
+  links.buttonClose.addEventListener('click', closeModalOnClick);
+  links.overley.addEventListener('click', closeModalOnClick);
   fetchMovieById();
-  content.addEventListener('click', openTrailer);
+  links.content.addEventListener('click', openTrailer);
+};
 
- 
-}
 
-function openTrailer(e) {
-  if (e.target.classList.contains('button_open')) {
-    document.querySelector('.plyr__video-embed').style.display = 'block';
-  }
-}
-function closeTrailer(e) {
-  if (e.target.classList.contains('trailer_button')) {
-    document.querySelector('.plyr__video-embed').style.display = 'none';
-  }
-}
 
 function closeModalOnClick() {
-  modal.classList.remove('is-open');
+  links.modal.classList.remove('is-open');
   document.body.style.overflow = 'visible';
-  const modalContent = content.lastElementChild;
+  const modalContent = links.content.lastElementChild;
   modalContent.remove();
-  window.removeEventListener('keydown', closeModalOnEsc);
-  buttonClose.removeEventListener('click', closeModalOnClick);
-  overley.removeEventListener('click', closeModalOnClick);
-  content.removeEventListener('click', closeTrailer);
-  content.removeEventListener('click', openTrailer);
+  removeListenerFromCloseModal();
 
   markupGrabbedList(pageForExport);
-}
+};
+
+function removeListenerFromCloseModal() {
+   window.removeEventListener('keydown', closeModalOnEsc);
+  links.buttonClose.removeEventListener('click', closeModalOnClick);
+  links.overley.removeEventListener('click', closeModalOnClick);
+  links.content.removeEventListener('click', closeTrailer);
+  links.content.removeEventListener('click', openTrailer);
+};
 
 function closeModalOnEsc(e) {
   if (e.code === 'Escape') {
     closeModalOnClick();
   }
-}
+};
 
 
 function openTrailer(e) {
@@ -78,44 +72,43 @@ function openTrailer(e) {
     return;
   }
    document.querySelector(".plyr__video-embed").style.display = 'block';
-   const backdrop = document.querySelector(".backdrop");
+   addListenerForOpentrailer();
+};
+
+function addListenerForOpentrailer() {
+  const backdrop = document.querySelector(".backdrop");
    backdrop.classList.add("backdrop-is-open");
    const btnCloseTrailer = document.querySelector(".trailer_button")
    btnCloseTrailer.addEventListener("click", closeTrailer);
    const overlayForTrailer = document.querySelector(".backdrop_overlay");
    overlayForTrailer.addEventListener("click", closeTrailer);
-           
-        
-        
-}
-
+};
 
 
 function closeTrailer(e) {
-  console.log(e.target)
   
   document.querySelector(".plyr__video-embed").style.display = 'none';
   const backdrop = document.querySelector(".backdrop");
   backdrop.classList.remove("backdrop-is-open");
+  removeListenerFromCloseTrailer();
+    stopPlayer();
+};
+  
+function removeListenerFromCloseTrailer() {
   const overlayForTrailer = document.querySelector(".backdrop_overlay");
   overlayForTrailer.removeEventListener("click", closeTrailer);
-    
-   const btnCloseTrailer = document.querySelector(".trailer_button")
-   btnCloseTrailer.removeEventListener("click", closeTrailer);
-    stopPlayer();
-  
- 
+  const btnCloseTrailer = document.querySelector(".trailer_button")
+  btnCloseTrailer.removeEventListener("click", closeTrailer);
+
 };
+
+
 function stopPlayer() {
-      const  iframe = document.querySelector('.ytplayer');
-        let src = iframe.getAttribute('src');
-
-        iframe.setAttribute('src', '');
-      
-        iframe.setAttribute('src', src);
-        }
-
-
+const iframe = document.querySelector('.ytplayer');
+let src = iframe.getAttribute('src');
+iframe.setAttribute('src', '');
+iframe.setAttribute('src', src);
+};
 
 
 async function fetchMovieById() {
@@ -130,13 +123,13 @@ async function fetchMovieById() {
 
     if(results.length === 0){
       key='W9nZ6u15yis';
-      movieApiService.markupTempl(({ data, genres, key }), content, movieCard);
-      Notify.init({ distance:"150px",fontSize:"15px", warning: {background:"#ff6f09",}, }); 
+      movieApiService.markupTempl(({ data, genres, key }), links.content, movieCard);
+      Notify.init({ distance:"300px",fontSize:"15px", warning: {background:"#ff6f09",}, }); 
       Notify.warning("Sorry!We  don't have a trailer for this movie.");
     }
     else{
        key = results[0].key; 
-      movieApiService.markupTempl(({data,genres,key}), content, movieCard);
+      movieApiService.markupTempl(({data,genres,key}), links.content, movieCard);
 
   }
 

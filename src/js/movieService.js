@@ -33,8 +33,8 @@ export default class MovieApiService {
     return response.data;
   }
 
-  async fetchTopRatedMovies() {
-    return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=1`);
+  async fetchTopRatedMovies(page = 1) {
+    return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=${page}`);
   }
 
   async fetchUpcomingMovies() {

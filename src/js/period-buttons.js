@@ -38,8 +38,6 @@ function onClickBtnDay() {
 
   // ===== INITIALISE PAGINATION
   const pagination = new Pagination(paginContainer, paginOptions);
-  API.searchQuery = searchInputRef.value.trim();
-
   // ===== GET NEXT PAGES
   onPeriodPagination(pagination, 'day');
 }
@@ -51,7 +49,6 @@ function onClickBtnWeek() {
   addsActiveButton(btnWeek);
 
   const pagination = new Pagination(paginContainer, paginOptions);
-  API.searchQuery = searchInputRef.value.trim();
   onPeriodPagination(pagination, 'week');
 }
 

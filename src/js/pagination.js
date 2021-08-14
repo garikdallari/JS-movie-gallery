@@ -5,14 +5,14 @@ import galleryCard from '../templates/gallery-card.hbs';
 // import 'tui-pagination/dist/tui-pagination.css';
 // import '../sass/pagination.scss';
 
-const { galleryRef } = refs;
+const { galleryRef, messageFailure } = refs;
 const movieApiService = new MovieApiService();
 
 const paginOptions = {
   totalItems: 20000,
   itemsPerPage: 20,
   visiblePages: 5,
-  page: 0,
+  page: 1,
   centerAlign: true,
   firstItemClassName: 'tui-first-child',
   lastItemClassName: 'tui-last-child',
@@ -61,8 +61,7 @@ function fetchMovieByPage(page, query) {
     })
     .then(movies => {
       if (movies.length === 0) {
-        console.log('no movies found');
-        // messageFailure.style.display = 'block';
+        messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         movies.forEach(movie => {
@@ -82,8 +81,7 @@ function fetchMovieByPeriod(period, page) {
     })
     .then(movies => {
       if (movies.length === 0) {
-        console.log('no movies found');
-        // messageFailure.style.display = 'block';
+        messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         movies.forEach(movie => {
@@ -93,5 +91,9 @@ function fetchMovieByPeriod(period, page) {
       }
     });
 }
+function getTotalItemsFromStorage() {
+  const result = localStorage.getItem('totalItems');
+  return JSON.parse(result);
+}
 
-export { paginContainer, paginOptions, onPagination, onPeriodPagination };
+export { paginContainer, paginOptions, onPagination, onPeriodPagination, getTotalItemsFromStorage };

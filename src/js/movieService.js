@@ -20,8 +20,10 @@ export default class MovieApiService {
     this.home = 'trending';
   }
 
-  async fetchTrendingMovies(period) {
-    return axios.get(`trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}`);
+  async fetchTrendingMovies(period, page = 1) {
+    return axios.get(
+      `trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}&page=${page}`,
+    );
   }
 
   async fetchDate(page) {
@@ -38,12 +40,13 @@ export default class MovieApiService {
     return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=1`);
   }
 
-  async searchMovieByWord(searchWord) {
+  async searchMovieByWord(page = 1) {
     const response = await axios.get(
-      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${this.page}`,
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}`,
     );
-    const movies = await response.data.results;
-    return movies;
+    return response;
+    // const movies = await response.data.results;
+    // return movies;
   }
 
   async getMovieInfo() {

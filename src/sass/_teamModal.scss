@@ -1,4 +1,4 @@
-// ******************************************MODAL-WINDOW**************************
+// *****************MODAL-WINDOW**************************
 
 @import 'https://fonts.googleapis.com/css?family=Prompt:400,700';
 
@@ -20,79 +20,73 @@ li {
   display: block;
   width: 747px;
   max-width: 100%;
-  
   height: 550px;
   max-height: 100%;
-  
   position: fixed;
-  
   z-index: 50;
-  
   left: 50%;
   top: 50%;
-
+  overflow: hidden;
+  position: fixed;
   transform: translate(-50%, -50%);
   
-  background: white;
+  background: var(--background-color-modal);
   box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+
+  &-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 50;
+    pointer-events: initial;
+    background-color: var(--background-color-backdrop);
+  }
+
+  &-guts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 20px 50px 20px 20px;
+  }
+
+  & .close-button {
+    position: absolute;
+    z-index: 1;
+    top: 10px;
+    right: 20px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  
+    border:none;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+  
+    transition: transform var(--time) var(--time-function), fill var(--time) var(--time-function);
+  
+    &:hover,&:focus{
+      transform: scale(1.2);
+      fill: var(--accent-close-icon);
+    }
+  }
 }
 .closed {
   display: none;
 }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 50;
-  
-  background: rgba(0, 0, 0, 0.712);
-}
-.modal-guts {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  padding: 20px 50px 20px 20px;
-}
-
-
-.modal .close-button {
-  position: absolute;
-  z-index: 1;
-  top: 10px;
-  right: 20px;
-  
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-
-  border: 0;
-  border-radius: 50%;
-  background: white;
-  color: grey;
-  padding: 5px 5px;
-  font-size: 1.3rem;
-
-  transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-
-  &:hover{
-    box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.1);
-    transition: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-  }
-}
-
-
-//****************************************************TEAM-UL-MARKUP*******************
+//*************************TEAM-UL-MARKUP*******************
 
 .team{
-  background-color: #222;
+  background-color: var(--cards-name-font-color);
   
 
   & h2.common__title{
@@ -107,30 +101,15 @@ li {
     }
   }
 
-  &__container{
-    max-width: 480px;
-    margin: 0 auto;
-    padding: 60px 15px;
-
-    @media screen and (min-width:768px) {
-      max-width: 768px;
-    }
-
-    @media screen and (min-width:1024px) {
-      max-width: 1024px;
-      padding: 94px 15px;
-    }
-  }
-
   &__list{
     margin: 0 auto;
 
-    @media screen and (min-width: 768px) and (max-width: 1023px){
+    @include for-tablet-up{
       display: flex;
       flex-wrap: wrap;
     }
 
-    @media screen and (min-width:1024px) {
+    @include for-desktop-up {
       display: flex;
       flex-wrap: wrap;
       margin-left: -30px;
@@ -140,7 +119,7 @@ li {
   &__item{
     
     
-    @media screen and (max-width:767px){
+    @include for-phone-up{
       margin-bottom: 50px;
 
       &:last-child{
@@ -148,7 +127,7 @@ li {
       }
     }
 
-    @media screen and (min-width: 768px) and (max-width: 1023px){
+    @include for-tablet-up{
       &:nth-child(-n+7) {
         margin-left: 50px;
         margin-bottom: 30px;
@@ -159,50 +138,16 @@ li {
       }
     }
 
-    @media screen and (min-width:1024px){
+    @include for-desktop-up{
       margin-left: 50px; 
       
     }
   }
-
-  &__content{
-    padding: 30px 32px ;
-    text-align: center;
-  }
-
-  &__name{
-    margin-bottom: 10px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.03em;
-  }
-
-  &__profesion{
-    margin-bottom: 16px;
-    color: var(--third-color);
-    font-weight: normal;
-  }
-
-  &__img{
-    width: 100%;
-    border-radius: 0px;
-  }
-
-  &__wrapper{
-    @media screen and (min-width: 768px) and (max-width: 1023px){
-      width: 354px;
-    }
-  }
 }
 
-//**************************************************TEAM-CARD-MARKUP***********
-
-
+//******************************TEAM-CARD-MARKUP***********
 
 .profile-card {
-  background: #FFB300;
   width: 56px;
   height: 56px;
   left: 50%;
@@ -215,100 +160,95 @@ li {
   border-radius: 50%;
 
   -webkit-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
--moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
+  -moz-box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
+  box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
 
   -webkit-animation: init 0.5s 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 1s 0.8s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.0s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia 0.5s 1.0s cubic-bezier(0.86, 0, 0.07, 1) forwards;
   animation: init 0.5s 0.1s cubic-bezier(0.55, 0.055, 0.675, 0.19) forwards, moveDown 0.4s 0.3s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards, moveUp 1s 1.0s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, materia 0.3s 0.3s cubic-bezier(0.86, 0, 0.07, 1) forwards;
-}
 
-.profile-card header {
-  width: 179px;
-  height: 280px;
-  padding: 40px 20px 30px 20px;
-  display: inline-block;
-  float: left;
-  border-right: 2px dashed #EEEEEE;
-  background: #FFFFFF;
-  color: #000000;
-  margin-top: 50px;
-  opacity: 0;
-  text-align: center;
-  -webkit-animation: moveIn 1s 2.1s ease forwards;
-  animation: moveIn 1s 2.1s ease forwards;
-}
 
-.profile-card header h1 {
-  color: #FF5722;
-}
-
-.profile-card header a {
-  display: inline-block;
-  text-align: center;
-  position: relative;
-  margin: 25px 30px;
-}
-
-.profile-card{ 
-  
-
-  & header a:after{
-    position: absolute;
-    content: "";
-    bottom: 3px;
-    right: 3px;
-    width: 20px;
-    height: 20px;
-    border: 4px solid #FFFFFF;
-    -webkit-transform: scale(0);
-    transform: scale(0);
-    background: -webkit-linear-gradient(top, #2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
-    background: linear-gradient(#2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
-    -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
-    -webkit-animation: scaleIn 0.3s 3.5s ease forwards;
-    animation: scaleIn 0.3s 3.5s ease forwards;
-
- 
+  & .profile-bio {
+    width: 175px;
+    height: 180px;
+    display: inline-block;
+    padding: 50px 20px 30px 20px;
+    background: var(--background-color-modal);
+    color: var(--secondary-font-color);
+    text-align: center;
+    opacity: 0;
+    -webkit-animation: moveIn 1s 3.1s ease forwards;
+    animation: moveIn 1s 3.1s ease forwards;
   }
-  & header a.first:after{
+
+  & header {
+
+    width: 179px;
+    height: 280px;
+    padding: 40px 20px 30px 20px;
+    display: inline-block;
+    // float: left;
+    border-right: 2px dashed #EEEEEE;
+    background: #FFFFFF;
+    color: #000000;
+    margin-top: 50px;
+    opacity: 0;
+    text-align: center;
+    -webkit-animation: moveIn 1s 2.1s ease forwards;
+    animation: moveIn 1s 2.1s ease forwards;
+
+    & a {
+      display: inline-block;
+      text-align: center;
+      position: relative;
+      margin: 25px 30px;
+
+      &:hover > img {
+        -webkit-box-shadow: 0px 0px 0px 12px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 0px 0px 12px rgba(0, 0, 0, 0.1);
+      }
+
+      &:after{
+        position: absolute;
+        content: "";
+        bottom: 3px;
+        right: 3px;
+        width: 20px;
+        height: 20px;
+        border: 4px solid #FFFFFF;
+        -webkit-transform: scale(0);
+        transform: scale(0);
+        background: -webkit-linear-gradient(top, #2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
+        background: linear-gradient(#2196F3 0%, #2196F3 50%, #FFC107 50%, #FFC107 100%);
+        -webkit-border-radius: 50%;
+        border-radius: 50%;
+        -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+        -webkit-animation: scaleIn 0.3s 3.5s ease forwards;
+        animation: scaleIn 0.3s 3.5s ease forwards;
+      }
+
+      &.first:after{
    
-    background: -webkit-linear-gradient(top, #d00f01 0%, #d00f01 30%, #ffffff 30%, #ffffff 60%,#d00f01 60%, #d00f01 100%);
-    background: linear-gradient(#d00f01 0%, #d00f01 30%, #ffffff 30%, #ffffff 60%,#d00f01 60%, #d00f01 100%);
+        background: -webkit-linear-gradient(top, #d00f01 0%, #d00f01 30%, #ffffff 30%, #ffffff 60%,#d00f01 60%, #d00f01 100%);
+        background: linear-gradient(#d00f01 0%, #d00f01 30%, #ffffff 30%, #ffffff 60%,#d00f01 60%, #d00f01 100%);
+      }
+    }
+
+    & a > img {
+      width: 120px;
+      max-width: 100%;
+      -webkit-border-radius: 50%;
+      border-radius: 50%;
+      -webkit-transition: -webkit-box-shadow 0.3s ease;
+      transition: box-shadow 0.3s ease;
+      -webkit-box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.06);
+      box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    & h1 {
+      color: #FF5722;
+    }
   }
- 
-}
-
-.profile-card header a > img {
-  width: 120px;
-  max-width: 100%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-  -webkit-transition: -webkit-box-shadow 0.3s ease;
-  transition: box-shadow 0.3s ease;
-  -webkit-box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.06);
-  box-shadow: 0px 0px 0px 8px rgba(0, 0, 0, 0.06);
-}
-
-.profile-card header a:hover > img {
-  -webkit-box-shadow: 0px 0px 0px 12px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 0px 0px 12px rgba(0, 0, 0, 0.1);
-}
-
-.profile-card .profile-bio {
-  width: 175px;
-  height: 180px;
-  display: inline-block;
-  // float: right;
-  padding: 50px 20px 30px 20px;
-  background: #FFFFFF;
-  color: #333333;
-  text-align: center;
-  opacity: 0;
-  -webkit-animation: moveIn 1s 3.1s ease forwards;
-  animation: moveIn 1s 3.1s ease forwards;
 }
 
 @-webkit-keyframes init {
@@ -362,7 +302,7 @@ box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
   }
 }
   
-@media screen and (min-height: 480px) {
+@include for-phone-up {
   .profile-card header {
     width: auto;
     height: auto;
@@ -394,12 +334,20 @@ box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
     }
   }
 }
+
 //*********************social link************
+
 .social{
+
+  
   &__list{
     display: flex;
     align-items: center;
     justify-content: center;
+    opacity: 0;
+    -webkit-animation: moveIn 1s 4.1s ease forwards;
+  animation: moveIn 1s 4.1s ease forwards;
+
 
     & li{
       &:nth-child(n + 2){
@@ -425,16 +373,7 @@ box-shadow: 1px 1px 5px 1px rgba(0,0,0,0.52);
         &:focus,&:hover{
       fill: #FF5722;
       color: #FF5722;
-
-      // -webkit-box-shadow: 0px 0px 7px 1px rgba(90, 48, 9, 0.48);
-      // -moz-box-shadow: 0px 0px 7px 1px rgba(90, 48, 9, 0.48);
-      // box-shadow: 0px 0px 7px 1px rgba(90, 48, 9, 0.48);
-
       transition: 400ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-  }
-
-  &__icon {
-    fill: currentColor;
   }
 }

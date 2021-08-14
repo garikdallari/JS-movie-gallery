@@ -30,24 +30,16 @@
   background-color: var(--primary-font-color);
   border-radius: 5px;
   padding: 48px 20px 41px 20px;
-  // @media screen and(max-width: 767px) {
   width: 280px;
   // height: 958px;
-  // height: 90vh;
-  // width: 90vw;
   overflow: auto;
   position: relative;
-  // }
 
   @include for-tablet-up {
     position: absolute;
-    // height: 90vh;
-    // width: 90vw;
     width: 618px;
     max-height: 605px;
     padding: 42px 29px 40px 28px;
-    // transform: scale(1);
-    // transition: transform var(--time) var(--time-function);
   }
 
   @include for-desktop-up {
@@ -56,10 +48,6 @@
     padding: 50px 30px 40.2px 30px;
   }
 }
-
-// .lightbox.is-open .lightbox__content {
-//   transform: scale(1);
-// }
 
 .lightbox__button {
   position: absolute;
@@ -91,7 +79,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -101,10 +89,8 @@
   transition: opacity var(--time) var(--time-function);
 }
 .backdrop.backdrop-is-open {
-  // z-index: 1;
   opacity: 1;
   pointer-events: initial;
-  // background-color: rgba(0, 0, 0, 0.8);
 }
 .backdrop_overlay {
   position: absolute;

@@ -97,7 +97,7 @@ function renderMovieCards(response) {
   const result = movieCard(queryValue);
   galleryRef.innerHTML = result;
   queryValue.forEach(movie => {
-    
+    API.editDate(movie);
     API.editGenres(movie);
   });
 }

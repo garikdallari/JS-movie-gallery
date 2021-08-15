@@ -12,7 +12,7 @@ import {
   pageForExport,
   toggleBtnText,
 } from './clients-lists';
-
+import { setCurrentModalLang} from './languages';
 const movieApiService = new MovieApiService();
 const { galleryRef } = refs;
 const links = {
@@ -29,7 +29,7 @@ function openModalOnClick(e) {
 if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
-
+  
   document.body.style.overflow = 'hidden';
   links.modal.classList.add('is-open');
   movieApiService.id = +e.target.getAttribute('data-img-id');
@@ -38,6 +38,7 @@ if (!e.target.classList.contains('cards-list__img')) {
   links.overley.addEventListener('click', closeModalOnClick);
   fetchMovieById();
   links.content.addEventListener('click', openTrailer);
+ 
 };
 
 
@@ -122,17 +123,18 @@ async function fetchMovieById() {
 
   const { results } = await movieApiService.fetchTrailer();
   let key;
-
+ 
     if(results.length === 0){
       key='W9nZ6u15yis';
       movieApiService.markupTempl(({ data, genres, key }), links.content, movieCard);
       Notify.init({ distance:"300px",fontSize:"15px", warning: {background:"#ff6f09",}, }); 
       Notify.warning("Sorry!We  don't have a trailer for this movie.");
+      setCurrentModalLang();
     }
     else{
        key = results[0].key; 
       movieApiService.markupTempl(({data,genres,key}), links.content, movieCard);
-
+      setCurrentModalLang();
   }
 
   // check for this movie if it exists in storage

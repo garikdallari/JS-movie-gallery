@@ -32,7 +32,6 @@ function onHomeRefClick() {
 function onLibraryClick(e) {
   movieApiService.clearGallery();
   document.querySelector('.period-buttons__btn--active').classList.remove('period-buttons__btn--active');
-console.log (document.querySelector('.period-buttons__btn--active'));
   pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it

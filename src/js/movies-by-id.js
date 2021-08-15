@@ -20,7 +20,8 @@ galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
   // e.preventDefault();
-  if (!e.target.classList.contains('cards-list__img')) {
+
+if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
 
@@ -58,8 +59,8 @@ function closeModalOnEsc(e) {
 }
 
 function openTrailer(e) {
-  console.log(e.target);
-  if (!e.target.classList.contains('button_open')) {
+  // console.log(e.target)
+  if (!e.target.classList.contains("button_open")) {
     return;
   }
   document.querySelector('.plyr__video-embed').style.display = 'block';
@@ -148,6 +149,7 @@ async function fetchMovieById() {
 
   // check for this movie if it exists in storage
   const isQueue = addProp(data, QUEUE_LIST);
+
   const isWatched = addProp(data, WATCHED_LIST);
 
   // movieApiService.markupTempl({ data, genres, isWatched, isQueue }, content, movieCard);

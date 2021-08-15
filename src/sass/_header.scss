@@ -303,9 +303,10 @@
 .lang {
   position: absolute;
   right: 0;
-  top: 0;
+  right: 10px;
+  top: 10px;
 
-  font-size: 12px;
+  font-size: 10px;
 }
 
 .lang-btn {
@@ -328,7 +329,7 @@
 .lang-btn--current {
 color: var(--accent-background-btn-color);
 transition: all 0.3s ease;
-box-shadow: 0 0 10px 5px  var(--accent-background-btn-color);
+box-shadow: 0 0 10px 5px #ff6b088e;
 font-size: 12px;
 border-radius: 5px;
 font-weight: bolder ;

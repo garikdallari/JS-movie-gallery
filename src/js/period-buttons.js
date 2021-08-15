@@ -87,6 +87,7 @@ function onClickBtnUpcoming() {
 
 async function getMovieByPeriod(period) {
   try {
+    API.getCurrentClientLang();
     const response = await API.fetchTrendingMovies(period).then(response =>
       renderMovieCards(response),
     );
@@ -98,10 +99,13 @@ async function getMovieByPeriod(period) {
 
 async function getMovieByType(type) {
   try {
+
+    API.getCurrentClientLang();
     const response = await type.then(response => {
-      localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
-      renderMovieCards(response);
+    localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
+    renderMovieCards(response);
     });
+
     return response;
   } catch (error) {
     console.log(error);
@@ -109,6 +113,7 @@ async function getMovieByType(type) {
 }
 
 function renderMovieCards(response) {
+  API.getCurrentClientLang();
   const queryValue = response.data.results;
   const result = movieCard(queryValue);
   galleryRef.innerHTML = result;
@@ -126,4 +131,4 @@ function addsActiveButton(element) {
   element.classList.add('period-buttons__btn--active');
 }
 
-export { addsActiveButton };
+export { addsActiveButton, onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop};

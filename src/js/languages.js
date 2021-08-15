@@ -1,8 +1,23 @@
 import MovieApiService from './movieService';
 import refs from './refs';
-const { searchInputRef,  messageFailure,  myLibraryRef,  homeRef,  btnDay,
-  btnWeek,  btnTop,  btnUpcoming,  modalRef,   galleryRef } = refs;
-import { onClickBtnDay, addsActiveButton } from '../js/period-buttons';
+const {
+  searchInputRef,
+  messageFailure,
+  myLibraryRef,
+  homeRef,
+  btnDay,
+  btnWeek,
+  btnTop,
+  btnUpcoming,
+  modalRef,
+  galleryRef,
+} = refs;
+import {
+  onClickBtnDay,
+  onClickBtnWeek,
+  onClickBtnUpcoming,
+  onClickBtnTop,
+} from '../js/period-buttons';
 const x = new MovieApiService();
 
 const EnBtn = document.getElementById('en-btn');
@@ -13,9 +28,7 @@ const queueBtn = document.querySelector('[data-value="queue"]');
 const langBtns = document.querySelector('.lang');
 const footerText1 = document.querySelector('.footer-wrapper__text--rights');
 const footerText2 = document.querySelector('.footer-wrapper__text--by');
-const addToWatched = document.querySelector('.button_watched');
-const addToQueue = document.querySelector('.button_queue');
-const openTrailer = document.querySelector('.button_open');
+
 langBtns.addEventListener('click', changeLang);
 
 const en = {
@@ -34,7 +47,7 @@ const en = {
   queue: 'queue',
   addToWatched: 'add To Watched',
   addToQueue: 'add To Queue',
-  openTrailer: 'трейлер',
+  openTrailer: 'open Trailer',
   btn: 'EnBtn',
 };
 
@@ -43,7 +56,8 @@ const ru = {
   library: 'БИБЛИОТЕКА',
   home: 'ГЛАВНАЯ',
   placeholder: 'Поиск фильмов',
-  messageFailure: 'Поиск не дал результатов. Введите корректное имя фильма и попробуйте ещё раз',
+  messageFailure:
+    'Поиск не дал результатов. Введите корректное название фильма и попробуйте ещё раз',
   day: 'ДЕНЬ',
   week: 'НЕДЕЛЯ',
   top: 'ПОПУЛЯРНЫЕ',
@@ -63,7 +77,7 @@ const ua = {
   library: 'БІБЛІОТЕКА',
   home: 'ГОЛОВНА',
   placeholder: 'Пошук фільмів',
-  messageFailure: "Результат пошуку невдалий. Введіть коректне ім'я фільму і спробуйте ще раз",
+  messageFailure: 'Результат пошуку невдалий. Введіть коректну назву фільму і спробуйте ще раз',
   day: 'ДЕНЬ',
   week: 'НЕДіЛЯ',
   top: 'ПОПУЛЯНІ',
@@ -80,18 +94,22 @@ const ua = {
 
 const localLang = localStorage.getItem('currentLanguage');
 const parselocalLang = JSON.parse(localLang);
-
 if (parselocalLang === null) {
   setTextcontent(en);
   setCurrentLangBtn(EnBtn);
 } else {
   setTextcontent(parselocalLang);
-  if (parselocalLang.btn === 'UaBtn') {
-    setCurrentLangBtn(UaBtn);
-  } else if (parselocalLang.btn === 'RuBtn') {
-    setCurrentLangBtn(RuBtn);
-  } else {
-    setCurrentLangBtn(EnBtn);
+
+  switch (parselocalLang.btn) {
+    case 'UaBtn':
+      setCurrentLangBtn(UaBtn);
+      break;
+    case 'RuBtn':
+      setCurrentLangBtn(RuBtn);
+      break;
+    case 'EnBtn':
+      setCurrentLangBtn(EnBtn);
+      break;
   }
 }
 
@@ -99,31 +117,22 @@ function changeLang(event) {
   switch (event.target) {
     case UaBtn:
       localStorage.setItem('currentLanguage', JSON.stringify(ua));
-
-      // x.fetchGenres()
-      //   .then(res => {
-      //     localStorage.setItem('genresList', JSON.stringify(res));
-      //   })
-      //   .then(() => {
-      //     const currentActiveBtn = document.querySelector('.period-buttons__btn--active');
-      //     if (currentActiveBtn === btnDay) {
-      //       x.getCurrentClientLang();
-      //       onClickBtnDay();
-      //     }
-          setTextcontent(ua);
-        // });
+      changeCardsLang();
+      setTextcontent(ua);
       setCurrentLangBtn(UaBtn);
       break;
 
     case EnBtn:
-      setTextcontent(en);
       localStorage.setItem('currentLanguage', JSON.stringify(en));
+      changeCardsLang();
+      setTextcontent(en);
       setCurrentLangBtn(EnBtn);
       break;
 
     case RuBtn:
-      setTextcontent(ru);
       localStorage.setItem('currentLanguage', JSON.stringify(ru));
+      changeCardsLang();
+      setTextcontent(ru);
       setCurrentLangBtn(RuBtn);
       break;
   }
@@ -150,4 +159,54 @@ function setCurrentLangBtn(langBtn) {
   });
   langBtn.classList.add('lang-btn--current');
 }
-// console.log (modalRef.classList.contains('.is-open'));
+
+function changeCardsLang() {
+  x.getCurrentClientLang();
+  x.fetchGenres().then(res => {
+    localStorage.setItem('genresList', JSON.stringify(res));
+  });
+  const currentPeriodActiveBtn = document.querySelector('.period-buttons__btn--active');
+  switch (currentPeriodActiveBtn) {
+    case btnTop:
+      onClickBtnTop();
+      break;
+
+    case btnDay:
+      onClickBtnDay();
+      break;
+
+    case btnWeek:
+      onClickBtnWeek();
+      break;
+
+    case btnUpcoming:
+      onClickBtnUpcoming();
+      break;
+  }
+}
+
+function setModalTextContent(lang) {
+  const addToWatched = document.querySelector('.button_watched');
+  const addToQueue = document.querySelector('.button_queue');
+  const openTrailer = document.querySelector('.button_open');
+  console.log(addToQueue);
+  console.log(addToWatched);
+  console.log(openTrailer);
+  addToWatched.textContent = lang.addToWatched;
+  addToQueue.textContent = lang.addToQueue;
+  openTrailer.textContent = lang.openTrailer;
+}
+
+function setCurrentModalLang() {
+  const localLang = localStorage.getItem('currentLanguage');
+  const parselocalLang = JSON.parse(localLang);
+  console.log(parselocalLang);
+
+  if (parselocalLang === null) {
+    setModalTextContent(en);
+  } else {
+    setModalTextContent(parselocalLang);
+  }
+}
+
+export { setCurrentModalLang };

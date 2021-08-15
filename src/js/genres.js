@@ -3,6 +3,7 @@ import MovieApiService from './movieService';
 const movieApiService = new MovieApiService();
 
 // ======STORE GENRES
+movieApiService.getCurrentClientLang();
 movieApiService.fetchGenres().then(res => {
   localStorage.setItem('genresList', JSON.stringify(res));
 });

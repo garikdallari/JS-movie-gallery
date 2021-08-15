@@ -20,6 +20,5 @@ export default {
   queueBtn: document.querySelector('[data-value="queue"]'),
   buttonClose:document.querySelector('.lightbox__button'),
   content:document.querySelector('.lightbox__content'),
-
 };
 

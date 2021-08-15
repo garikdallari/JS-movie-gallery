@@ -5,14 +5,14 @@ import galleryCard from '../templates/gallery-card.hbs';
 // import 'tui-pagination/dist/tui-pagination.css';
 // import '../sass/pagination.scss';
 
-const { galleryRef } = refs;
+const { galleryRef, messageFailure } = refs;
 const movieApiService = new MovieApiService();
 
 const paginOptions = {
   totalItems: 20000,
   itemsPerPage: 20,
   visiblePages: 5,
-  page: 0,
+  page: 1,
   centerAlign: true,
   firstItemClassName: 'tui-first-child',
   lastItemClassName: 'tui-last-child',
@@ -52,6 +52,22 @@ function onPeriodPagination(pagination, period) {
   });
 }
 
+function onTopRatedPagination(pagination) {
+  pagination.on('afterMove', event => {
+    const currentPage = event.page;
+    movieApiService.clearGallery();
+    fetchTopRatedMovie(currentPage);
+  });
+}
+
+function onUpcomingPagination(pagination) {
+  pagination.on('afterMove', event => {
+    const currentPage = event.page;
+    movieApiService.clearGallery();
+    fetchUpcomingMovies(currentPage);
+  });
+}
+
 function fetchMovieByPage(page, query) {
   movieApiService.searchQuery = query;
   movieApiService
@@ -61,8 +77,7 @@ function fetchMovieByPage(page, query) {
     })
     .then(movies => {
       if (movies.length === 0) {
-        console.log('no movies found');
-        // messageFailure.style.display = 'block';
+        messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         movies.forEach(movie => {
@@ -82,8 +97,7 @@ function fetchMovieByPeriod(period, page) {
     })
     .then(movies => {
       if (movies.length === 0) {
-        console.log('no movies found');
-        // messageFailure.style.display = 'block';
+        messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         movies.forEach(movie => {
@@ -94,4 +108,51 @@ function fetchMovieByPeriod(period, page) {
     });
 }
 
-export { paginContainer, paginOptions, onPagination, onPeriodPagination };
+function fetchTopRatedMovie(page) {
+  movieApiService
+    .fetchTopRatedMovies(page)
+    .then(res => res.data.results)
+    .then(movies => {
+      if (movies.length === 0) {
+        messageFailure.style.display = 'block';
+      } else {
+        movieApiService.markupTempl(movies, galleryRef, galleryCard);
+        movies.forEach(movie => {
+          movieApiService.editDate(movie);
+          movieApiService.editGenres(movie);
+        });
+      }
+    });
+}
+
+function fetchUpcomingMovies(page) {
+  movieApiService
+    .fetchUpcomingMovies(page)
+    .then(res => res.data.results)
+    .then(movies => {
+      if (movies.length === 0) {
+        messageFailure.style.display = 'block';
+      } else {
+        movieApiService.markupTempl(movies, galleryRef, galleryCard);
+        movies.forEach(movie => {
+          movieApiService.editDate(movie);
+          movieApiService.editGenres(movie);
+        });
+      }
+    });
+}
+
+function getTotalItemsFromStorage() {
+  const result = localStorage.getItem('totalItems');
+  return JSON.parse(result);
+}
+
+export {
+  paginContainer,
+  paginOptions,
+  onPagination,
+  onPeriodPagination,
+  getTotalItemsFromStorage,
+  onTopRatedPagination,
+  onUpcomingPagination,
+};

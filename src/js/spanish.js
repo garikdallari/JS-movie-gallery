@@ -1,0 +1,20 @@
+const es = {
+language: 'es-ES',
+  library: 'Mi lista',
+  home: 'inicio',
+  placeholder: 'buscar películas',
+  messageFailure:
+    'La búsqueda no ha dado ningún resultado. Ingrese el nombre correcto de la película y vuelva a intentarlo',
+  day: 'día',
+  week: 'semana',
+  top: 'popular',
+  upcoming: 'novedades',
+  footerText1: ' © 2021 | todos los derechos reservados | Creado con',
+  footerText2: '',
+  watched: 'visto',
+  queue: 'cola',
+  addToWatched: 'añadir a vistos',
+  addToQueue: 'añadir a cola',
+  openTrailer: 'tráiler',
+  btn: 'EsBtn',
+}

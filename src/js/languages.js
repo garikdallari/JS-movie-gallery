@@ -11,7 +11,7 @@ const {
   btnUpcoming,
   modalRef,
   galleryRef,
-  currentActiveBtn
+  
 } = refs;
 import {
   onClickBtnDay,
@@ -113,6 +113,7 @@ if (parselocalLang === null) {
 }
 
 function changeLang(event) {
+  
   switch (event.target) {
     case UaBtn:
       localStorage.setItem('currentLanguage', JSON.stringify(ua));
@@ -161,39 +162,27 @@ function setCurrentLangBtn(langBtn) {
 
 
 function changeCardsLang() {
-   switch (currentActiveBtn) {
+  x.getCurrentClientLang();
+  x.fetchGenres().then(res => {
+  localStorage.setItem('genresList', JSON.stringify(res));})
+  const currentPeriodActiveBtn=document.querySelector('.period-buttons__btn--active')
+  switch (currentPeriodActiveBtn) {
     case btnTop:
-      x.getCurrentClientLang();
-      x.fetchGenres().then(res => {
-        localStorage.setItem('genresList', JSON.stringify(res));
-        onClickBtnTop();
-      });
+      onClickBtnTop();
       break;
-     
+
     case btnDay:
-      x.getCurrentClientLang();
-      x.fetchGenres().then(res => {
-        localStorage.setItem('genresList', JSON.stringify(res));
-        onClickBtnDay();
-      });
+      onClickBtnDay();
       break;
+
     case btnWeek:
-      x.getCurrentClientLang();
-      x.fetchGenres().then(res => {
-        localStorage.setItem('genresList', JSON.stringify(res));
-        onClickBtnWeek();
-      });
+      onClickBtnWeek();
       break;
 
     case btnUpcoming:
-      x.getCurrentClientLang();
-      x.fetchGenres().then(res => {
-        localStorage.setItem('genresList', JSON.stringify(res));
-        onClickBtnUpcoming();
-      });
+      onClickBtnUpcoming();
       break;
-    
-   }
+  }
 }
 
 // console.log (modalRef.classList.contains('.is-open'));

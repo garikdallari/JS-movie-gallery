@@ -112,6 +112,8 @@ iframe.setAttribute('src', src);
 
 
 async function fetchMovieById() {
+  movieApiService.getCurrentClientLang();
+
   const { data } = await movieApiService.getMovieInfo();
   const genres = data.genres
     .slice(0, 3)

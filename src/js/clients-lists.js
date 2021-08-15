@@ -2,7 +2,7 @@ import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
 
-const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef, currentActiveBtn} = refs;
+const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
@@ -31,8 +31,8 @@ function onHomeRefClick() {
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   movieApiService.clearGallery();
-  currentActiveBtn.classList.remove('period-buttons__btn--active');
-
+  document.querySelector('.period-buttons__btn--active').classList.remove('period-buttons__btn--active');
+console.log (document.querySelector('.period-buttons__btn--active'));
   pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it
@@ -43,6 +43,7 @@ function onLibraryClick(e) {
 // ===== LIBRARY BUTTONS CLICK
 function onLibraryBtnsClick(e) {
   movieApiService.clearGallery();
+  movieApiService.getCurrentClientLang();
   const btn = e.target;
 
   renderPageByLibBtnClick(btn, WATCHED_LIST);
@@ -50,6 +51,7 @@ function onLibraryBtnsClick(e) {
 }
 
 function renderPageByLibBtnClick(btnRef, listKey) {
+  movieApiService.getCurrentClientLang();
   if (btnRef.dataset.value !== listKey) return;
   pageForExport = listKey;
   movieApiService.updateLocalList(listKey);
@@ -82,12 +84,14 @@ function switchBtnTextByCkicking(btnRef, movieId, listKey) {
 }
 
 function updateCurrentPage(listKey) {
+  movieApiService.getCurrentClientLang();
   const grabbedData = movieApiService.getLocalStoredList(listKey);
   movieApiService.markupTempl(grabbedData, galleryRef, galleryCard);
   return grabbedData;
 }
 
 function editDateAndGenres(array) {
+  movieApiService.getCurrentClientLang();
   array.forEach(movie => {
     movieApiService.editDate(movie);
     editMovieGenres(movie);
@@ -109,7 +113,7 @@ function editMovieGenres(obj) {
 function markupGrabbedList(listKey) {
   if (listKey === null) return;
   movieApiService.clearGallery();
-
+  movieApiService.getCurrentClientLang();
   const grabbedData = updateCurrentPage(listKey);
   editDateAndGenres(grabbedData);
 }

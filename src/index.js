@@ -14,5 +14,7 @@ import './js/period-buttons';
 import './js/clients-lists';
 import './js/scroll';
 import './js/pagination';
+import'./js/empty-library';
+
 
 

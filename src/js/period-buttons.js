@@ -8,7 +8,14 @@ import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-import { paginContainer, paginOptions, onPeriodPagination } from './pagination';
+import {
+  paginContainer,
+  paginOptions,
+  onPeriodPagination,
+  onTopRatedPagination,
+  onUpcomingPagination,
+  getTotalItemsFromStorage,
+} from './pagination';
 
 const API = new MovieApiService();
 
@@ -38,8 +45,6 @@ function onClickBtnDay() {
 
   // ===== INITIALISE PAGINATION
   const pagination = new Pagination(paginContainer, paginOptions);
-  API.searchQuery = searchInputRef.value.trim();
-
   // ===== GET NEXT PAGES
   onPeriodPagination(pagination, 'day');
 }
@@ -51,21 +56,32 @@ function onClickBtnWeek() {
   addsActiveButton(btnWeek);
 
   const pagination = new Pagination(paginContainer, paginOptions);
-  API.searchQuery = searchInputRef.value.trim();
   onPeriodPagination(pagination, 'week');
 }
 
 function onClickBtnTop() {
   API.clearGallery();
   loader.on();
-  getMovieByType(API.fetchTopRatedMovies()).finally(() => loader.off());
+  getMovieByType(API.fetchTopRatedMovies())
+    .then(res => getTotalItemsFromStorage())
+    .then(totalItems => {
+      const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+      onTopRatedPagination(pagination);
+    })
+    .finally(() => loader.off());
   addsActiveButton(btnTop);
 }
 
 function onClickBtnUpcoming() {
   API.clearGallery();
   loader.on();
-  getMovieByType(API.fetchUpcomingMovies()).finally(() => loader.off());
+  getMovieByType(API.fetchUpcomingMovies())
+    .then(res => getTotalItemsFromStorage())
+    .then(totalItems => {
+      const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+      onUpcomingPagination(pagination);
+    })
+    .finally(() => loader.off());
   addsActiveButton(btnUpcoming);
 }
 
@@ -83,8 +99,13 @@ async function getMovieByPeriod(period) {
 
 async function getMovieByType(type) {
   try {
+
     API.getCurrentClientLang();
-    const response = await type.then(response => renderMovieCards(response));
+    const response = await type.then(response => {
+    localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
+    renderMovieCards(response);
+    });
+
     return response;
   } catch (error) {
     console.log(error);

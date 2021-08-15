@@ -1,4 +1,11 @@
 .modal_movie {
+  @media screen and(max-width: 767px) {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+  }
   @include for-tablet-up {
     display: flex;
   }
@@ -169,9 +176,9 @@
 
 .button_wrapper {
   display: flex;
+  justify-content: center;
   @include for-tablet-up {
     flex-wrap: wrap;
-    justify-content: center;
   }
   @include for-desktop-up {
     flex-wrap: nowrap;
@@ -225,11 +232,9 @@
   }
 }
 .trailer_button {
-  transform: translate(-50%, -50%);
   position: absolute;
-  z-index: 1;
-  top: 47%;
-  left: 95%;
+  top: -30px;
+  right: 0;
   width: 30px;
   height: 30px;
   display: flex;
@@ -241,31 +246,39 @@
   cursor: pointer;
   outline: none;
   background-color: transparent;
-  transition: transform var(--time) var(--time-function);
 
   @include for-tablet-up {
-    top: 3%;
-    left: 92%;
+    right: -20px;
   }
 
   @include for-desktop-up {
-    bottom: 91%;
-    left: 93%;
   }
 }
-.trailer_button:hover,
-.trailer_button:focus {
-  transform: scale(1);
-}
+
 iframe {
-  width: 280px;
+  // width: 280px;
+  width: 80vw;
   height: 250px;
   position: fixed;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -10px);
+  transform: translate(-50%, -50%);
   @include for-tablet-up {
-    transform: translate(-50%, -50%);
+    height: 420px;
+    width: 570px;
+  }
+  @include for-desktop-up {
+    height: 490px;
+    width: 820px;
+  }
+}
+
+.plyr__video-embed {
+  position: relative;
+  width: 80vw;
+  height: 250px;
+  @include for-tablet-up {
+    // display: block;
     height: 420px;
     width: 570px;
   }

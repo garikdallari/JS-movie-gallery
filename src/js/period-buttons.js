@@ -62,25 +62,27 @@ function onClickBtnWeek() {
 function onClickBtnTop() {
   API.clearGallery();
   loader.on();
-  getMovieByType(API.fetchTopRatedMovies()).finally(() => loader.off());
+  getMovieByType(API.fetchTopRatedMovies())
+    .then(res => getTotalItemsFromStorage())
+    .then(totalItems => {
+      const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+      onTopRatedPagination(pagination);
+    })
+    .finally(() => loader.off());
   addsActiveButton(btnTop);
-
-  const totalItems = getTotalItemsFromStorage();
-
-  const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-  onTopRatedPagination(pagination);
 }
 
 function onClickBtnUpcoming() {
   API.clearGallery();
   loader.on();
-  getMovieByType(API.fetchUpcomingMovies()).finally(() => loader.off());
+  getMovieByType(API.fetchUpcomingMovies())
+    .then(res => getTotalItemsFromStorage())
+    .then(totalItems => {
+      const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+      onUpcomingPagination(pagination);
+    })
+    .finally(() => loader.off());
   addsActiveButton(btnUpcoming);
-
-  const totalItems = getTotalItemsFromStorage();
-  console.log(totalItems);
-  const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-  onUpcomingPagination(pagination);
 }
 
 async function getMovieByPeriod(period) {
@@ -97,7 +99,10 @@ async function getMovieByPeriod(period) {
 async function getMovieByType(type) {
   try {
     const response = await type.then(response => {
+      // console.log(response.data.total_results);
       localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
+      // const localResult = localStorage.getItem('totalItems');
+      // console.log(JSON.parse(localResult));
       renderMovieCards(response);
     });
     return response;

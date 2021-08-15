@@ -17,14 +17,15 @@ searchFormRef.addEventListener('submit', event => {
 
   // ====== GET FIRST REQUESTED PAGE
   getMovie();
-  const totalItems = getTotalItemsFromStorage();
+  // .then(res => console.log(res));
+  // const totalItems = getTotalItemsFromStorage();
   // ===== INITIALISE PAGINATION
-  const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-  movieApiService.searchQuery = searchInputRef.value.trim();
-  const searchQuery = movieApiService.searchQuery;
+  // const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+  // movieApiService.searchQuery = searchInputRef.value.trim();
+  // const searchQuery = movieApiService.searchQuery;
 
-  // ===== GET NEXT PAGES
-  onPagination(pagination, searchQuery);
+  // // ===== GET NEXT PAGES
+  // onPagination(pagination, searchQuery);
 });
 
 function getMovie() {
@@ -41,6 +42,17 @@ function getMovie() {
       .then(res => {
         localStorage.setItem('totalItems', JSON.stringify(res.data.total_results));
         return res.data.results;
+      })
+      .then(movies => {
+        const totalItems = getTotalItemsFromStorage();
+        return { movies, totalItems };
+      })
+      .then(({ movies, totalItems }) => {
+        const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+        movieApiService.searchQuery = searchInputRef.value.trim();
+        const searchQuery = movieApiService.searchQuery;
+        onPagination(pagination, searchQuery);
+        return movies;
       })
       .then(movies => {
         if (movies.length === 0) {

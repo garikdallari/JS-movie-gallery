@@ -18,6 +18,8 @@ export default {
   paginationBox: document.querySelector('.tui-pagination'),
   watchedBtn: document.querySelector('[data-value="watched"]'),
   queueBtn: document.querySelector('[data-value="queue"]'),
+  buttonClose:document.querySelector('.lightbox__button'),
+  content:document.querySelector('.lightbox__content'),
 
 };
 

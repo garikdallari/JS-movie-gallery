@@ -16,7 +16,7 @@ function deleteTextMessage() {
         return;
     }
     document.querySelector('[id="empty-library"]').remove();
-
+    window.removeEventListener("click",onWindowClick);
 }
 
 function textMessage() {
@@ -25,7 +25,7 @@ const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
 if(que.length===0&&watched.length===0){
    section.insertAdjacentHTML("afterbegin",`<span id="empty-library">You don't have added any movies yet</span>`); 
 }
-window.addEventListener("click",onWindowClick)
+window.addEventListener("click",onWindowClick);
 
 }
 

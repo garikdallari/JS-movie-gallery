@@ -36,7 +36,7 @@ const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
     if(e.target.classList.contains("button_watched")||e.target.classList.contains("button_queue")){
 if(que.length===0&&watched.length===0){
-     section.insertAdjacentHTML("afterbegin",`<span id="empty-library">You don't have added any movies yet</span>`);
+    section.insertAdjacentHTML("afterbegin", `<span id="empty-library">You haven't added any movies yet</span>`);
 }
     }
     }

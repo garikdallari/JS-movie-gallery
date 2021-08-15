@@ -66,6 +66,7 @@ function onClickBtnTop() {
   addsActiveButton(btnTop);
 
   const totalItems = getTotalItemsFromStorage();
+
   const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
   onTopRatedPagination(pagination);
 }
@@ -77,6 +78,7 @@ function onClickBtnUpcoming() {
   addsActiveButton(btnUpcoming);
 
   const totalItems = getTotalItemsFromStorage();
+  console.log(totalItems);
   const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
   onUpcomingPagination(pagination);
 }

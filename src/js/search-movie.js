@@ -6,7 +6,7 @@ import { loader } from './loaders';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-import { paginContainer, paginOptions, onPagination, getTotalItemsFromStorage } from './pagination';
+import { paginContainer, paginOptions, onByWordPagination, getTotalItemsFromStorage } from './pagination';
 
 const { searchFormRef, searchInputRef, galleryRef, messageFailure } = refs;
 const movieApiService = new MovieApiService();
@@ -14,18 +14,7 @@ const movieApiService = new MovieApiService();
 searchFormRef.addEventListener('submit', event => {
   event.preventDefault();
   loader.on();
-
-  // ====== GET FIRST REQUESTED PAGE
   getMovie();
-  // .then(res => console.log(res));
-  // const totalItems = getTotalItemsFromStorage();
-  // ===== INITIALISE PAGINATION
-  // const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-  // movieApiService.searchQuery = searchInputRef.value.trim();
-  // const searchQuery = movieApiService.searchQuery;
-
-  // // ===== GET NEXT PAGES
-  // onPagination(pagination, searchQuery);
 });
 
 function getMovie() {
@@ -51,7 +40,7 @@ function getMovie() {
         const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
         movieApiService.searchQuery = searchInputRef.value.trim();
         const searchQuery = movieApiService.searchQuery;
-        onPagination(pagination, searchQuery);
+        onByWordPagination(pagination, searchQuery);
         return movies;
       })
       .then(movies => {

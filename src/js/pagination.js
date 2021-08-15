@@ -36,7 +36,7 @@ const paginOptions = {
 
 const paginContainer = document.getElementById('tui-pagination-container');
 
-function onPagination(pagination, query) {
+function onByWordPagination(pagination, query) {
   pagination.on('afterMove', event => {
     const currentPage = event.page;
     movieApiService.clearGallery();
@@ -80,16 +80,12 @@ function fetchMovieByPage(page, query) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
-        movies.forEach(movie => {
-          movieApiService.editDate(movie);
-          movieApiService.editGenres(movie);
-        });
+        editDatesAndGenres(movies)
       }
     });
 }
 
 function fetchMovieByPeriod(period, page) {
-  //   movieApiService.searchQuery = query;
   movieApiService
     .fetchTrendingMovies(period, page)
     .then(res => {
@@ -100,10 +96,7 @@ function fetchMovieByPeriod(period, page) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
-        movies.forEach(movie => {
-          movieApiService.editDate(movie);
-          movieApiService.editGenres(movie);
-        });
+        editDatesAndGenres(movies)
       }
     });
 }
@@ -117,10 +110,7 @@ function fetchTopRatedMovie(page) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
-        movies.forEach(movie => {
-          movieApiService.editDate(movie);
-          movieApiService.editGenres(movie);
-        });
+        editDatesAndGenres(movies)
       }
     });
 }
@@ -134,10 +124,7 @@ function fetchUpcomingMovies(page) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
-        movies.forEach(movie => {
-          movieApiService.editDate(movie);
-          movieApiService.editGenres(movie);
-        });
+        editDatesAndGenres(movies)
       }
     });
 }
@@ -147,12 +134,19 @@ function getTotalItemsFromStorage() {
   return JSON.parse(result);
 }
 
+function editDatesAndGenres(movies){
+  movies.forEach(movie => {
+          movieApiService.editDate(movie);
+          movieApiService.editGenres(movie);
+        });
+}
+
 export {
   paginContainer,
   paginOptions,
-  onPagination,
+  onByWordPagination,
   onPeriodPagination,
-  getTotalItemsFromStorage,
   onTopRatedPagination,
   onUpcomingPagination,
+  getTotalItemsFromStorage,
 };

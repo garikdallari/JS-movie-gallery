@@ -19,6 +19,7 @@ homeRef.addEventListener('click', onHomeLink);
 onHomeLink();
 
 function onHomeLink() {
+  movieApiService.clearGallery()
   movieApiService
     .fetchTrendingMovies('day')
     .then(res => {
@@ -26,10 +27,10 @@ function onHomeLink() {
       movieApiService.markupTempl(queryResult, galleryRef, galleryCard);
 
       // ====== edit date & genres
-      // queryResult.forEach(movie => {
-      //   movieApiService.editDate(movie);
-      //   movieApiService.editGenres(movie);
-      // });
+      queryResult.forEach(movie => {
+        movieApiService.editDate(movie);
+        movieApiService.editGenres(movie);
+      });
 
       // ===== INITIALISE PAGINATION
       const pagination = new Pagination(paginContainer, paginOptions);

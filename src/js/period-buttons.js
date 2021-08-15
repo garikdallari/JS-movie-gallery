@@ -99,10 +99,7 @@ async function getMovieByPeriod(period) {
 async function getMovieByType(type) {
   try {
     const response = await type.then(response => {
-      // console.log(response.data.total_results);
       localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
-      // const localResult = localStorage.getItem('totalItems');
-      // console.log(JSON.parse(localResult));
       renderMovieCards(response);
     });
     return response;

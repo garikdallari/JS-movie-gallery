@@ -232,10 +232,9 @@
   }
 }
 .trailer_button {
-  transform: translate(-50%, -50%);
-  position: fixed;
-  left: 94%;
-  bottom: 70%;
+  position: absolute;
+  top: -30px;
+  right: 0;
   width: 30px;
   height: 30px;
   display: flex;
@@ -249,13 +248,10 @@
   background-color: transparent;
 
   @include for-tablet-up {
-    bottom: 86%;
-    left: 89%;
+    right: -20px;
   }
 
   @include for-desktop-up {
-    bottom: 82%;
-    left: 91%;
   }
 }
 
@@ -278,7 +274,7 @@ iframe {
 }
 
 .plyr__video-embed {
-  position: absolute;
+  position: relative;
   width: 80vw;
   height: 250px;
   @include for-tablet-up {

@@ -189,7 +189,6 @@ li {
     height: 280px;
     padding: 40px 20px 30px 20px;
     display: inline-block;
-    // float: left;
     border-right: 2px dashed #EEEEEE;
     background: #FFFFFF;
     color: #000000;
@@ -304,9 +303,23 @@ li {
     transform: scale(1);
   }
 }
+
+@keyframes materia {
+  0% {
+    background: #E0E0E0;
+  }
+  50% {
+    border-radius: 4px;
+  }
+  100% {
+    width: 280px;
+    height: 440px;
+    background: #FFFFFF;
+    border-radius: 4px;
+  }
+}
   
-@include for-phone-up {
-  .profile-card header {
+.profile-card header {
     width: auto;
     height: auto;
     padding: 30px 20px;
@@ -321,24 +334,8 @@ li {
     display: block;
     float: none;
   }
-  
-  @keyframes materia {
-    0% {
-      background: #E0E0E0;
-    }
-    50% {
-      border-radius: 4px;
-    }
-    100% {
-      width: 280px;
-      height: 440px;
-      background: #FFFFFF;
-      border-radius: 4px;
-    }
-  }
-}
 
-//*********************social link************
+ //*********************social link************
 
 .social{
 

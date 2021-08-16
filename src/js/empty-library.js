@@ -42,11 +42,11 @@ function onWindowClick(e){
 const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
 
- if(e.target.textContent==="add to watched"&&watched.length===0){
+ if(e.target.textContent==="add to watched"&&watched.length===0&&que.length===0){
  message.style.display="block";
 }
 
-else if(e.target.textContent==="add to queue"&&que.length===0){
+else if(e.target.textContent==="add to queue"&&que.length===0&&watched.length===0){
  message.style.display="block";
 }
 };

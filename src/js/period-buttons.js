@@ -4,17 +4,21 @@ import MovieApiService from './movieService';
 import movieCard from '../templates/gallery-card.hbs';
 import { loader } from './loaders';
 import throttle from 'lodash.throttle';
-
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
+import { saveCurrentPageToLocalStorage } from './reload-page';
 import {
   paginContainer,
   paginOptions,
+  // activatePagination,
+  // fetchMovieByPeriod,
+  // fetchTopRatedMovie,
+  // fetchUpcomingMovies,
+  getTotalItemsFromStorage,
   onPeriodPagination,
   onTopRatedPagination,
   onUpcomingPagination,
-  getTotalItemsFromStorage,
 } from './pagination';
 
 const API = new MovieApiService();
@@ -25,10 +29,17 @@ const {
   btnTop,
   btnUpcoming,
   galleryRef,
-  searchFormRef,
-  searchInputRef,
-  messageFailure,
+  // searchFormRef,
+  // searchInputRef,
+  // messageFailure,
 } = refs;
+
+let currentPage = {
+  page: null,
+  period: null,
+  searchQuery: null,
+  fetchQuery: null,
+};
 
 const THROTTLE_DELAY = 1000;
 btnDay.addEventListener('click', throttle(onClickBtnDay, THROTTLE_DELAY));
@@ -42,10 +53,10 @@ function onClickBtnDay() {
   // ====== GET FIRST REQUESTED PAGE
   getMovieByPeriod('day').finally(() => loader.off());
   addsActiveButton(btnDay);
-
   // ===== INITIALISE PAGINATION
   const pagination = new Pagination(paginContainer, paginOptions);
   // ===== GET NEXT PAGES
+  // activatePagination(pagination, 'day', null, fetchMovieByPeriod);
   onPeriodPagination(pagination, 'day');
 }
 
@@ -56,6 +67,7 @@ function onClickBtnWeek() {
   addsActiveButton(btnWeek);
 
   const pagination = new Pagination(paginContainer, paginOptions);
+  // activatePagination(pagination, 'week', null, fetchMovieByPeriod);
   onPeriodPagination(pagination, 'week');
 }
 
@@ -66,6 +78,7 @@ function onClickBtnTop() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+      // activatePagination(pagination, null, null, fetchTopRatedMovie);
       onTopRatedPagination(pagination);
     })
     .finally(() => loader.off());
@@ -79,6 +92,7 @@ function onClickBtnUpcoming() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
+      // activatePagination(pagination, null, null, fetchUpcomingMovies);
       onUpcomingPagination(pagination);
     })
     .finally(() => loader.off());
@@ -91,6 +105,7 @@ async function getMovieByPeriod(period) {
     const response = await API.fetchTrendingMovies(period).then(response =>
       renderMovieCards(response),
     );
+    saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return response;
   } catch (error) {
     console.log(error);
@@ -99,12 +114,12 @@ async function getMovieByPeriod(period) {
 
 async function getMovieByType(type) {
   try {
-
     API.getCurrentClientLang();
     const response = await type.then(response => {
-    localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
-    renderMovieCards(response);
+      localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
+      renderMovieCards(response);
     });
+    saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated');
 
     return response;
   } catch (error) {
@@ -131,4 +146,16 @@ function addsActiveButton(element) {
   element.classList.add('period-buttons__btn--active');
 }
 
-export { addsActiveButton, onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop};
+function removeActiveButton(element) {
+  const currentActiveBtn = document.querySelector('.period-buttons__btn--active');
+  currentActiveBtn.classList.remove('period-buttons__btn--active');
+}
+
+export {
+  addsActiveButton,
+  removeActiveButton,
+  onClickBtnDay,
+  onClickBtnWeek,
+  onClickBtnUpcoming,
+  onClickBtnTop,
+};

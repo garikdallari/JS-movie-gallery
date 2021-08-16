@@ -3,8 +3,7 @@ import MovieApiService from './movieService';
 import {WATCHED_LIST,QUEUE_LIST} from './clients-lists';
 import { setLibraryTextContent } from './set-languages'
 const movieApiService = new MovieApiService();
-const { myLibraryRef, galleryRef,homeRef,watchedBtn,queueBtn} = refs;
-const section= document.querySelector(".movies");
+const { myLibraryRef,homeRef,watchedBtn,queueBtn} = refs;
 const message=document.querySelector('[id="empty-library"]')
 
 
@@ -27,7 +26,7 @@ function deleteTextMessage() {
 function textMessage() {
 const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
-  if(que.length===0||watched.length===0){ 
+  if(que.length===0&&queueBtn.classList.contains("header-menu-btn__item--active")||watched.length===0&&watchedBtn.classList.contains("header-menu-btn__item--active")){ 
  message.style.display="block";
     setLibraryTextContent();
 }  
@@ -42,14 +41,15 @@ function onWindowClick(e){
 
 const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
-
-    if (e.target.textContent === "add to watched" && watched.length === 0&&que.length===0) {
+ console.log(e.target)
+    if (e.target.textContent.toLowerCase() === "add to watched" && watched.length === 0&&watchedBtn.classList.contains("header-menu-btn__item--active")) {
         // location.reload();
- message.style.display="block";
+    
+    message.style.display="block";
       setLibraryTextContent();
 }
 
-else if(e.target.textContent==="add to queue"&&que.length===0&&watched.length===0){
+else if(e.target.textContent.toLowerCase() ==="add to queue"&&que.length===0&&queueBtn.classList.contains("header-menu-btn__item--active")){
  message.style.display="block";
 }
 };

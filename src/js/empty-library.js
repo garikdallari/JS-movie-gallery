@@ -42,7 +42,8 @@ function onWindowClick(e){
 const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
 
- if(e.target.textContent==="add to watched"&&watched.length===0&&que.length===0){
+    if (e.target.textContent === "add to watched" && watched.length === 0&&que.length===0) {
+        // location.reload();
  message.style.display="block";
 }
 

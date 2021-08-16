@@ -37,6 +37,8 @@ btnTop.addEventListener('click', throttle(onClickBtnTop, THROTTLE_DELAY));
 btnUpcoming.addEventListener('click', throttle(onClickBtnUpcoming, THROTTLE_DELAY));
 
 function onClickBtnDay() {
+  messageFailure.style.display = 'none';
+  searchInputRef.value="";
   API.clearGallery();
   loader.on();
   // ====== GET FIRST REQUESTED PAGE
@@ -50,6 +52,8 @@ function onClickBtnDay() {
 }
 
 function onClickBtnWeek() {
+  searchInputRef.value="";
+  messageFailure.style.display = 'none';
   API.clearGallery();
   loader.on();
   getMovieByPeriod('week').finally(() => loader.off());
@@ -60,6 +64,8 @@ function onClickBtnWeek() {
 }
 
 function onClickBtnTop() {
+  messageFailure.style.display = 'none';
+  searchInputRef.value="";
   API.clearGallery();
   loader.on();
   getMovieByType(API.fetchTopRatedMovies())
@@ -73,6 +79,8 @@ function onClickBtnTop() {
 }
 
 function onClickBtnUpcoming() {
+  messageFailure.style.display = 'none';
+  searchInputRef.value="";
   API.clearGallery();
   loader.on();
   getMovieByType(API.fetchUpcomingMovies())

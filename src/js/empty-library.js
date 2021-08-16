@@ -1,7 +1,7 @@
 import refs from './refs';
 import MovieApiService from './movieService';
 import {WATCHED_LIST,QUEUE_LIST} from './clients-lists';
-
+import { setLibraryTextContent } from './set-languages'
 const movieApiService = new MovieApiService();
 const { myLibraryRef, galleryRef,homeRef,watchedBtn,queueBtn} = refs;
 const section= document.querySelector(".movies");
@@ -24,6 +24,7 @@ const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
 if(que.length===0&&watched.length===0){
    section.insertAdjacentHTML("afterbegin",`<span id="empty-library">You haven't added any movies yet</span>`); 
+   setLibraryTextContent();
 }
 window.addEventListener("click",onWindowClick);
 
@@ -37,6 +38,7 @@ const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
     if(e.target.classList.contains("button_watched")||e.target.classList.contains("button_queue")){
 if(que.length===0&&watched.length===0){
     section.insertAdjacentHTML("afterbegin", `<span id="empty-library">You haven't added any movies yet</span>`);
+    setLibraryTextContent();
 }
     }
     }

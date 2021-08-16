@@ -1,6 +1,5 @@
 
 const en = {
-  name:'en',
   language: 'en-EN',
   library: 'LIBRARY',
   home: 'HOME',
@@ -20,11 +19,11 @@ const en = {
   removeFromQueue: `remove from QUEUE`,
   openTrailer: 'open Trailer',
   emptyLibrary: "You haven't added any movies yet",
+  footerGoitText: 'GoIT Students',
   btn: 'EnBtn',
 };
 
 const ru = {
-  name:'ru',
   language: 'ru-RU',
   library: 'БИБЛИОТЕКА',
   home: 'ГЛАВНАЯ',
@@ -44,11 +43,11 @@ const ru = {
   removeFromQueue: `удалить с просмотра`,
   openTrailer: 'трейлер',
   emptyLibrary: "Вы еще не добавили ни одного фильма",
+  footerGoitText: ' студентами GoIT',
   btn: 'RuBtn',
 };
 
 const ua = {
-  name:'ua',
   language: 'uk-UA',
   library: 'БІБЛІОТЕКА',
   home: 'ГОЛОВНА',
@@ -68,7 +67,33 @@ const ua = {
   removeFromQueue: `видалити з перегляду`,
   openTrailer: 'трейлер',
   emptyLibrary: "Ви ще не додали жодного фільму",
+  footerGoitText: ' студентами GoIT',
   btn: 'UaBtn',
 };
 
-export {ua, en, ru}
+const es = {
+  language: 'es-ES',
+    library: 'Mi lista',
+    home: 'inicio',
+    placeholder: 'buscar películas',
+    messageFailure:
+      'La búsqueda no ha dado ningún resultado. Ingrese el nombre correcto de la película y vuelva a intentarlo',
+    day: 'día',
+    week: 'semana',
+    top: 'popular',
+    upcoming: 'novedades',
+    footerText1: ' © 2021 | Todos los derechos reservados | Creado con',
+    footerText2: '',
+    watched: 'visto',
+    queue: 'cola',
+    addToWatched: 'añadir a vistos',
+    addToQueue: 'añadir a cola',
+    openTrailer: 'tráiler',
+    removeFromWatched: '111111',
+    removeFromQueue: '1111111',
+    emptyLibrary: '111111',
+    footerGoitText: '1111111111',
+    btn: 'EsBtn',
+  }
+
+export { ua, en, ru, es }

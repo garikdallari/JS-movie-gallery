@@ -6,7 +6,7 @@ import {
   onClickBtnUpcoming,
   onClickBtnTop,
 } from '../js/period-buttons';
-import { ua, en, ru } from './languages';
+import { ua, en, ru, es } from './languages';
 const {
   searchInputRef,
   messageFailure,
@@ -19,15 +19,16 @@ const {
   EnBtn,
   UaBtn,
   RuBtn,
+  EsBtn,
   watchedBtn,
   queueBtn,
   langBtns,
+  footerGoitText,
+  footerText1,
+  footerText2,
 } = refs;
 
 const movieAS = new MovieApiService();
-
-const footerText1 = document.querySelector('.footer-wrapper__text--rights');
-const footerText2 = document.querySelector('.footer-wrapper__text--by');
 
 langBtns.addEventListener('click', changeLang);
 
@@ -48,6 +49,9 @@ if (parselocalLang === null) {
       break;
     case 'EnBtn':
       setCurrentLangBtn(EnBtn);
+      break;
+    case 'EsBtn':
+      setCurrentLangBtn(EsBtn);
       break;
   }
 }
@@ -77,6 +81,15 @@ function changeLang(event) {
       setCurrentLangBtn(RuBtn);
       setLibraryTextContent();
       break;
+  
+  
+  case EsBtn:
+    localStorage.setItem('currentLanguage', JSON.stringify(es));
+    changeCardsLang();
+    setTextcontent(es);
+    setCurrentLangBtn(EsBtn);
+    setLibraryTextContent();
+    break;
   }
 }
 
@@ -93,6 +106,7 @@ function setTextcontent(lang) {
   watchedBtn.textContent = lang.watched;
   queueBtn.textContent = lang.queue;
   searchInputRef.placeholder = lang.placeholder;
+  footerGoitText.textContent=lang.footerGoitText;
 }
 
 function setCurrentLangBtn(langBtn) {

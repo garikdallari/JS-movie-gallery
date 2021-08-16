@@ -23,7 +23,9 @@ export default {
   EnBtn: document.getElementById('en-btn'),
   UaBtn: document.getElementById('ua-btn'),
   RuBtn: document.getElementById('ru-btn'),
+  EsBtn: document.getElementById('es-btn'),
   langBtns:document.querySelector('.lang'),
-
-  
+  footerGoitText: document.querySelector('.footer-wrapper__underline'),
+  footerText1: document.querySelector('.footer-wrapper__text--rights'),
+  footerText2: document.querySelector('.footer-wrapper__text--by'),
 };

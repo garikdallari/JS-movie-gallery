@@ -85,7 +85,7 @@ function openTrailer(e) {
       position: 'right-top',
       fontSize: '15px',
       warning: { background: '#ff6f09' },
-      timeout: 1000,
+      timeout: 1500,
     });
     Notify.warning("Sorry!We don't have a trailer for this movie.");
   }

@@ -28,7 +28,10 @@ let queryResult = null;
 homeRef.addEventListener('click', onHomeLink);
 
 function onHomeLink() {
-  movieApiService.clearGallery();
+
+  addsActiveButton(btnDay)
+  movieApiService.clearGallery()
+
   movieApiService
     .fetchTrendingMovies('day')
     .then(res => {

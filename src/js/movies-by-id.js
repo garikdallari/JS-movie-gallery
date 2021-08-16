@@ -2,6 +2,7 @@ import { Notify } from 'notiflix';
 import MovieApiService from './movieService';
 import refs from './refs';
 import movieCard from '../templates/movie-popup.hbs';
+import { loader } from './loaders';
 import {
   WATCHED_LIST,
   QUEUE_LIST,
@@ -12,7 +13,7 @@ import {
   pageForExport,
   toggleBtnText,
 } from './clients-lists';
-import { setCurrentModalLang} from './languages';
+
 const movieApiService = new MovieApiService();
 const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
 
@@ -20,7 +21,7 @@ galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
   // e.preventDefault();
-
+loader.on();
 if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
@@ -85,7 +86,7 @@ function openTrailer(e) {
       position: 'right-top',
       fontSize: '15px',
       warning: { background: '#ff6f09' },
-      timeout: 1000,
+      timeout: 1500,
     });
     Notify.warning("Sorry!We don't have a trailer for this movie.");
   }
@@ -146,11 +147,11 @@ async function fetchMovieById() {
   if (results.length === 0) {
     key = 'W9nZ6u15yis';
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-    setCurrentModalLang();
+   
   } else {
     key = results[0].key;
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-    setCurrentModalLang();
+    
   }
 
   // check for this movie if it exists in storage
@@ -162,4 +163,5 @@ async function fetchMovieById() {
 
   toggleBtnText(isWatched, WATCHED_LIST);
   toggleBtnText(isQueue, QUEUE_LIST);
+  await loader.off();
 }

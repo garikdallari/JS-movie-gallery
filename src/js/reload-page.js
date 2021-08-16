@@ -22,7 +22,9 @@ createCurrentPageSettings();
 document.addEventListener('DOMContentLoaded', renderPageAfterReload);
 
 function createCurrentPageSettings() {
-  saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod');
+  const isStorageExists = localStorage.getItem('currentPageSettings');
+  console.log(isStorageExists);
+  if (!isStorageExists) saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod');
 }
 
 function renderPageAfterReload() {

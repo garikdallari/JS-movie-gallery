@@ -12,7 +12,7 @@ import {
   pageForExport,
   toggleBtnText,
 } from './clients-lists';
-import { setCurrentModalLang} from './languages';
+
 const movieApiService = new MovieApiService();
 const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
 
@@ -146,11 +146,11 @@ async function fetchMovieById() {
   if (results.length === 0) {
     key = 'W9nZ6u15yis';
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-    setCurrentModalLang();
+   
   } else {
     key = results[0].key;
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-    setCurrentModalLang();
+    
   }
 
   // check for this movie if it exists in storage

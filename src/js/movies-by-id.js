@@ -2,6 +2,7 @@ import { Notify } from 'notiflix';
 import MovieApiService from './movieService';
 import refs from './refs';
 import movieCard from '../templates/movie-popup.hbs';
+import { loader } from './loaders';
 import {
   WATCHED_LIST,
   QUEUE_LIST,
@@ -20,7 +21,7 @@ galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
   // e.preventDefault();
-
+loader.on();
 if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
@@ -162,4 +163,5 @@ async function fetchMovieById() {
 
   toggleBtnText(isWatched, WATCHED_LIST);
   toggleBtnText(isQueue, QUEUE_LIST);
+  await loader.off();
 }

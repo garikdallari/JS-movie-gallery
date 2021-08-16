@@ -1,35 +1,3 @@
-import MovieApiService from './movieService';
-import refs from './refs';
-const {
-  searchInputRef,
-  messageFailure,
-  myLibraryRef,
-  homeRef,
-  btnDay,
-  btnWeek,
-  btnTop,
-  btnUpcoming,
-  modalRef,
-  galleryRef,
-} = refs;
-import {
-  onClickBtnDay,
-  onClickBtnWeek,
-  onClickBtnUpcoming,
-  onClickBtnTop,
-} from '../js/period-buttons';
-const x = new MovieApiService();
-
-const EnBtn = document.getElementById('en-btn');
-const UaBtn = document.getElementById('ua-btn');
-const RuBtn = document.getElementById('ru-btn');
-const watchedBtn = document.querySelector('[data-value="watched"]');
-const queueBtn = document.querySelector('[data-value="queue"]');
-const langBtns = document.querySelector('.lang');
-const footerText1 = document.querySelector('.footer-wrapper__text--rights');
-const footerText2 = document.querySelector('.footer-wrapper__text--by');
-
-langBtns.addEventListener('click', changeLang);
 
 const en = {
   language: 'en-EN',
@@ -47,7 +15,11 @@ const en = {
   queue: 'queue',
   addToWatched: 'add To Watched',
   addToQueue: 'add To Queue',
+  removeFromWatched: `remove from watched`,
+  removeFromQueue: `remove from QUEUE`,
   openTrailer: 'open Trailer',
+  emptyLibrary: "You haven't added any movies yet",
+  footerGoitText: 'GoIT Students',
   btn: 'EnBtn',
 };
 
@@ -56,8 +28,7 @@ const ru = {
   library: 'БИБЛИОТЕКА',
   home: 'ГЛАВНАЯ',
   placeholder: 'Поиск фильмов',
-  messageFailure:
-    'Поиск не дал результатов. Введите корректное название фильма и попробуйте ещё раз',
+  messageFailure: 'Поиск не дал результатов. Введите корректное название фильма и попробуйте ещё раз',
   day: 'ДЕНЬ',
   week: 'НЕДЕЛЯ',
   top: 'ПОПУЛЯРНЫЕ',
@@ -65,10 +36,14 @@ const ru = {
   footerText1: ' © 2021 | Все права защищены | Создано c',
   footerText2: '',
   watched: 'ПРОСМОТРЕНЫЕ',
-  queue: 'ПОCМОТРЕТЬ',
-  addToWatched: 'В ПРОСМОТРЕНЫЕ',
-  addToQueue: 'посмотреть позже',
+  queue: 'ПРОCМОТРЕТЬ',
+  addToWatched: 'добавить в ПРОСМОТРЕНЫЕ',
+  addToQueue: 'просмотреть позже',
+  removeFromWatched: `удалить с просмотренных`,
+  removeFromQueue: `удалить с просмотра`,
   openTrailer: 'трейлер',
+  emptyLibrary: "Вы еще не добавили ни одного фильма",
+  footerGoitText: ' студентами GoIT',
   btn: 'RuBtn',
 };
 
@@ -85,128 +60,40 @@ const ua = {
   footerText1: ' © 2021 | Всі права захищені | Створено з',
   footerText2: '',
   watched: 'ПЕРЕГЛЯНУТІ',
-  queue: 'ЧЕРГА',
-  addToWatched: 'В ПЕРЕГЛЯНУТІ',
-  addToQueue: 'В чергу',
+  queue: 'до перегляду',
+  addToWatched: `додати в переглянуті`,
+  addToQueue: `додати до перегляду`,
+  removeFromWatched: `видалити з переглянутих`,
+  removeFromQueue: `видалити з перегляду`,
   openTrailer: 'трейлер',
+  emptyLibrary: "Ви ще не додали жодного фільму",
+  footerGoitText: ' студентами GoIT',
   btn: 'UaBtn',
 };
 
-const localLang = localStorage.getItem('currentLanguage');
-const parselocalLang = JSON.parse(localLang);
-if (parselocalLang === null) {
-  setTextcontent(en);
-  setCurrentLangBtn(EnBtn);
-} else {
-  setTextcontent(parselocalLang);
-
-  switch (parselocalLang.btn) {
-    case 'UaBtn':
-      setCurrentLangBtn(UaBtn);
-      break;
-    case 'RuBtn':
-      setCurrentLangBtn(RuBtn);
-      break;
-    case 'EnBtn':
-      setCurrentLangBtn(EnBtn);
-      break;
+const es = {
+  language: 'es-ES',
+    library: 'Mi lista',
+    home: 'inicio',
+    placeholder: 'buscar películas',
+    messageFailure:
+      'La búsqueda no ha dado ningún resultado. Ingrese el nombre correcto de la película y vuelva a intentarlo',
+    day: 'día',
+    week: 'semana',
+    top: 'popular',
+    upcoming: 'novedades',
+    footerText1: ' © 2021 | Todos los derechos reservados | Creado con',
+    footerText2: '',
+    watched: 'visto',
+    queue: 'cola',
+    addToWatched: 'añadir a vistos',
+    addToQueue: 'añadir a cola',
+    openTrailer: 'tráiler',
+    removeFromWatched: '111111',
+    removeFromQueue: '1111111',
+    emptyLibrary: '111111',
+    footerGoitText: '1111111111',
+    btn: 'EsBtn',
   }
-}
 
-function changeLang(event) {
-  switch (event.target) {
-    case UaBtn:
-      localStorage.setItem('currentLanguage', JSON.stringify(ua));
-      changeCardsLang();
-      setTextcontent(ua);
-      setCurrentLangBtn(UaBtn);
-      break;
-
-    case EnBtn:
-      localStorage.setItem('currentLanguage', JSON.stringify(en));
-      changeCardsLang();
-      setTextcontent(en);
-      setCurrentLangBtn(EnBtn);
-      break;
-
-    case RuBtn:
-      localStorage.setItem('currentLanguage', JSON.stringify(ru));
-      changeCardsLang();
-      setTextcontent(ru);
-      setCurrentLangBtn(RuBtn);
-      break;
-  }
-}
-
-function setTextcontent(lang) {
-  myLibraryRef.textContent = lang.library;
-  homeRef.textContent = lang.home;
-  messageFailure.textContent = lang.messageFailure;
-  btnDay.textContent = lang.day;
-  btnWeek.textContent = lang.week;
-  btnTop.textContent = lang.top;
-  btnUpcoming.textContent = lang.upcoming;
-  footerText1.textContent = lang.footerText1;
-  footerText2.textContent = lang.footerText2;
-  watchedBtn.textContent = lang.watched;
-  queueBtn.textContent = lang.queue;
-  searchInputRef.placeholder = lang.placeholder;
-}
-
-function setCurrentLangBtn(langBtn) {
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.classList.remove('lang-btn--current');
-  });
-  langBtn.classList.add('lang-btn--current');
-}
-
-function changeCardsLang() {
-  x.getCurrentClientLang();
-  x.fetchGenres().then(res => {
-    localStorage.setItem('genresList', JSON.stringify(res));
-  });
-  const currentPeriodActiveBtn = document.querySelector('.period-buttons__btn--active');
-  switch (currentPeriodActiveBtn) {
-    case btnTop:
-      onClickBtnTop();
-      break;
-
-    case btnDay:
-      onClickBtnDay();
-      break;
-
-    case btnWeek:
-      onClickBtnWeek();
-      break;
-
-    case btnUpcoming:
-      onClickBtnUpcoming();
-      break;
-  }
-}
-
-function setModalTextContent(lang) {
-  const addToWatched = document.querySelector('.button_watched');
-  const addToQueue = document.querySelector('.button_queue');
-  const openTrailer = document.querySelector('.button_open');
-  console.log(addToQueue);
-  console.log(addToWatched);
-  console.log(openTrailer);
-  addToWatched.textContent = lang.addToWatched;
-  addToQueue.textContent = lang.addToQueue;
-  openTrailer.textContent = lang.openTrailer;
-}
-
-function setCurrentModalLang() {
-  const localLang = localStorage.getItem('currentLanguage');
-  const parselocalLang = JSON.parse(localLang);
-  console.log(parselocalLang);
-
-  if (parselocalLang === null) {
-    setModalTextContent(en);
-  } else {
-    setModalTextContent(parselocalLang);
-  }
-}
-
-export { setCurrentModalLang };
+export { ua, en, ru, es }

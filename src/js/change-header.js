@@ -2,7 +2,7 @@
 import { func } from 'assert-plus';
 import refs from './refs'
 
-const { messageFailure, searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox,watchedBtn,queueBtn} = refs;
+const {searchInputRef, messageFailure, searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox,watchedBtn,queueBtn} = refs;
 
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
@@ -22,6 +22,8 @@ function onClickLib() {
 }
 
 function onClickHome() {
+  searchInputRef.value="";
+  messageFailure.style.display = 'none';
   removeElementClass(searchFormRef, 'is-closed');
   replaceElementClass(headerBtns, 'is-open', 'is-closed');
   replaceElementClass(headerBackgroundImageRef, 'header-background-img-lib', 'header-background-img');

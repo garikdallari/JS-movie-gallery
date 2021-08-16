@@ -1,8 +1,8 @@
 import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
-
-const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
+import { setCurrentModalLang, setCurrentModalRemoveLang , removePeriodBtnActiveClass} from './set-languages'
+const {searchInputRef, messageFailure, myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
@@ -30,8 +30,10 @@ function onHomeRefClick() {
 
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
+  messageFailure.style.display = 'none';
+  searchInputRef.value="";
   movieApiService.clearGallery();
-  document.querySelector('.period-buttons__btn--active').classList.remove('period-buttons__btn--active');
+  removePeriodBtnActiveClass();
   pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it
@@ -72,11 +74,13 @@ function onModalBtnsClick(e) {
 
 function switchBtnTextByCkicking(btnRef, movieId, listKey) {
   if (btnRef.dataset.action === `remove-from-${listKey}`) {
-    btnRef.textContent = `add to ${listKey}`;
+    setCurrentModalLang(listKey);
+    // btnRef.textContent = `add to ${listKey}`;
     btnRef.dataset.action = `add-to-${listKey}`;
     movieApiService.removefromMovieList(movieId, listKey);
   } else if (btnRef.dataset.action === `add-to-${listKey}`) {
-    btnRef.textContent = `remove from ${listKey}`;
+    setCurrentModalRemoveLang(listKey);
+    // btnRef.textContent = `remove from ${listKey}`;
     btnRef.dataset.action = `remove-from-${listKey}`;
     movieApiService.addToMovieList(movieId, listKey);
   }
@@ -122,10 +126,12 @@ function markupGrabbedList(listKey) {
 function toggleBtnText(isInList, listKey) {
   const targetBtn = document.querySelector(`.${listKey}`);
   if (isInList) {
-    targetBtn.textContent = `remove from ${listKey}`;
+    setCurrentModalRemoveLang(listKey);
+    // targetBtn.textContent = `remove from ${listKey}`;
     targetBtn.dataset.action = `remove-from-${listKey}`;
   } else {
-    targetBtn.textContent = `add to ${listKey}`;
+    setCurrentModalLang(listKey);
+    // targetBtn.textContent = `add to ${listKey}`;
     targetBtn.dataset.action = `add-to-${listKey}`;
   }
 }

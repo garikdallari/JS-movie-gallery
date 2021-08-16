@@ -18,7 +18,14 @@ export default {
   paginationBox: document.querySelector('.tui-pagination'),
   watchedBtn: document.querySelector('[data-value="watched"]'),
   queueBtn: document.querySelector('[data-value="queue"]'),
-  buttonClose:document.querySelector('.lightbox__button'),
-  content:document.querySelector('.lightbox__content'),
+  buttonClose: document.querySelector('.lightbox__button'),
+  content: document.querySelector('.lightbox__content'),
+  EnBtn: document.getElementById('en-btn'),
+  UaBtn: document.getElementById('ua-btn'),
+  RuBtn: document.getElementById('ru-btn'),
+  EsBtn: document.getElementById('es-btn'),
+  langBtns:document.querySelector('.lang'),
+  footerGoitText: document.querySelector('.footer-wrapper__underline'),
+  footerText1: document.querySelector('.footer-wrapper__text--rights'),
+  footerText2: document.querySelector('.footer-wrapper__text--by'),
 };
-

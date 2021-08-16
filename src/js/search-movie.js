@@ -22,6 +22,7 @@ function getMovie() {
   movieApiService.searchQuery = searchInputRef.value.trim();
 
   if (movieApiService.searchQuery === '') {
+    messageFailure.style.display = 'none';
     loader.off();
     return;
   } else {
@@ -46,6 +47,7 @@ function getMovie() {
       .then(movies => {
         if (movies.length === 0) {
           messageFailure.style.display = 'block';
+          document.querySelector('.tui-pagination').style.display='none';
         } else {
           renderMovie(movies);
         }

@@ -1,5 +1,12 @@
 import MovieApiService from './movieService';
 import refs from './refs';
+import {
+  onClickBtnDay,
+  onClickBtnWeek,
+  onClickBtnUpcoming,
+  onClickBtnTop,
+} from '../js/period-buttons';
+import { ua, en, ru } from './languages';
 const {
   searchInputRef,
   messageFailure,
@@ -8,19 +15,17 @@ const {
   btnDay,
   btnWeek,
   btnTop,
-  btnUpcoming} = refs;
-import { onClickBtnDay,  onClickBtnWeek,  onClickBtnUpcoming, onClickBtnTop,
-} from '../js/period-buttons';
-import {ua, en, ru} from './languages'
+  btnUpcoming,
+  EnBtn,
+  UaBtn,
+  RuBtn,
+  watchedBtn,
+  queueBtn,
+  langBtns,
+} = refs;
 
-const x = new MovieApiService();
+const movieAS = new MovieApiService();
 
-const EnBtn = document.getElementById('en-btn');
-const UaBtn = document.getElementById('ua-btn');
-const RuBtn = document.getElementById('ru-btn');
-const watchedBtn = document.querySelector('[data-value="watched"]');
-const queueBtn = document.querySelector('[data-value="queue"]');
-const langBtns = document.querySelector('.lang');
 const footerText1 = document.querySelector('.footer-wrapper__text--rights');
 const footerText2 = document.querySelector('.footer-wrapper__text--by');
 
@@ -54,6 +59,7 @@ function changeLang(event) {
       changeCardsLang();
       setTextcontent(ua);
       setCurrentLangBtn(UaBtn);
+      setLibraryTextContent();
       break;
 
     case EnBtn:
@@ -61,6 +67,7 @@ function changeLang(event) {
       changeCardsLang();
       setTextcontent(en);
       setCurrentLangBtn(EnBtn);
+      setLibraryTextContent();
       break;
 
     case RuBtn:
@@ -68,6 +75,7 @@ function changeLang(event) {
       changeCardsLang();
       setTextcontent(ru);
       setCurrentLangBtn(RuBtn);
+      setLibraryTextContent();
       break;
   }
 }
@@ -95,8 +103,8 @@ function setCurrentLangBtn(langBtn) {
 }
 
 function changeCardsLang() {
-  x.getCurrentClientLang();
-  x.fetchGenres().then(res => {
+  movieAS.getCurrentClientLang();
+  movieAS.fetchGenres().then(res => {
     localStorage.setItem('genresList', JSON.stringify(res));
   });
   const currentPeriodActiveBtn = document.querySelector('.period-buttons__btn--active');
@@ -119,51 +127,64 @@ function changeCardsLang() {
   }
 }
 
+function removePeriodBtnActiveClass() {
+  const periodBtnActive = document.querySelector('.period-buttons__btn--active');
+  if (periodBtnActive !== null) {
+    periodBtnActive.classList.remove('period-buttons__btn--active');
+  } else return;
+}
+
 function setCurrentModalLang(listKey) {
   const localLang = localStorage.getItem('currentLanguage');
   const parselocalLang = JSON.parse(localLang);
   const addToWatched = document.querySelector('.button_watched');
   const addToQueue = document.querySelector('.button_queue');
   const openTrailer = document.querySelector('.button_open');
-  
+
   if (parselocalLang === null) {
     openTrailer.textContent = en.openTrailer;
     listKey === 'watched'
-    ? (addToWatched.textContent = en.addToWatched)
-    : (addToQueue.textContent = en.addToQueue);
-
- 
+      ? (addToWatched.textContent = en.addToWatched)
+      : (addToQueue.textContent = en.addToQueue);
   } else {
     openTrailer.textContent = parselocalLang.openTrailer;
-     listKey === 'watched'
-   ? (addToWatched.textContent = parselocalLang.addToWatched)
-   : (addToQueue.textContent = parselocalLang.addToQueue);
+    listKey === 'watched'
+      ? (addToWatched.textContent = parselocalLang.addToWatched)
+      : (addToQueue.textContent = parselocalLang.addToQueue);
   }
 }
-
 
 function setCurrentModalRemoveLang(listKey) {
   const localLang = localStorage.getItem('currentLanguage');
   const parselocalLang = JSON.parse(localLang);
   const addToWatched = document.querySelector('.button_watched');
   const addToQueue = document.querySelector('.button_queue');
-  
+
   if (parselocalLang === null) {
-    
-  listKey === 'watched'
-  ? (addToWatched.textContent = en.removeFromWatched)
-  : (addToQueue.textContent = en.removeFromQueue);
-
+    listKey === 'watched'
+      ? (addToWatched.textContent = en.removeFromWatched)
+      : (addToQueue.textContent = en.removeFromQueue);
   } else {
-    
-  listKey === 'watched'
-  ? (addToWatched.textContent = parselocalLang.removeFromWatched)
-  : (addToQueue.textContent = parselocalLang.removeFromQueue);
-
+    listKey === 'watched'
+      ? (addToWatched.textContent = parselocalLang.removeFromWatched)
+      : (addToQueue.textContent = parselocalLang.removeFromQueue);
   }
 }
 
-// setCurrentModalRemoveLang(listKey)
-// setCurrentModalLang(listKey);
+function setLibraryTextContent() {
+  const emptyLibrary = document.getElementById('empty-library');
+  if (emptyLibrary !== null) {
+    const localLang = localStorage.getItem('currentLanguage');
+    const parselocalLang = JSON.parse(localLang);
+    parselocalLang === null
+      ? (emptyLibrary.textContent = en.emptyLibrary)
+      : (emptyLibrary.textContent = parselocalLang.emptyLibrary);
+  } else return;
+}
 
-export { setCurrentModalLang, setCurrentModalRemoveLang };
+export {
+  setCurrentModalLang,
+  setCurrentModalRemoveLang,
+  setLibraryTextContent,
+  removePeriodBtnActiveClass,
+};

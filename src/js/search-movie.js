@@ -22,6 +22,7 @@ function getMovie() {
   movieApiService.searchQuery = searchInputRef.value.trim();
 
   if (movieApiService.searchQuery === '') {
+    messageFailure.style.display = 'none';
     loader.off();
     return;
   } else {

@@ -1,8 +1,8 @@
 import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
-import { setCurrentModalLang, setCurrentModalRemoveLang } from './set-languages'
-const { myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
+import { setCurrentModalLang, setCurrentModalRemoveLang , removePeriodBtnActiveClass} from './set-languages'
+const {searchInputRef, messageFailure, myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
@@ -30,8 +30,10 @@ function onHomeRefClick() {
 
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
+  messageFailure.style.display = 'none';
+  searchInputRef.value="";
   movieApiService.clearGallery();
-  document.querySelector('.period-buttons__btn--active').classList.remove('period-buttons__btn--active');
+  removePeriodBtnActiveClass();
   pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it

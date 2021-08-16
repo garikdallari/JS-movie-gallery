@@ -19,6 +19,7 @@ const en = {
   removeFromWatched: `remove from watched`,
   removeFromQueue: `remove from QUEUE`,
   openTrailer: 'open Trailer',
+  emptyLibrary: "You haven't added any movies yet",
   btn: 'EnBtn',
 };
 
@@ -42,6 +43,7 @@ const ru = {
   removeFromWatched: `удалить с просмотренных`,
   removeFromQueue: `удалить с просмотра`,
   openTrailer: 'трейлер',
+  emptyLibrary: "Вы еще не добавили ни одного фильма",
   btn: 'RuBtn',
 };
 
@@ -65,6 +67,7 @@ const ua = {
   removeFromWatched: `видалити з переглянутих`,
   removeFromQueue: `видалити з перегляду`,
   openTrailer: 'трейлер',
+  emptyLibrary: "Ви ще не додали жодного фільму",
   btn: 'UaBtn',
 };
 

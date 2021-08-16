@@ -47,6 +47,7 @@ function getMovie() {
       .then(movies => {
         if (movies.length === 0) {
           messageFailure.style.display = 'block';
+          document.querySelector('.tui-pagination').style.display='none';
         } else {
           renderMovie(movies);
         }

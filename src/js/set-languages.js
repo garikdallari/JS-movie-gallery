@@ -1,32 +1,9 @@
 import MovieApiService from './movieService';
 import refs from './refs';
-import {
-  onClickBtnDay,
-  onClickBtnWeek,
-  onClickBtnUpcoming,
-  onClickBtnTop,
-} from '../js/period-buttons';
+import {onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop, } from '../js/period-buttons';
 import { ua, en, ru, es } from './languages';
-const {
-  searchInputRef,
-  messageFailure,
-  myLibraryRef,
-  homeRef,
-  btnDay,
-  btnWeek,
-  btnTop,
-  btnUpcoming,
-  EnBtn,
-  UaBtn,
-  RuBtn,
-  EsBtn,
-  watchedBtn,
-  queueBtn,
-  langBtns,
-  footerGoitText,
-  footerText1,
-  footerText2,
-} = refs;
+const {  searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek, btnTop, btnUpcoming, EnBtn,
+  UaBtn, RuBtn, EsBtn, watchedBtn, queueBtn, langBtns, footerGoitText, footerText1, footerText2, } = refs;
 
 const movieAS = new MovieApiService();
 
@@ -196,9 +173,4 @@ function setLibraryTextContent() {
   } else return;
 }
 
-export {
-  setCurrentModalLang,
-  setCurrentModalRemoveLang,
-  setLibraryTextContent,
-  removePeriodBtnActiveClass,
-};
+export {setCurrentModalLang,setCurrentModalRemoveLang,setLibraryTextContent, removePeriodBtnActiveClass,};

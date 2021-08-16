@@ -9,8 +9,7 @@ const { galleryRef } = refs;
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
 export default class MovieApiService {
-  
-    constructor() {
+  constructor() {
     this.searchQuery = '';
     this.page = 1;
     this.lang = `${this.getCurrentClientLang()}`;
@@ -33,10 +32,12 @@ export default class MovieApiService {
   }
 
   async fetchTopRatedMovies(page = 1) {
+    this.saveCurrentPageToLocalStorage(1, null, null, 'fetchTopRated');
     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=${page}`);
   }
 
   async fetchUpcomingMovies(page = 1) {
+    this.saveCurrentPageToLocalStorage(1, null, null, 'fetchUpcoming');
     return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=${page}`);
   }
 
@@ -186,5 +187,10 @@ export default class MovieApiService {
       this.lang = parselocalLang.language;
     }
     return this.lang;
+  }
+
+  saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery) {
+    const savedSettings = { currentPage, period, query, fetchQuery };
+    localStorage.setItem('currentPageSettings', JSON.stringify(savedSettings));
   }
 }

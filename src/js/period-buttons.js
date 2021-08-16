@@ -119,7 +119,7 @@ async function getMovieByType(type) {
       localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
       renderMovieCards(response);
     });
-    saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated');
+    // saveCurrentPageToLocalStorage(1, null, null, 'fetchTopRated');
 
     return response;
   } catch (error) {

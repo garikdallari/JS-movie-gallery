@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', renderPageAfterReload);
 
 function createCurrentPageSettings() {
   const isStorageExists = localStorage.getItem('currentPageSettings');
-  console.log(isStorageExists);
   if (!isStorageExists) saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod');
 }
 

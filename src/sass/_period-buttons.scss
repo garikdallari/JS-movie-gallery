@@ -1,9 +1,9 @@
 .period-buttons {
-  display: none;
+  display: flex;
+  justify-content: center;
+  font-size: 10px;
 
   @include for-tablet-up {
-    display: flex;
-    justify-content: center;
     padding-top: 25px;
 
     font-family: var(--font-family);
@@ -16,7 +16,10 @@
 }
 
 .period-buttons__btn {
-  padding: 7px 20px;
+  padding: 5px 10px;
+  @include for-tablet-up {
+    padding: 7px 20px;
+  }
   color: #fff;
   text-transform: uppercase;
   text-decoration: none;

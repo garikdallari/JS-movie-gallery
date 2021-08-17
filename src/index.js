@@ -5,7 +5,6 @@ import './js/refs';
 import './js/change-header';
 import './js/genres';
 import './js/set-languages'
-import './js/language';
 import './js/trending-movies';
 import './js/search-movie';
 import './js/movies-by-id';

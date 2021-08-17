@@ -4,4 +4,4 @@
 4. Loader v library Oksana
 5. margin filter mobile - Ja
 6. stili pagianacii
-7. Knopka treiler v modalke
+7. Knopka treiler v modalke О фильме Sobre la película

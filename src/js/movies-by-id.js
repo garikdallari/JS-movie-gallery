@@ -43,7 +43,6 @@ function closeModalOnClick() {
   const modalContent = content.lastElementChild;
   modalContent.remove();
   removeListenerFromCloseModal();
-
   markupGrabbedList(pageForExport);
 }
 

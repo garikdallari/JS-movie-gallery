@@ -1,125 +1,136 @@
-.header-background-img {
-  max-width: 767px;
-  height: 230px;
-  margin-left: auto;
-  margin-right: auto;
-  background-size: cover;
+// .header-background-img {
+//   max-width: 767px;
+//   height: 230px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   background-size: cover;
 
-  background-image: linear-gradient(
-      to right,
-      var(--background-color-hero),
-      var(--background-color-hero)
-    ),
-    url(../images/header/mobile/background-mob@2x.jpg);
+//   background-image: linear-gradient(
+//       to right,
+//       var(--background-color-hero),
+//       var(--background-color-hero)
+//     ),
+//     url(../images/header/mobile/background-mob@2x.jpg);
 
-  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/mobile/background-mob@3x.jpg);
-  }
+//   @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/mobile/background-mob@3x.jpg);
+//   }
 
-  @include for-tablet-up {
-    max-width: 1023px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/tablet/background-tab@2x.jpg);
+//   @include for-tablet-up {
+//     max-width: 1023px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/tablet/background-tab@2x.jpg);
 
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/tablet/background-tab@3x.jpg);
-    }
-  }
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/tablet/background-tab@3x.jpg);
+//     }
+//   }
 
-  @include for-desktop-up {
-    max-width: 2048px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/desktop/background-desktop@2x.jpg);
+//   @include for-desktop-up {
+//     max-width: 2048px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/desktop/background-desktop@2x.jpg);
 
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/desktop/background-desktop@3x.jpg);
-    }
-  }
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/desktop/background-desktop@3x.jpg);
+//     }
+//   }
+// }
+
+// .header-background-img-lib {
+//   max-width: 767px;
+//   height: 230px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   background-size: cover;
+
+//   background-image: linear-gradient(
+//       to right,
+//       var(--background-color-hero),
+//       var(--background-color-hero)
+//     ),
+//     url(../images/header/mobile/background-mob-lib@2x.jpg);
+
+//   @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/mobile/background-mob-lib@3x.jpg);
+//   }
+
+//   @include for-tablet-up {
+//     max-width: 1023px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/tablet/background-tab-lib@2x.jpg);
+
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/tablet/background-tab-lib@3x.jpg);
+//     }
+//   }
+
+//   @include for-desktop-up {
+//     max-width: 2048px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/desktop/background-desktop-lib@2x.jpg);
+
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/desktop/background-desktop-lib@3x.jpg);
+//     }
+//   }
+// }
+
+.header {
+  position: relative;
 }
 
-.header-background-img-lib {
-  max-width: 767px;
-  height: 230px;
-  margin-left: auto;
-  margin-right: auto;
-  background-size: cover;
-
-  background-image: linear-gradient(
-      to right,
-      var(--background-color-hero),
-      var(--background-color-hero)
-    ),
-    url(../images/header/mobile/background-mob-lib@2x.jpg);
-
-  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/mobile/background-mob-lib@3x.jpg);
-  }
-
-  @include for-tablet-up {
-    max-width: 1023px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/tablet/background-tab-lib@2x.jpg);
-
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/tablet/background-tab-lib@3x.jpg);
-    }
-  }
-
-  @include for-desktop-up {
-    max-width: 2048px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/desktop/background-desktop-lib@2x.jpg);
-
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/desktop/background-desktop-lib@3x.jpg);
-    }
-  }
+.header-background-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 
 .nav-menu {
@@ -318,8 +329,9 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  &:focus, &:hover {
-    box-shadow: 0 0 10px 5px   rgba(221, 221, 221, 0.753);
+  &:focus,
+  &:hover {
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 0.753);
     border-radius: 5px;
     transition: all 0.3s ease;
     font-size: 14px;
@@ -327,10 +339,10 @@
 }
 
 .lang-btn--current {
-color: var(--accent-background-btn-color);
-transition: all 0.3s ease;
-box-shadow: 0 0 10px 5px #ff6b0873;
-font-size: 12px;
-border-radius: 5px;
-font-weight: bolder ;
+  color: var(--accent-background-btn-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px 5px #ff6b0873;
+  font-size: 12px;
+  border-radius: 5px;
+  font-weight: bolder;
 }

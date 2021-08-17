@@ -76,17 +76,6 @@ export default class MovieApiService {
 
     createNewGenresList(fetchedGenres, genresObj, editedGenresList);
 
-    // for (let i = 0; i < obj.genre_ids.length; i += 1) {
-    //   obj.genre_ids.map(genre => {
-    //     addGenreToNewArray(genresObj, genreSet, editedGenresList);
-    // genresObj.forEach(genreSet => {
-    //   if (genre === genreSet.id) {
-    //     editedGenresList.push(genreSet.name);
-    //   }
-    // });
-    //   });
-    // }
-
     if (editedGenresList.length > 2)
       return (genresRef.innerHTML = editedGenresList.splice(0, 3).join(', ') + '&nbsp;');
     genresRef.innerHTML = editedGenresList.join(', ');
@@ -178,7 +167,6 @@ export default class MovieApiService {
 
   markupGrabbedList() {
     this.clearGallery();
-    console.log(this.screenPage);
     const grabbedData = this.getLocalStoredList(this.screenPage);
     this.markupTempl(grabbedData, galleryRef, galleryCard);
   }

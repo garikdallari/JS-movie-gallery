@@ -31,3 +31,16 @@ function addGenreToNewArray(commonGenres, commonGenre, newList) {
 }
 
 export { getGenresList, createNewGenresList, addGenreToNewArray };
+
+// --------------------
+
+// for (let i = 0; i < obj.genre_ids.length; i += 1) {
+//   obj.genre_ids.map(genre => {
+//     addGenreToNewArray(genresObj, genreSet, editedGenresList);
+// genresObj.forEach(genreSet => {
+//   if (genre === genreSet.id) {
+//     editedGenresList.push(genreSet.name);
+//   }
+// });
+//   });
+// }

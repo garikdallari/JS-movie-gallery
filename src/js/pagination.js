@@ -5,10 +5,9 @@ import galleryCard from '../templates/gallery-card.hbs';
 // import 'tui-pagination/dist/tui-pagination.css';
 // import '../sass/pagination.scss';
 import { loader } from './loaders';
-// import { addsActiveButton } from './period-buttons';
 import { saveCurrentPageToLocalStorage } from './reload-page';
 
-const { galleryRef, messageFailure, btnDay, btnWeek, btnTop, btnUpcoming } = refs;
+const { galleryRef, messageFailure } = refs;
 const movieApiService = new MovieApiService();
 
 const paginOptions = {
@@ -38,16 +37,6 @@ const paginOptions = {
 };
 
 const paginContainer = document.getElementById('tui-pagination-container');
-
-// function activatePagination(pagination, period, query, fetchQuery) {
-//   pagination.on('afterMove', event => {
-//     const currentPage = event.page;
-//     movieApiService.clearGallery();
-//     if (query !== null) return fetchQuery(currentPage, query);
-//     if (period !== null) return fetchQuery(period, currentPage);
-//     fetchQuery(currentPage);
-//   });
-// }
 
 function onPeriodPagination(pagination, period) {
   pagination.on('afterMove', event => {
@@ -184,3 +173,13 @@ export {
   onUpcomingPagination,
   onByWordPagination,
 };
+
+// function activatePagination(pagination, period, query, fetchQuery) {
+//   pagination.on('afterMove', event => {
+//     const currentPage = event.page;
+//     movieApiService.clearGallery();
+//     if (query !== null) return fetchQuery(currentPage, query);
+//     if (period !== null) return fetchQuery(period, currentPage);
+//     fetchQuery(currentPage);
+//   });
+// }

@@ -12,7 +12,7 @@ function onClickLib() {
   messageFailure.style.display = 'none';
   addElementClass(searchFormRef, 'is-closed');
   replaceElementClass(headerBtns, 'is-closed', 'is-open');
-  replaceElementClass(headerBackgroundImageRef, 'header-background-img', 'header-background-img-lib');
+  // replaceElementClass(headerBackgroundImageRef, 'header-background-img', 'header-background-img-lib');
   removeElementClass(homeRef, 'nav-menu__link--current-page');
   addElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, 'none');
@@ -26,7 +26,7 @@ function onClickHome() {
   messageFailure.style.display = 'none';
   removeElementClass(searchFormRef, 'is-closed');
   replaceElementClass(headerBtns, 'is-open', 'is-closed');
-  replaceElementClass(headerBackgroundImageRef, 'header-background-img-lib', 'header-background-img');
+  // replaceElementClass(headerBackgroundImageRef, 'header-background-img-lib', 'header-background-img');
   removeElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addElementClass(homeRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, '');

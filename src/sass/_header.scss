@@ -1,125 +1,136 @@
-.header-background-img {
-  max-width: 767px;
-  height: 230px;
-  margin-left: auto;
-  margin-right: auto;
-  background-size: cover;
+// .header-background-img {
+//   max-width: 767px;
+//   height: 230px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   background-size: cover;
 
-  background-image: linear-gradient(
-      to right,
-      var(--background-color-hero),
-      var(--background-color-hero)
-    ),
-    url(../images/header/mobile/background-mob@2x.jpg);
+//   background-image: linear-gradient(
+//       to right,
+//       var(--background-color-hero),
+//       var(--background-color-hero)
+//     ),
+//     url(../images/header/mobile/background-mob@2x.jpg);
 
-  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/mobile/background-mob@3x.jpg);
-  }
+//   @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/mobile/background-mob@3x.jpg);
+//   }
 
-  @include for-tablet-up {
-    max-width: 1023px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/tablet/background-tab@2x.jpg);
+//   @include for-tablet-up {
+//     max-width: 1023px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/tablet/background-tab@2x.jpg);
 
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/tablet/background-tab@3x.jpg);
-    }
-  }
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/tablet/background-tab@3x.jpg);
+//     }
+//   }
 
-  @include for-desktop-up {
-    max-width: 2048px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/desktop/background-desktop@2x.jpg);
+//   @include for-desktop-up {
+//     max-width: 2048px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/desktop/background-desktop@2x.jpg);
 
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/desktop/background-desktop@3x.jpg);
-    }
-  }
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/desktop/background-desktop@3x.jpg);
+//     }
+//   }
+// }
+
+// .header-background-img-lib {
+//   max-width: 767px;
+//   height: 230px;
+//   margin-left: auto;
+//   margin-right: auto;
+//   background-size: cover;
+
+//   background-image: linear-gradient(
+//       to right,
+//       var(--background-color-hero),
+//       var(--background-color-hero)
+//     ),
+//     url(../images/header/mobile/background-mob-lib@2x.jpg);
+
+//   @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/mobile/background-mob-lib@3x.jpg);
+//   }
+
+//   @include for-tablet-up {
+//     max-width: 1023px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/tablet/background-tab-lib@2x.jpg);
+
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/tablet/background-tab-lib@3x.jpg);
+//     }
+//   }
+
+//   @include for-desktop-up {
+//     max-width: 2048px;
+//     background-image: linear-gradient(
+//         to right,
+//         var(--background-color-hero),
+//         var(--background-color-hero)
+//       ),
+//       url(../images/header/desktop/background-desktop-lib@2x.jpg);
+
+//     @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
+//       background-image: linear-gradient(
+//           to right,
+//           var(--background-color-hero),
+//           var(--background-color-hero)
+//         ),
+//         url(../images/header/desktop/background-desktop-lib@3x.jpg);
+//     }
+//   }
+// }
+
+.header {
+  position: relative;
 }
 
-.header-background-img-lib {
-  max-width: 767px;
-  height: 230px;
-  margin-left: auto;
-  margin-right: auto;
-  background-size: cover;
-
-  background-image: linear-gradient(
-      to right,
-      var(--background-color-hero),
-      var(--background-color-hero)
-    ),
-    url(../images/header/mobile/background-mob-lib@2x.jpg);
-
-  @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/mobile/background-mob-lib@3x.jpg);
-  }
-
-  @include for-tablet-up {
-    max-width: 1023px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/tablet/background-tab-lib@2x.jpg);
-
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/tablet/background-tab-lib@3x.jpg);
-    }
-  }
-
-  @include for-desktop-up {
-    max-width: 2048px;
-    background-image: linear-gradient(
-        to right,
-        var(--background-color-hero),
-        var(--background-color-hero)
-      ),
-      url(../images/header/desktop/background-desktop-lib@2x.jpg);
-
-    @media (min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {
-      background-image: linear-gradient(
-          to right,
-          var(--background-color-hero),
-          var(--background-color-hero)
-        ),
-        url(../images/header/desktop/background-desktop-lib@3x.jpg);
-    }
-  }
+.header-background-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 
 .nav-menu {
@@ -207,7 +218,7 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 1.14;
-    color: var(--cards-description-font-color);
+    color: var(--placeholder-font-color);
     opacity: 1;
     transition: opacity 0.3s ease;
   }
@@ -301,17 +312,21 @@
 }
 
 .lang {
-  position: absolute;
-  right: 0;
-  right: 10px;
-  top: 180px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // position: absolute;
+  // top: 50%;
+  // right: 50%;
+  // transform: translate(-50%, -50%);
 
   font-size: 10px;
 }
 
 .lang-btn {
   background-color: transparent;
-  color: var(--primary-font-color);
+  color: var(--lang-btn-font-color);
   min-width: 30px;
   height: 30px;
   outline: none;

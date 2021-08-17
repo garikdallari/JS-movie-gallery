@@ -112,20 +112,20 @@
   background-size: cover;
   border-radius: 11px;
 
-  width: 80%;
+  width: 78%;
   background-position: -100% 10% !important;
 }
 
 .blur_back__wrapper {
   width: 882px;
   height: 568px;
-  object-fit: cover;
 }
 
 .blur_back__img {
   display: block;
   width: 100%;
   height: 100%;
+  object-fit: cover;
 }
 
 .tomb_back {

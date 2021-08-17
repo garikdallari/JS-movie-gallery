@@ -48,7 +48,8 @@ function onLibraryBtnsClick(e) {
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();
   const btn = e.target;
-
+  setCurrentLibCardLang(WATCHED_LIST);
+  setCurrentLibCardLang(QUEUE_LIST);
   renderPageByLibBtnClick(btn, WATCHED_LIST);
   renderPageByLibBtnClick(btn, QUEUE_LIST);
 }
@@ -102,6 +103,7 @@ function editDateAndGenres(array) {
 }
 
 function editMovieGenres(obj) {
+  movieApiService.getCurrentClientLang();
   const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
   let parsedGenres = [];
   obj.genres.forEach(genre => {
@@ -114,6 +116,7 @@ function editMovieGenres(obj) {
 }
 
 function markupGrabbedList(listKey) {
+  movieApiService.getCurrentClientLang();
   if (listKey === null) return;
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();
@@ -136,6 +139,7 @@ function toggleBtnText(isInList, listKey) {
 
 // ===== add watched or queue property
 function addProp(data, listKey) {
+  movieApiService.getCurrentClientLang();
   const localList = movieApiService.getLocalStoredList(listKey);
   const movieId = data.id;
   const isIdExists = localList.some(movie => movieId === movie.id);

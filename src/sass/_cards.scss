@@ -83,6 +83,9 @@
   font-size: 12px;
   line-height: 1.33;
   color: var(--accent-font-color);
+  &::first-letter{
+    text-transform: uppercase;
+  }
 }
 
 .cards-list__description__genre-rating {

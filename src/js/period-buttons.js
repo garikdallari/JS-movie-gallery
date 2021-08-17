@@ -7,7 +7,7 @@ import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-import { saveCurrentPageToLocalStorage } from './reload-page';
+// import { saveCurrentPageToLocalStorage } from './reload-page';
 import {
   paginContainer,
   paginOptions,
@@ -29,9 +29,9 @@ const {
   btnTop,
   btnUpcoming,
   galleryRef,
-  // searchFormRef,
-  // searchInputRef,
-  // messageFailure,
+  searchFormRef,
+  searchInputRef,
+  messageFailure,
 } = refs;
 
 let currentPage = {
@@ -49,7 +49,7 @@ btnUpcoming.addEventListener('click', throttle(onClickBtnUpcoming, THROTTLE_DELA
 
 function onClickBtnDay() {
   messageFailure.style.display = 'none';
-  searchInputRef.value="";
+  searchInputRef.value = '';
   API.clearGallery();
   loader.on();
   // ====== GET FIRST REQUESTED PAGE
@@ -63,7 +63,7 @@ function onClickBtnDay() {
 }
 
 function onClickBtnWeek() {
-  searchInputRef.value="";
+  searchInputRef.value = '';
   messageFailure.style.display = 'none';
   API.clearGallery();
   loader.on();
@@ -77,7 +77,7 @@ function onClickBtnWeek() {
 
 function onClickBtnTop() {
   messageFailure.style.display = 'none';
-  searchInputRef.value="";
+  searchInputRef.value = '';
   API.clearGallery();
   loader.on();
   getMovieByType(API.fetchTopRatedMovies())
@@ -93,7 +93,7 @@ function onClickBtnTop() {
 
 function onClickBtnUpcoming() {
   messageFailure.style.display = 'none';
-  searchInputRef.value="";
+  searchInputRef.value = '';
   API.clearGallery();
   loader.on();
   getMovieByType(API.fetchUpcomingMovies())
@@ -113,7 +113,7 @@ async function getMovieByPeriod(period) {
     const response = await API.fetchTrendingMovies(period).then(response =>
       renderMovieCards(response),
     );
-    saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
+    // saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return response;
   } catch (error) {
     console.log(error);

@@ -20,6 +20,7 @@ export default class MovieApiService {
   }
 
   async fetchTrendingMovies(period, page = 1) {
+    this.saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return axios.get(
       `trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}&page=${page}`,
     );
@@ -42,6 +43,7 @@ export default class MovieApiService {
   }
 
   async searchMovieByWord(page = 1) {
+    this.saveCurrentPageToLocalStorage(1, null, this.searchQuery, 'fetchByWord');
     const response = await axios.get(
       `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}`,
     );

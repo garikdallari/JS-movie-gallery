@@ -312,17 +312,21 @@
 }
 
 .lang {
-  position: absolute;
-  right: 0;
-  right: 10px;
-  top: 180px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  // position: absolute;
+  // top: 50%;
+  // right: 50%;
+  // transform: translate(-50%, -50%);
 
   font-size: 10px;
 }
 
 .lang-btn {
   background-color: transparent;
-  color: var(--primary-font-color);
+  color: black;
   min-width: 30px;
   height: 30px;
   outline: none;

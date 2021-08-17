@@ -9,7 +9,25 @@ movieApiService.fetchGenres().then(res => {
 });
 
 // ===== parse genres from localStorage
-export function getGenresList() {
+function getGenresList() {
   const genresList = localStorage.getItem('genresList');
   return JSON.parse(genresList);
 }
+
+function createNewGenresList(fetchedGenres, commonGenres, newList) {
+  for (let i = 0; i < fetchedGenres.length; i += 1) {
+    fetchedGenres.map(genre => {
+      addGenreToNewArray(commonGenres, genre, newList);
+    });
+  }
+}
+
+function addGenreToNewArray(commonGenres, commonGenre, newList) {
+  commonGenres.forEach(localGenre => {
+    if (commonGenre === localGenre.id) {
+      newList.push(localGenre.name);
+    }
+  });
+}
+
+export { getGenresList, createNewGenresList, addGenreToNewArray };

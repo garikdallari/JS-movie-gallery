@@ -1,6 +1,6 @@
 const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
-import { getGenresList } from './genres';
+import { getGenresList, createNewGenresList } from './genres';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
@@ -72,16 +72,20 @@ export default class MovieApiService {
     const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
     const genresObj = getGenresList();
     const editedGenresList = [];
+    const fetchedGenres = obj.genre_ids;
 
-    for (let i = 0; i < obj.genre_ids.length; i += 1) {
-      obj.genre_ids.map(genre => {
-        genresObj.forEach(genreSet => {
-          if (genre === genreSet.id) {
-            editedGenresList.push(genreSet.name);
-          }
-        });
-      });
-    }
+    createNewGenresList(fetchedGenres, genresObj, editedGenresList);
+
+    // for (let i = 0; i < obj.genre_ids.length; i += 1) {
+    //   obj.genre_ids.map(genre => {
+    //     addGenreToNewArray(genresObj, genreSet, editedGenresList);
+    // genresObj.forEach(genreSet => {
+    //   if (genre === genreSet.id) {
+    //     editedGenresList.push(genreSet.name);
+    //   }
+    // });
+    //   });
+    // }
 
     if (editedGenresList.length > 2)
       return (genresRef.innerHTML = editedGenresList.splice(0, 3).join(', ') + '&nbsp;');

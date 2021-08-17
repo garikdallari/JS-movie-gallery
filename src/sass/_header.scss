@@ -218,7 +218,7 @@
     font-weight: normal;
     font-size: 14px;
     line-height: 1.14;
-    color: var(--cards-description-font-color);
+    color: var(--placeholder-font-color);
     opacity: 1;
     transition: opacity 0.3s ease;
   }
@@ -326,7 +326,7 @@
 
 .lang-btn {
   background-color: transparent;
-  color: black;
+  color: var(--lang-btn-font-color);
   min-width: 30px;
   height: 30px;
   outline: none;

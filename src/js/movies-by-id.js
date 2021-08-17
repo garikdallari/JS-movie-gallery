@@ -20,11 +20,10 @@ const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
-  // e.preventDefault();
-loader.on();
-if (!e.target.classList.contains('cards-list__img')) {
+  if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
+  loader.on();
   
   document.body.style.overflow = 'hidden';
   modalRef.classList.add('is-open');

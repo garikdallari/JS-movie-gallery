@@ -47,6 +47,7 @@ export default class MovieApiService {
     const response = await axios.get(
       `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}`,
     );
+   
     return response;
   }
 

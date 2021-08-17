@@ -1,7 +1,7 @@
-<!-- 1. Сохранять номер страницы после перезагрузки
-2. Заглавная буква в жанрах на русском языке
-3. Переводить карточки в библиотеке если переключить язык
-4. Подсветить day если возвращаться из library в home
-5. Решить с фильтрами в мобильной версии
-6. Выбрать фон
-7. Языковая панель -->
+1. svg lang OleksM / perehod
+2. Fon futera / bg modalki OleksiSpain
+3. input svet teksta - Ja
+4. Loader v library Oksana
+5. margin filter mobile - Ja
+6. stili pagianacii
+7. Knopka treiler v modalke

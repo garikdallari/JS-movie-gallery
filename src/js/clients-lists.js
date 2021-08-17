@@ -1,7 +1,7 @@
 import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
-import { setCurrentModalLang, setCurrentModalRemoveLang , removePeriodBtnActiveClass} from './set-languages'
+import { setCurrentModalLang, setCurrentModalRemoveLang , removePeriodBtnActiveClass, setCurrentLibCardLang} from './set-languages'
 const {searchInputRef, messageFailure, myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
 
 const movieApiService = new MovieApiService();
@@ -37,6 +37,7 @@ function onLibraryClick(e) {
   pageForExport = WATCHED_LIST;
 
   // ===== get watched list & render it
+  setCurrentLibCardLang(WATCHED_LIST);
   const grabbedData = updateCurrentPage(WATCHED_LIST);
   editDateAndGenres(grabbedData);
 }

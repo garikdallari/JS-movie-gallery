@@ -4,7 +4,16 @@ import {onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop, } from
 import { ua, en, ru, es } from './languages';
 const {  searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek, btnTop, btnUpcoming, EnBtn,
   UaBtn, RuBtn, EsBtn, watchedBtn, queueBtn, langBtns, footerGoitText, footerText1, footerText2, } = refs;
-
+  import {
+    WATCHED_LIST,
+    QUEUE_LIST,
+    addProp,
+    editWatchedBtnText,
+    editQueueBtnText,
+    markupGrabbedList,
+    pageForExport,
+    toggleBtnText,
+  } from './clients-lists';
 const movieAS = new MovieApiService();
 
 langBtns.addEventListener('click', changeLang);
@@ -41,6 +50,7 @@ function changeLang(event) {
       setTextcontent(ua);
       setCurrentLangBtn(UaBtn);
       setLibraryTextContent();
+      setCurrentLibCardLang();
       break;
 
     case EnBtn:
@@ -49,6 +59,7 @@ function changeLang(event) {
       setTextcontent(en);
       setCurrentLangBtn(EnBtn);
       setLibraryTextContent();
+      setCurrentLibCardLang();
       break;
 
     case RuBtn:
@@ -57,6 +68,7 @@ function changeLang(event) {
       setTextcontent(ru);
       setCurrentLangBtn(RuBtn);
       setLibraryTextContent();
+      setCurrentLibCardLang();
       break;
   
   
@@ -66,6 +78,7 @@ function changeLang(event) {
     setTextcontent(es);
     setCurrentLangBtn(EsBtn);
     setLibraryTextContent();
+    setCurrentLibCardLang();
     break;
   }
 }
@@ -173,4 +186,20 @@ function setLibraryTextContent() {
   } else return;
 }
 
-export {setCurrentModalLang,setCurrentModalRemoveLang,setLibraryTextContent, removePeriodBtnActiveClass,};
+function setCurrentLibCardLang(list){
+  const localList = movieAS.getLocalStoredList(list);
+  let newLocalList = [];
+  localList.forEach(l => {
+    movieAS.SearchId = l.id;
+    movieAS.getMovieInfo().then(res => {
+      newLocalList.push(res.data);
+      localStorage.setItem(list, JSON.stringify(newLocalList));
+    });
+  });
+
+
+}
+
+
+export {setCurrentModalLang,setCurrentModalRemoveLang,setLibraryTextContent, removePeriodBtnActiveClass, setCurrentLibCardLang};
+

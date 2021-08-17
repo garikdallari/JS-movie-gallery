@@ -1,18 +1,23 @@
 import MovieApiService from './movieService';
 import refs from './refs';
+import galleryCard from '../templates/gallery-card.hbs';
 import {onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop, } from '../js/period-buttons';
 import { ua, en, ru, es } from './languages';
-const {  searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek, btnTop, btnUpcoming, EnBtn,
+const { galleryRef, searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek, btnTop, btnUpcoming, EnBtn,
   UaBtn, RuBtn, EsBtn, watchedBtn, queueBtn, langBtns, footerGoitText, footerText1, footerText2, } = refs;
   import {
+    onLibraryBtnsClick,
     WATCHED_LIST,
     QUEUE_LIST,
+    renderPageByLibBtnClick,
     addProp,
     editWatchedBtnText,
     editQueueBtnText,
     markupGrabbedList,
     pageForExport,
     toggleBtnText,
+    updateCurrentPage,
+    editDateAndGenres,
   } from './clients-lists';
 const movieAS = new MovieApiService();
 
@@ -50,7 +55,9 @@ function changeLang(event) {
       setTextcontent(ua);
       setCurrentLangBtn(UaBtn);
       setLibraryTextContent();
-      setCurrentLibCardLang();
+      setCurrentLibCardLang(WATCHED_LIST);
+      setCurrentLibCardLang(QUEUE_LIST);
+    
       break;
 
     case EnBtn:
@@ -59,7 +66,9 @@ function changeLang(event) {
       setTextcontent(en);
       setCurrentLangBtn(EnBtn);
       setLibraryTextContent();
-      setCurrentLibCardLang();
+      setCurrentLibCardLang(WATCHED_LIST);
+      setCurrentLibCardLang(QUEUE_LIST);
+     
       break;
 
     case RuBtn:
@@ -68,7 +77,9 @@ function changeLang(event) {
       setTextcontent(ru);
       setCurrentLangBtn(RuBtn);
       setLibraryTextContent();
-      setCurrentLibCardLang();
+      setCurrentLibCardLang(WATCHED_LIST);
+      setCurrentLibCardLang(QUEUE_LIST);
+   
       break;
   
   
@@ -78,7 +89,8 @@ function changeLang(event) {
     setTextcontent(es);
     setCurrentLangBtn(EsBtn);
     setLibraryTextContent();
-    setCurrentLibCardLang();
+    setCurrentLibCardLang(WATCHED_LIST);
+    setCurrentLibCardLang(QUEUE_LIST);
     break;
   }
 }
@@ -186,20 +198,23 @@ function setLibraryTextContent() {
   } else return;
 }
 
-function setCurrentLibCardLang(list){
+function setCurrentLibCardLang(list) {
+  movieAS.getCurrentClientLang();
   const localList = movieAS.getLocalStoredList(list);
-  let newLocalList = [];
-  localList.forEach(l => {
-    movieAS.SearchId = l.id;
-    movieAS.getMovieInfo().then(res => {
+  if (!localList) {
+    return;
+  } else {
+    let newLocalList = [];
+    localList.forEach(l => {
+      movieAS.SearchId = l.id;
+      movieAS.getMovieInfo().then(res => {
       newLocalList.push(res.data);
       localStorage.setItem(list, JSON.stringify(newLocalList));
+      });
     });
-  });
-
-
+  }
+  
 }
-
 
 export {setCurrentModalLang,setCurrentModalRemoveLang,setLibraryTextContent, removePeriodBtnActiveClass, setCurrentLibCardLang};
 

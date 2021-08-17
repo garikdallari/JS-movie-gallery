@@ -7,6 +7,8 @@ const {searchInputRef, messageFailure, searchFormRef,headerBtns,homeRef,myLibrar
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
 headerBtns.addEventListener('click', onClickMenuBtns);
+removeElementClass(queueBtn, 'header-menu-btn__item--active');
+removeElementClass(watchedBtn, 'header-menu-btn__item--active');
 
 function onClickLib() {
   messageFailure.style.display = 'none';
@@ -31,6 +33,8 @@ function onClickHome() {
   addElementClass(homeRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, '');
   addsPagination();
+  removeElementClass(queueBtn, 'header-menu-btn__item--active');
+  removeElementClass(watchedBtn, 'header-menu-btn__item--active');
 }
 
 function onClickMenuBtns(evt) {

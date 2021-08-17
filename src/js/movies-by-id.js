@@ -82,6 +82,10 @@ function openTrailer(e) {
     buttonClose.style.display = 'flex';
     backdrop.classList.remove('backdrop-is-open');
     btnOpenTrailer.disabled = true;
+    btnOpenTrailer.style.cursor = 'default'
+    btnOpenTrailer.style.background = 'transparent';
+    btnOpenTrailer.style.color = 'gray';
+    btnOpenTrailer.style.border = '1px solid lightgray'
     Notify.init({
       position: 'right-top',
       fontSize: '15px',

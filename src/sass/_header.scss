@@ -318,8 +318,9 @@
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
-  &:focus, &:hover {
-    box-shadow: 0 0 10px 5px   rgba(221, 221, 221, 0.753);
+  &:focus,
+  &:hover {
+    box-shadow: 0 0 10px 5px rgba(221, 221, 221, 0.753);
     border-radius: 5px;
     transition: all 0.3s ease;
     font-size: 14px;
@@ -327,10 +328,10 @@
 }
 
 .lang-btn--current {
-color: var(--accent-background-btn-color);
-transition: all 0.3s ease;
-box-shadow: 0 0 10px 5px #ff6b0873;
-font-size: 12px;
-border-radius: 5px;
-font-weight: bolder ;
+  color: var(--accent-background-btn-color);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px 5px #ff6b0873;
+  font-size: 12px;
+  border-radius: 5px;
+  font-weight: bolder;
 }

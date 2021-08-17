@@ -1,6 +1,6 @@
 const axios = require('axios');
 import { API_KEY, TRENDING, SEARCH_MOVIE } from './searchProps';
-import { getGenresList } from './genres';
+import { getGenresList, createNewGenresList } from './genres';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 
@@ -9,8 +9,7 @@ const { galleryRef } = refs;
 axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 
 export default class MovieApiService {
-  
-    constructor() {
+  constructor() {
     this.searchQuery = '';
     this.page = 1;
     this.lang = `${this.getCurrentClientLang()}`;
@@ -21,6 +20,7 @@ export default class MovieApiService {
   }
 
   async fetchTrendingMovies(period, page = 1) {
+    this.saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return axios.get(
       `trending/movie/${period}?api_key=${API_KEY}&language=${this.lang}&page=${page}`,
     );
@@ -33,14 +33,17 @@ export default class MovieApiService {
   }
 
   async fetchTopRatedMovies(page = 1) {
+    this.saveCurrentPageToLocalStorage(1, null, null, 'fetchTopRated');
     return axios.get(`movie/top_rated?api_key=${API_KEY}&language=${this.lang}&page=${page}`);
   }
 
   async fetchUpcomingMovies(page = 1) {
+    this.saveCurrentPageToLocalStorage(1, null, null, 'fetchUpcoming');
     return axios.get(`movie/upcoming?api_key=${API_KEY}&language=${this.lang}&page=${page}`);
   }
 
   async searchMovieByWord(page = 1) {
+    this.saveCurrentPageToLocalStorage(1, null, this.searchQuery, 'fetchByWord');
     const response = await axios.get(
       `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}`,
     );
@@ -69,16 +72,9 @@ export default class MovieApiService {
     const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
     const genresObj = getGenresList();
     const editedGenresList = [];
+    const fetchedGenres = obj.genre_ids;
 
-    for (let i = 0; i < obj.genre_ids.length; i += 1) {
-      obj.genre_ids.map(genre => {
-        genresObj.forEach(genreSet => {
-          if (genre === genreSet.id) {
-            editedGenresList.push(genreSet.name);
-          }
-        });
-      });
-    }
+    createNewGenresList(fetchedGenres, genresObj, editedGenresList);
 
     if (editedGenresList.length > 2)
       return (genresRef.innerHTML = editedGenresList.splice(0, 3).join(', ') + '&nbsp;');
@@ -171,7 +167,6 @@ export default class MovieApiService {
 
   markupGrabbedList() {
     this.clearGallery();
-    console.log(this.screenPage);
     const grabbedData = this.getLocalStoredList(this.screenPage);
     this.markupTempl(grabbedData, galleryRef, galleryCard);
   }
@@ -186,5 +181,10 @@ export default class MovieApiService {
       this.lang = parselocalLang.language;
     }
     return this.lang;
+  }
+
+  saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery) {
+    const savedSettings = { currentPage, period, query, fetchQuery };
+    localStorage.setItem('currentPageSettings', JSON.stringify(savedSettings));
   }
 }

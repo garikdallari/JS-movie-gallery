@@ -6,7 +6,14 @@ import { loader } from './loaders';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-import { paginContainer, paginOptions, onByWordPagination, getTotalItemsFromStorage } from './pagination';
+import {
+  paginContainer,
+  paginOptions,
+  // activatePagination,
+  onByWordPagination,
+  fetchMovieByWord,
+  getTotalItemsFromStorage,
+} from './pagination';
 
 const { searchFormRef, searchInputRef, galleryRef, messageFailure } = refs;
 const movieApiService = new MovieApiService();
@@ -41,7 +48,9 @@ function getMovie() {
         const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
         movieApiService.searchQuery = searchInputRef.value.trim();
         const searchQuery = movieApiService.searchQuery;
+        // activatePagination(pagination, null, searchQuery, fetchMovieByWord);
         onByWordPagination(pagination, searchQuery);
+
         return movies;
       })
       .then(movies => {

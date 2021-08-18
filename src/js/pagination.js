@@ -177,7 +177,6 @@ function editDatesAndGenres(movies) {
 export {
   paginContainer,
   paginOptions,
-  //  activatePagination,
   fetchMovieByWord,
   fetchMovieByPeriod,
   fetchTopRatedMovie,
@@ -187,14 +186,5 @@ export {
   onTopRatedPagination,
   onUpcomingPagination,
   onByWordPagination,
+  scrollUpOnPagination,
 };
-
-// function activatePagination(pagination, period, query, fetchQuery) {
-//   pagination.on('afterMove', event => {
-//     const currentPage = event.page;
-//     movieApiService.clearGallery();
-//     if (query !== null) return fetchQuery(currentPage, query);
-//     if (period !== null) return fetchQuery(period, currentPage);
-//     fetchQuery(currentPage);
-//   });
-// }

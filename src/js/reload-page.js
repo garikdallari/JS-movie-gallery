@@ -17,6 +17,7 @@ import {
   onTopRatedPagination,
   onUpcomingPagination,
   onByWordPagination,
+  scrollUpOnPagination,
 } from './pagination';
 
 const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn } = refs;
@@ -62,24 +63,28 @@ function renderSavedPage(objOfSettings) {
     case 'fetchByPeriod':
       fetchMovieByPeriod(period, currentPage);
       switchPeriod(period);
+      scrollUpOnPagination();
       break;
 
     case 'fetchTopRated':
       fetchTopRatedMovie(currentPage);
       addsActiveButton(btnTop);
       onTopRatedPagination(pagination);
+      scrollUpOnPagination();
       break;
 
     case 'fetchUpcoming':
       fetchUpcomingMovies(currentPage);
       addsActiveButton(btnUpcoming);
       onUpcomingPagination(pagination);
+      scrollUpOnPagination();
       break;
 
     case 'fetchByWord':
       fetchMovieByWord(currentPage, query);
       removeActiveButton(btnDay);
       onByWordPagination(pagination, query);
+      scrollUpOnPagination();
       break;
   }
 

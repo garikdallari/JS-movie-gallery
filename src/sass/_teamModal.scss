@@ -148,6 +148,10 @@ li {
 //******************************TEAM-CARD-MARKUP***********
 
 .profile-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
   width: 56px;
   height: 56px;
   left: 50%;
@@ -333,6 +337,8 @@ li {
     padding: 15px 20px 30px 20px;
     display: block;
     float: none;
+
+    flex: 1 1 auto;
   }
 
  //*********************social link************
@@ -345,6 +351,9 @@ li {
     align-items: center;
     justify-content: center;
     opacity: 0;
+
+    margin-bottom: 15px;
+
     -webkit-animation: moveIn 1s 2.1s ease forwards;
   animation: moveIn 1s 2.1s ease forwards;
 

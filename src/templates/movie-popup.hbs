@@ -33,13 +33,7 @@
         </div>       
         </div>
        
-        <h3 class="title_about">ABOUT</h3>
-        <p class="about_text"> {{data.overview}}</p>
-<span class="button_wrapper" data-value="modal-btns"> 
-    <button class="button_watched watched" data-action="add-to-watched" data-id="{{data.id}}">add to watched</button>
-    <button class="button_queue queue" data-action="add-to-queue" data-id="{{data.id}}">add to queue</button>
-        <button class="button_open">watch trailer</button>
-        </span>
+
 <div class="backdrop "> 
      <div class="backdrop_overlay"></div>
 <div class="plyr__video-embed" id="player" style="display: none;">
@@ -69,6 +63,15 @@
             alt="" />
             </div>
     </div>
+</div>
+<div class="modal_movie_about-film">
+            <h3 class="title_about">ABOUT</h3>
+            <p class="about_text"> {{data.overview}}</p>
+            <span class="button_wrapper" data-value="modal-btns">
+                <button class="button_watched watched" data-action="add-to-watched" data-id="{{data.id}}">add to watched</button>
+                <button class="button_queue queue" data-action="add-to-queue" data-id="{{data.id}}">add to queue</button>
+                <button class="button_open">watch trailer</button>
+            </span>
 </div>
 </div>
 {{!-- width="882px" height="568px --}}

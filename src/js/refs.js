@@ -28,4 +28,5 @@ export default {
   footerGoitText: document.querySelector('.footer-wrapper__underline'),
   footerText1: document.querySelector('.footer-wrapper__text--rights'),
   footerText2: document.querySelector('.footer-wrapper__text--by'),
+  logoLink: document.querySelector('.nav-menu__logo-link'),
 };

@@ -13,8 +13,10 @@ const {
   paginationBox,
   watchedBtn,
   queueBtn,
+  logoLink,
 } = refs;
 
+logoLink.addEventListener('click', onClickHome)
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
 headerBtns.addEventListener('click', onClickMenuBtns);

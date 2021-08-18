@@ -3,13 +3,14 @@ import MovieApiService from './movieService';
 import {WATCHED_LIST,QUEUE_LIST} from './clients-lists';
 import { setLibraryTextContent } from './set-languages'
 const movieApiService = new MovieApiService();
-const { myLibraryRef,homeRef,watchedBtn,queueBtn} = refs;
-const message=document.querySelector('[id="empty-library"]')
+const { myLibraryRef,homeRef,watchedBtn,queueBtn, logoLink} = refs;
+const message = document.querySelector('[id="empty-library"]');
 
 
 
 myLibraryRef.addEventListener("click", textMessage);
-homeRef.addEventListener("click",deleteTextMessage);
+homeRef.addEventListener("click", deleteTextMessage);
+logoLink.addEventListener('click', onLogoClick)  
 
 
 function deleteTextMessage() {
@@ -32,9 +33,18 @@ const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
 }  
 watchedBtn.addEventListener("click",onBtnWatchedClick);
 queueBtn.addEventListener("click",onBtnQueueClick); 
-window.addEventListener("click",onWindowClick);
+window.addEventListener("click", onWindowClick);
 }
 
+function onLogoClick() {
+  const que = movieApiService.getLocalStoredList(QUEUE_LIST);
+  const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
+  
+   if (watched.length === 0 || que.length === 0  ) {
+    message.style.display = "none";
+  }
+
+}
 
 function onWindowClick(e){
 

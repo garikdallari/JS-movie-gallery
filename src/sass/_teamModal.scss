@@ -29,9 +29,23 @@ li {
   overflow: hidden;
   position: fixed;
   transform: translate(-50%, -50%);
-  
   background: var(--background-color-modal);
   box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;  
+    opacity: .8; 
+    z-index: -1;
+    background: url('https://files.fm/thumb_show.php?i=65nn4begp');
+    background-size: cover;
+  }
+  
+  
 
   &-overlay {
     position: fixed;

@@ -48,6 +48,7 @@ btnTop.addEventListener('click', throttle(onClickBtnTop, THROTTLE_DELAY));
 btnUpcoming.addEventListener('click', throttle(onClickBtnUpcoming, THROTTLE_DELAY));
 
 function onClickBtnDay() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -63,6 +64,7 @@ function onClickBtnDay() {
 }
 
 function onClickBtnWeek() {
+  API.getCurrentClientLang();
   searchInputRef.value = '';
   messageFailure.style.display = 'none';
   API.clearGallery();
@@ -76,6 +78,7 @@ function onClickBtnWeek() {
 }
 
 function onClickBtnTop() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -92,6 +95,7 @@ function onClickBtnTop() {
 }
 
 function onClickBtnUpcoming() {
+ API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();

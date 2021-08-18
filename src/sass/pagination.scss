@@ -45,9 +45,6 @@
 
 .tui-pagination .tui-ico-ellip {
   margin-top: 11px;
-  @media (max-width: 767px) {
-      display: none;
-    }
 }
 
 .tui-pagination--closed {
@@ -67,7 +64,7 @@
 }
 
 @media (max-width: 767px) {
-  .tui-ico-ellip {
-    display: none;
+  .tui-page-btn:not(:last-child) {
+    margin-right: 2px;
     }
   }

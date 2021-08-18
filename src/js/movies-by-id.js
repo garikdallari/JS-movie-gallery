@@ -20,7 +20,7 @@ const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
-  console.log(e.target);
+  
   if (!e.target.classList.contains('cards-list__img')) {
     return;
   }

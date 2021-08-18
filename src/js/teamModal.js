@@ -8,5 +8,14 @@ let close = () => {
   modalOverlay.classList.toggle("closed");
   document.body.style.overflow = 'hidden';
 }
+
 closeButton.addEventListener("click", close);
 openButton.addEventListener("click", close);
+modalOverlay.addEventListener('click', close);
+window.addEventListener('keydown', closeModalOnEsc);
+
+function closeModalOnEsc(e) {
+  if (e.code === 'Escape') {
+    close;
+  }
+}

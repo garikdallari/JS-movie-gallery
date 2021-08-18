@@ -38,7 +38,7 @@
   position: relative;
 
   @include for-tablet-up {
-    background: linear-gradient(to right, #ececec 42%, transparent 100%);
+    background: linear-gradient(to right, var(--background-color-modal) 42%, transparent 100%);
     background-color: transparent;
     position: absolute;
     width: 618px;

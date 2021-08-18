@@ -28,6 +28,8 @@
     border-radius: 5px;
     transform: scale(1.1);
     color: white;
+    box-shadow: rgba(143, 125, 125, 0.8) 0px 3px 8px;
+    outline: none;
   }
 }
 
@@ -39,8 +41,10 @@
   cursor: pointer;
 }
 
-.tui-pagination .tui-last-child.tui-is-selected {
-  border-right: 1px solid #ff6b08;
+.tui-pagination .tui-prev-is-ellip, .tui-pagination .tui-next-is-ellip {
+  padding: 0;
+  line-height: 1;
+  padding: 12px 0 6px;
 }
 
 .tui-pagination .tui-ico-ellip {

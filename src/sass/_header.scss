@@ -175,11 +175,16 @@
   font-size: 12px;
   line-height: 1.16;
   color: var(--primary-font-color);
+
+  &--icon {
+    font-size: 16px;
+    color: var(--accent-font-color);
+  }
 }
 
 .nav-menu__item {
   position: relative;
-  &:first-child {
+  &:not(:last-child) {
     margin-right: 39px;
   }
 }

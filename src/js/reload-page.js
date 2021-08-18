@@ -3,6 +3,9 @@ import refs from './refs';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
+import { renderLocalList } from './clients-lists';
+import { onClickLib, addElementClass, removeElementClass } from './change-header';
+import MovieApiService from './movieService';
 import {
   paginContainer,
   paginOptions,
@@ -16,7 +19,8 @@ import {
   onByWordPagination,
 } from './pagination';
 
-const { btnDay, btnWeek, btnTop, btnUpcoming } = refs;
+const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn } = refs;
+const movieApiService = new MovieApiService();
 
 createCurrentPageSettings();
 document.addEventListener('DOMContentLoaded', renderPageAfterReload);
@@ -33,6 +37,25 @@ function renderPageAfterReload() {
 
 function renderSavedPage(objOfSettings) {
   let { currentPage, period, query, fetchQuery } = objOfSettings;
+
+  switch (fetchQuery) {
+    case 'watched':
+      onClickLib();
+      movieApiService.getCurrentClientLang();
+      movieApiService.updateLocalList('watched');
+      renderLocalList('watched');
+      break;
+
+    case 'queue':
+      onClickLib();
+      addElementClass(queueBtn, 'header-menu-btn__item--active');
+      removeElementClass(watchedBtn, 'header-menu-btn__item--active');
+      movieApiService.getCurrentClientLang();
+      movieApiService.updateLocalList('queue');
+      renderLocalList('queue');
+      break;
+  }
+
   const pagination = new Pagination(paginContainer, { ...paginOptions, page: currentPage });
 
   switch (fetchQuery) {

@@ -50,7 +50,6 @@
   font-size: 30px;
   font-weight: 500;
   line-height: 35px;
-  letter-spacing: 0em;
   margin-bottom: 20px;
 }
 .list_wrapper {
@@ -68,7 +67,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-align: left;
 }
 .about_text {
@@ -78,7 +76,6 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 20px;
-  letter-spacing: 0em;
   text-align: left;
 }
 .button_watched {
@@ -90,7 +87,6 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
@@ -122,13 +118,12 @@
   padding: 0;
   height: 44px;
   width: 112.6px;
-  margin-left: 15px;
+  margin-left: 10px;
   border-radius: 5px;
   font-family: var(--font-family);
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
@@ -147,13 +142,14 @@
 
 .button_open {
   padding: 0;
-  margin-left: 15px;
+  height: 44px;
+  width: 112.6px;
+  margin-top: 5px;
   border-radius: 5px;
-  font-family: Roboto;
+  font-family: var(--font-family);
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
@@ -161,14 +157,12 @@
   transition: background-color var(--time) var(--time-function),
     border var(--time) var(--time-function);
   @include for-tablet-up {
-    margin-left: 0;
-    margin-top: 5px;
     height: 44px;
     width: 125px;
   }
   @include for-desktop-up {
     margin-top: 0;
-    margin-left: 15px;
+    margin-left: 10px;
     height: 44px;
     width: 136px;
   }
@@ -177,6 +171,7 @@
 .button_wrapper {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   @include for-tablet-up {
     flex-wrap: wrap;
   }
@@ -201,8 +196,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
-  text-align: left;
   color: var(--cards-name-font-color);
 }
 

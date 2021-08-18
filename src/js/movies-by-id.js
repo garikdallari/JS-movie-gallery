@@ -60,12 +60,10 @@ function closeModalOnEsc(e) {
 }
 
 function openTrailer(e) {
-  // console.log(e.target)
-  if (!e.target.classList.contains('button_open')) {
-    return;
+  if (!e.target.classList.contains("button_open")) {
+ return;
   }
   document.querySelector('.plyr__video-embed').style.display = 'block';
-  // iframe.style.display = 'block';
   buttonClose.style.display = 'none';
   addListenerForOpentrailer();
   window.removeEventListener('keydown', closeModalOnEsc);

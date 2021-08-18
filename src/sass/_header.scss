@@ -141,14 +141,15 @@
 .nav-menu__wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: center;
+  margin-bottom: 41px;
 }
 
 .nav-menu__logo-link {
   background: transparent;
   border: none;
   cursor: pointer;
-  align-items: center;
+  // align-items: center;
   display: flex;
   color: var(--primary-font-color);
 }
@@ -168,7 +169,7 @@
 
 .nav-menu__list {
   display: flex;
-  margin-bottom: 41px;
+  // margin-bottom: 41px;
 }
 
 .nav-menu__link {

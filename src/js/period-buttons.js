@@ -104,7 +104,6 @@ function onClickBtnUpcoming() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-      // activatePagination(pagination, null, null, fetchUpcomingMovies);
       onUpcomingPagination(pagination);
     })
     .finally(() => loader.off());
@@ -117,7 +116,6 @@ async function getMovieByPeriod(period) {
     const response = await API.fetchTrendingMovies(period).then(response =>
       renderMovieCards(response),
     );
-    // saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return response;
   } catch (error) {
     console.log(error);
@@ -131,7 +129,6 @@ async function getMovieByType(type) {
       localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
       renderMovieCards(response);
     });
-    // saveCurrentPageToLocalStorage(1, null, null, 'fetchTopRated');
 
     return response;
   } catch (error) {

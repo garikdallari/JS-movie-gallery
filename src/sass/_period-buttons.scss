@@ -32,7 +32,10 @@
   cursor: pointer;
 
   &:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 10px;
+    @include for-tablet-up {
+      margin-right: 20px;
+    }
   }
 
   &:hover {

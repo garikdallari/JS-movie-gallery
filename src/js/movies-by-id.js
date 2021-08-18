@@ -20,11 +20,12 @@ const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
+  console.log(e.target);
   if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
   loader.on();
-  
+
   document.body.style.overflow = 'hidden';
   modalRef.classList.add('is-open');
   movieApiService.id = +e.target.getAttribute('data-img-id');
@@ -35,7 +36,6 @@ function openModalOnClick(e) {
 
   content.addEventListener('click', openTrailer);
 }
-
 
 function closeModalOnClick() {
   modalRef.classList.remove('is-open');
@@ -61,7 +61,7 @@ function closeModalOnEsc(e) {
 
 function openTrailer(e) {
   // console.log(e.target)
-  if (!e.target.classList.contains("button_open")) {
+  if (!e.target.classList.contains('button_open')) {
     return;
   }
   document.querySelector('.plyr__video-embed').style.display = 'block';
@@ -80,10 +80,10 @@ function openTrailer(e) {
     buttonClose.style.display = 'flex';
     backdrop.classList.remove('backdrop-is-open');
     btnOpenTrailer.disabled = true;
-    btnOpenTrailer.style.cursor = 'default'
+    btnOpenTrailer.style.cursor = 'default';
     btnOpenTrailer.style.background = 'transparent';
     btnOpenTrailer.style.color = 'gray';
-    btnOpenTrailer.style.border = '1px solid lightgray'
+    btnOpenTrailer.style.border = '1px solid lightgray';
     Notify.init({
       position: 'right-top',
       fontSize: '15px',
@@ -149,11 +149,9 @@ async function fetchMovieById() {
   if (results.length === 0) {
     key = 'W9nZ6u15yis';
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-   
   } else {
     key = results[0].key;
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-    
   }
 
   // check for this movie if it exists in storage

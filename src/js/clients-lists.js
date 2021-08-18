@@ -54,9 +54,10 @@ function onLibraryClick(e) {
 
 // ===== LIBRARY BUTTONS CLICK
 function onLibraryBtnsClick(e) {
+  const btn = e.target;
+  if (btn.nodeName !== 'BUTTON') return;
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();
-  const btn = e.target;
 
   renderPageByLibBtnClick(btn, WATCHED_LIST);
   renderPageByLibBtnClick(btn, QUEUE_LIST);

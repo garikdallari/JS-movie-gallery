@@ -59,7 +59,6 @@ function onLibraryBtnsClick(e) {
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();
 
-  const btn = e.target;
   setCurrentLibCardLang(WATCHED_LIST);
   setCurrentLibCardLang(QUEUE_LIST);
 

@@ -4,8 +4,7 @@ import './js/loaders';
 import './js/refs';
 import './js/change-header';
 import './js/genres';
-import './js/set-languages'
-import './js/language';
+import './js/set-languages';
 import './js/trending-movies';
 import './js/search-movie';
 import './js/movies-by-id';
@@ -14,7 +13,5 @@ import './js/period-buttons';
 import './js/clients-lists';
 import './js/scroll';
 import './js/pagination';
-import'./js/empty-library';
-
-
-
+import './js/empty-library';
+import './js/fontawesome';

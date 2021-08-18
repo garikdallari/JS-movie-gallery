@@ -48,6 +48,7 @@ btnTop.addEventListener('click', throttle(onClickBtnTop, THROTTLE_DELAY));
 btnUpcoming.addEventListener('click', throttle(onClickBtnUpcoming, THROTTLE_DELAY));
 
 function onClickBtnDay() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -63,6 +64,7 @@ function onClickBtnDay() {
 }
 
 function onClickBtnWeek() {
+  API.getCurrentClientLang();
   searchInputRef.value = '';
   messageFailure.style.display = 'none';
   API.clearGallery();
@@ -76,6 +78,7 @@ function onClickBtnWeek() {
 }
 
 function onClickBtnTop() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -92,6 +95,7 @@ function onClickBtnTop() {
 }
 
 function onClickBtnUpcoming() {
+ API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -100,7 +104,6 @@ function onClickBtnUpcoming() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-      // activatePagination(pagination, null, null, fetchUpcomingMovies);
       onUpcomingPagination(pagination);
     })
     .finally(() => loader.off());
@@ -113,7 +116,6 @@ async function getMovieByPeriod(period) {
     const response = await API.fetchTrendingMovies(period).then(response =>
       renderMovieCards(response),
     );
-    // saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return response;
   } catch (error) {
     console.log(error);
@@ -127,7 +129,6 @@ async function getMovieByType(type) {
       localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
       renderMovieCards(response);
     });
-    // saveCurrentPageToLocalStorage(1, null, null, 'fetchTopRated');
 
     return response;
   } catch (error) {

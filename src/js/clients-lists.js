@@ -1,13 +1,22 @@
 import refs from './refs';
 import MovieApiService from './movieService';
 import galleryCard from '../templates/gallery-card.hbs';
-import { setCurrentModalLang, setCurrentModalRemoveLang , removePeriodBtnActiveClass, setCurrentLibCardLang} from './set-languages'
-const {searchInputRef, messageFailure, myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef,} = refs;
+import { saveCurrentPageToLocalStorage } from './reload-page';
+import {
+  setCurrentModalLang,
+  setCurrentModalRemoveLang,
+  removePeriodBtnActiveClass,
+  setCurrentLibCardLang,
+} from './set-languages';
+import { loader } from './loaders';
+const { searchInputRef, messageFailure, myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef } =
+  refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
 const QUEUE_LIST = 'queue';
 let pageForExport = null;
+let currentLang = null;
 
 // ===== LISTENTERS
 myLibraryRef.addEventListener('click', onLibraryClick);
@@ -31,23 +40,27 @@ function onHomeRefClick() {
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
   messageFailure.style.display = 'none';
-  searchInputRef.value="";
+  searchInputRef.value = '';
   movieApiService.clearGallery();
   removePeriodBtnActiveClass();
   pageForExport = WATCHED_LIST;
+  saveCurrentPageToLocalStorage(null, null, null, WATCHED_LIST);
 
   // ===== get watched list & render it
   setCurrentLibCardLang(WATCHED_LIST);
   setCurrentLibCardLang(QUEUE_LIST);
-  const grabbedData = updateCurrentPage(WATCHED_LIST);
-  editDateAndGenres(grabbedData);
+  renderLocalList(WATCHED_LIST);
 }
 
 // ===== LIBRARY BUTTONS CLICK
 function onLibraryBtnsClick(e) {
+  const btn = e.target;
+  if (btn.nodeName !== 'BUTTON') return;
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();
-  const btn = e.target;
+
+  setCurrentLibCardLang(WATCHED_LIST);
+  setCurrentLibCardLang(QUEUE_LIST);
 
   renderPageByLibBtnClick(btn, WATCHED_LIST);
   renderPageByLibBtnClick(btn, QUEUE_LIST);
@@ -58,8 +71,14 @@ function renderPageByLibBtnClick(btnRef, listKey) {
   if (btnRef.dataset.value !== listKey) return;
   pageForExport = listKey;
   movieApiService.updateLocalList(listKey);
+  renderLocalList(listKey);
+  saveCurrentPageToLocalStorage(null, null, null, listKey);
+}
+
+function renderLocalList(listKey) {
   const grabbedData = updateCurrentPage(listKey);
   editDateAndGenres(grabbedData);
+  loader.off();
 }
 
 // ===== ON MODAL BUTTONS CLICK
@@ -102,6 +121,7 @@ function editDateAndGenres(array) {
 }
 
 function editMovieGenres(obj) {
+  movieApiService.getCurrentClientLang();
   const genresRef = document.querySelector(`[data-genre-id="${obj.id}"]`);
   let parsedGenres = [];
   obj.genres.forEach(genre => {
@@ -114,6 +134,7 @@ function editMovieGenres(obj) {
 }
 
 function markupGrabbedList(listKey) {
+  movieApiService.getCurrentClientLang();
   if (listKey === null) return;
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();
@@ -136,10 +157,24 @@ function toggleBtnText(isInList, listKey) {
 
 // ===== add watched or queue property
 function addProp(data, listKey) {
+  movieApiService.getCurrentClientLang();
   const localList = movieApiService.getLocalStoredList(listKey);
   const movieId = data.id;
   const isIdExists = localList.some(movie => movieId === movie.id);
   return isIdExists ? (data[`${listKey}`] = true) : (data[`${listKey}`] = false);
 }
 
-export { WATCHED_LIST, QUEUE_LIST, pageForExport, markupGrabbedList, addProp, toggleBtnText,editDateAndGenres,  onLibraryBtnsClick, renderPageByLibBtnClick, updateCurrentPage};
+export {
+  WATCHED_LIST,
+  QUEUE_LIST,
+  pageForExport,
+  markupGrabbedList,
+  addProp,
+  toggleBtnText,
+  editDateAndGenres,
+  onLibraryBtnsClick,
+  renderPageByLibBtnClick,
+  updateCurrentPage,
+  renderLocalList,
+  onLibraryClick,
+};

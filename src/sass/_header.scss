@@ -359,3 +359,13 @@
   border-radius: 5px;
   font-weight: bolder;
 }
+.svg-inline--fa.fa-w-16 {
+  @include for-tablet-up {
+    width: 20px;
+    height: 20px;
+  }
+  @include for-desktop-up {
+    width: 24px;
+    height: 24px;
+  }
+}

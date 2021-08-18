@@ -148,14 +148,18 @@ function setCurrentModalLang(listKey) {
   const addToWatched = document.querySelector('.button_watched');
   const addToQueue = document.querySelector('.button_queue');
   const openTrailer = document.querySelector('.button_open');
+  const aboutTitle= document.querySelector('.title_about');
+  console.log(aboutTitle);
 
   if (parselocalLang === null) {
     openTrailer.textContent = en.openTrailer;
+    aboutTitle.textContent = en.aboutTitle;
     listKey === 'watched'
       ? (addToWatched.textContent = en.addToWatched)
       : (addToQueue.textContent = en.addToQueue);
   } else {
     openTrailer.textContent = parselocalLang.openTrailer;
+    aboutTitle.textContent =  parselocalLang.aboutTitle;
     listKey === 'watched'
       ? (addToWatched.textContent = parselocalLang.addToWatched)
       : (addToQueue.textContent = parselocalLang.addToQueue);

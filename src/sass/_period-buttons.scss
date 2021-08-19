@@ -2,10 +2,9 @@
   display: flex;
   justify-content: center;
   font-size: 10px;
+  padding-top: 50px;
 
   @include for-tablet-up {
-    padding-top: 25px;
-
     font-family: var(--font-family);
     font-style: normal;
     font-weight: 500;

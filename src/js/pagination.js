@@ -51,7 +51,11 @@ function scrollUpOnPagination() {
 
 function onPeriodPagination(pagination, period) {
   pagination.on('afterMove', event => {
+
+    movieApiService.getCurrentClientLang();
+
     scrollUpOnPagination();
+
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchMovieByPeriod(period, currentPage);
@@ -59,6 +63,7 @@ function onPeriodPagination(pagination, period) {
 }
 
 function onTopRatedPagination(pagination) {
+  movieApiService.getCurrentClientLang();
   pagination.on('afterMove', event => {
     scrollUpOnPagination();
     const currentPage = event.page;
@@ -68,6 +73,7 @@ function onTopRatedPagination(pagination) {
 }
 
 function onUpcomingPagination(pagination) {
+  movieApiService.getCurrentClientLang();
   pagination.on('afterMove', event => {
     scrollUpOnPagination();
     const currentPage = event.page;
@@ -77,6 +83,7 @@ function onUpcomingPagination(pagination) {
 }
 
 function onByWordPagination(pagination, query) {
+  movieApiService.getCurrentClientLang();
   pagination.on('afterMove', event => {
     scrollUpOnPagination();
     const currentPage = event.page;
@@ -86,6 +93,7 @@ function onByWordPagination(pagination, query) {
 }
 
 function fetchMovieByWord(page, query) {
+  movieApiService.getCurrentClientLang();
   movieApiService.searchQuery = query;
   movieApiService
     .searchMovieByWord(page)
@@ -107,6 +115,7 @@ function fetchMovieByWord(page, query) {
 }
 
 function fetchMovieByPeriod(period, page) {
+  movieApiService.getCurrentClientLang();
   movieApiService
     .fetchTrendingMovies(period, page)
     .then(res => {
@@ -127,6 +136,7 @@ function fetchMovieByPeriod(period, page) {
 }
 
 function fetchTopRatedMovie(page) {
+  movieApiService.getCurrentClientLang();
   movieApiService
     .fetchTopRatedMovies(page)
     .then(res => {
@@ -148,6 +158,7 @@ function fetchTopRatedMovie(page) {
 }
 
 function fetchUpcomingMovies(page) {
+  movieApiService.getCurrentClientLang();
   movieApiService
     .fetchUpcomingMovies(page)
     .then(res => {
@@ -174,6 +185,7 @@ function getTotalItemsFromStorage() {
 }
 
 function editDatesAndGenres(movies) {
+  movieApiService.getCurrentClientLang();
   movies.forEach(movie => {
     movieApiService.editDate(movie);
     movieApiService.editGenres(movie);

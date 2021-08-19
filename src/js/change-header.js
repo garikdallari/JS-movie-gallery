@@ -37,6 +37,7 @@ function onClickLib() {
 }
 
 function onClickHome() {
+  document.querySelector('.tui-pagination').style.display='block';
   searchInputRef.value = '';
   messageFailure.style.display = 'none';
   removeElementClass(searchFormRef, 'is-closed');

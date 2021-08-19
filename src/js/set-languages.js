@@ -10,7 +10,7 @@ const {  searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek,
     updateCurrentPage,
     editDateAndGenres,
   } from './clients-lists';
-
+ 
 const movieAS = new MovieApiService();
 
 langBtns.addEventListener('click', changeLang);
@@ -111,27 +111,35 @@ function setCurrentLangBtn(langBtn) {
 }
 
 function changeCardsLang() {
-  movieAS.getCurrentClientLang();
+  movieAS.getCurrentClientPage();
   movieAS.fetchGenres().then(res => {
     localStorage.setItem('genresList', JSON.stringify(res));
   });
   const currentPeriodActiveBtn = document.querySelector('.period-buttons__btn--active');
-  switch (currentPeriodActiveBtn) {
-    case btnTop:
-      onClickBtnTop();
-      break;
+  if (!currentPeriodActiveBtn) {
+    return;
+  } else {
+    switch (currentPeriodActiveBtn) {
+      case btnTop:
+        movieAS.getCurrentClientPage();
+        onClickBtnTop();
+        break;
 
-    case btnDay:
-      onClickBtnDay();
-      break;
+      case btnDay:
+        movieAS.getCurrentClientPage();
+        onClickBtnDay();
+        break;
 
-    case btnWeek:
-      onClickBtnWeek();
-      break;
+      case btnWeek:
+        movieAS.getCurrentClientPage();
+        onClickBtnWeek();
+        break;
 
-    case btnUpcoming:
-      onClickBtnUpcoming();
-      break;
+      case btnUpcoming:
+        movieAS.getCurrentClientPage();
+        onClickBtnUpcoming();
+        break;
+    }
   }
 }
 
@@ -149,17 +157,29 @@ function setCurrentModalLang(listKey) {
   const addToQueue = document.querySelector('.button_queue');
   const openTrailer = document.querySelector('.button_open');
   const aboutTitle= document.querySelector('.title_about');
-  console.log(aboutTitle);
-
+  const vote = document.querySelector('.vote');
+  const popularity = document.querySelector('.popularity');
+  const  title= document.querySelector('.title');
+  const  genre= document.querySelector('.genre');
+  
   if (parselocalLang === null) {
     openTrailer.textContent = en.openTrailer;
     aboutTitle.textContent = en.aboutTitle;
+    vote.textContent = en.vote;
+    popularity.textContent = en.popularity;
+    title.textContent = en.title;
+    genre.textContent =  en.genre;
     listKey === 'watched'
       ? (addToWatched.textContent = en.addToWatched)
       : (addToQueue.textContent = en.addToQueue);
+
   } else {
     openTrailer.textContent = parselocalLang.openTrailer;
     aboutTitle.textContent =  parselocalLang.aboutTitle;
+    vote.textContent = parselocalLang.vote;
+    popularity.textContent =  parselocalLang.popularity;
+    title.textContent = parselocalLang.title;
+    genre.textContent =  parselocalLang.genre;
     listKey === 'watched'
       ? (addToWatched.textContent = parselocalLang.addToWatched)
       : (addToQueue.textContent = parselocalLang.addToQueue);

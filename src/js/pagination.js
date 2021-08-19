@@ -169,7 +169,6 @@ function fetchUpcomingMovies(page) {
     })
     .then(res => {
       const totalItems = res.data.total_results;
-      console.log(totalItems);
       saveCurrentPageToLocalStorage(page, null, null, 'fetchUpcoming', totalItems);
     })
     .finally(() => loader.off());

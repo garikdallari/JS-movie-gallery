@@ -19,6 +19,7 @@ import {
   onByWordPagination,
   scrollUpOnPagination,
   hidePagination,
+  getTotalItemsFromStorage,
 } from './pagination';
 
 const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn, paginationBox } = refs;
@@ -42,6 +43,7 @@ function renderPageAfterReload() {
 
 function renderSavedPage(objOfSettings) {
   let { currentPage, period, query, fetchQuery, totalItems } = objOfSettings;
+  totalItems = getTotalItemsFromStorage();
 
   switch (fetchQuery) {
     case 'watched':
@@ -54,6 +56,7 @@ function renderSavedPage(objOfSettings) {
 
     case 'queue':
       onClickLib();
+      hidePagination();
       addElementClass(queueBtn, 'header-menu-btn__item--active');
       removeElementClass(watchedBtn, 'header-menu-btn__item--active');
       movieApiService.getCurrentClientLang();

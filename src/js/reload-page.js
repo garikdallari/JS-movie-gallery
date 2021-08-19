@@ -37,7 +37,7 @@ function renderPageAfterReload() {
 }
 
 function renderSavedPage(objOfSettings) {
-  let { currentPage, period, query, fetchQuery } = objOfSettings;
+  let { currentPage, period, query, fetchQuery, totalItems } = objOfSettings;
 
   switch (fetchQuery) {
     case 'watched':
@@ -57,7 +57,11 @@ function renderSavedPage(objOfSettings) {
       break;
   }
 
-  const pagination = new Pagination(paginContainer, { ...paginOptions, page: currentPage });
+  const pagination = new Pagination(paginContainer, {
+    ...paginOptions,
+    page: currentPage,
+    totalItems,
+  });
 
   switch (fetchQuery) {
     case 'fetchByPeriod':
@@ -102,8 +106,8 @@ function renderSavedPage(objOfSettings) {
   }
 }
 
-function saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery) {
-  const savedSettings = { currentPage, period, query, fetchQuery };
+function saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery, totalItems) {
+  const savedSettings = { currentPage, period, query, fetchQuery, totalItems };
   localStorage.setItem('currentPageSettings', JSON.stringify(savedSettings));
 }
 

@@ -129,17 +129,20 @@ function fetchMovieByPeriod(period, page) {
 function fetchTopRatedMovie(page) {
   movieApiService
     .fetchTopRatedMovies(page)
-    .then(res => res.data.results)
-    .then(movies => {
+    .then(res => {
+      const movies = res.data.results;
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
       }
+      return res;
     })
     .then(res => {
-      saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated');
+      const totalItems = res.data.total_results;
+      console.log(totalItems);
+      saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated', totalItems);
     })
     .finally(() => loader.off());
 }
@@ -147,17 +150,20 @@ function fetchTopRatedMovie(page) {
 function fetchUpcomingMovies(page) {
   movieApiService
     .fetchUpcomingMovies(page)
-    .then(res => res.data.results)
-    .then(movies => {
+    .then(res => {
+      const movies = res.data.results;
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
       }
+      return res;
     })
     .then(res => {
-      saveCurrentPageToLocalStorage(page, null, null, 'fetchUpcoming');
+      const totalItems = res.data.total_results;
+      console.log(totalItems);
+      saveCurrentPageToLocalStorage(page, null, null, 'fetchUpcoming', totalItems);
     })
     .finally(() => loader.off());
 }

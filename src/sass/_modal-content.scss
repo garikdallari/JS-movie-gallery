@@ -16,12 +16,13 @@
   border-radius: 5px;
   @include for-tablet-up {
     height: 200px;
-    width: 0px;
+    width: 156px;
   }
-  @include for-desktop-up {
-    height: 200px;
-    width: 0px;
-  }
+
+  // @include for-desktop-up {
+  //   height: 200px;
+  //   width: 156px;
+  // }
 }
 
 .thumb_image_image {
@@ -32,10 +33,10 @@
 
 .modal_movie_info {
   @include for-tablet-up {
-    margin-left: 155px;
+    margin-left: 0px;
   }
   @include for-desktop-up {
-    margin-left: 155px;
+    margin-left: 0px;
     width: 396px;
   }
 }
@@ -172,12 +173,12 @@
 }
 
 .button_wrapper {
-  display: flex; 
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
   @include for-tablet-up {
     flex-wrap: wrap;
-    align-items: baseline;
+    align-items: flex-end;
   }
   @include for-desktop-up {
     flex-wrap: nowrap;
@@ -202,7 +203,7 @@
   font-weight: 500;
   line-height: 16px;
   color: var(--cards-name-font-color);
-  &::first-letter{
+  &::first-letter {
     text-transform: uppercase;
   }
 }

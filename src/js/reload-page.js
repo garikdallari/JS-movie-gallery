@@ -18,9 +18,10 @@ import {
   onUpcomingPagination,
   onByWordPagination,
   scrollUpOnPagination,
+  hidePagination,
 } from './pagination';
 
-const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn } = refs;
+const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn, paginationBox } = refs;
 const movieApiService = new MovieApiService();
 
 createCurrentPageSettings();
@@ -28,7 +29,10 @@ document.addEventListener('DOMContentLoaded', renderPageAfterReload);
 
 function createCurrentPageSettings() {
   const isStorageExists = localStorage.getItem('currentPageSettings');
-  if (!isStorageExists) saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod');
+  if (!isStorageExists) {
+    const totalItems = 20000;
+    saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod', totalItems);
+  }
 }
 
 function renderPageAfterReload() {
@@ -42,6 +46,7 @@ function renderSavedPage(objOfSettings) {
   switch (fetchQuery) {
     case 'watched':
       onClickLib();
+      hidePagination();
       movieApiService.getCurrentClientLang();
       movieApiService.updateLocalList('watched');
       renderLocalList('watched');

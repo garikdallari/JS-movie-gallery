@@ -7,7 +7,7 @@ import galleryCard from '../templates/gallery-card.hbs';
 import { loader } from './loaders';
 import { saveCurrentPageToLocalStorage } from './reload-page';
 
-const { galleryRef, messageFailure, logoLink } = refs;
+const { galleryRef, messageFailure, logoLink, paginationBox } = refs;
 const movieApiService = new MovieApiService();
 
 const paginOptions = {
@@ -188,6 +188,10 @@ function editDatesAndGenres(movies) {
   });
 }
 
+function hidePagination() {
+  paginationBox.style.display = 'none';
+}
+
 export {
   paginContainer,
   paginOptions,
@@ -201,4 +205,5 @@ export {
   onUpcomingPagination,
   onByWordPagination,
   scrollUpOnPagination,
+  hidePagination,
 };

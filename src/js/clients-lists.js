@@ -9,8 +9,17 @@ import {
   setCurrentLibCardLang,
 } from './set-languages';
 import { loader } from './loaders';
-const { searchInputRef, messageFailure, myLibraryRef, galleryRef, libraryBtns, modalRef, homeRef } =
-  refs;
+import { hidePagination } from './pagination';
+const {
+  searchInputRef,
+  messageFailure,
+  myLibraryRef,
+  galleryRef,
+  libraryBtns,
+  modalRef,
+  homeRef,
+  paginationBox,
+} = refs;
 
 const movieApiService = new MovieApiService();
 const WATCHED_LIST = 'watched';
@@ -39,6 +48,7 @@ function onHomeRefClick() {
 
 // ===== ON LIBRARY LINK CLICK
 function onLibraryClick(e) {
+  hidePagination();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   movieApiService.clearGallery();

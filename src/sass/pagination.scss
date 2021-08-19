@@ -1,5 +1,5 @@
 #tui-pagination-container {
- padding-bottom: 70px; 
+  padding-bottom: 70px;
 }
 
 .tui-pagination {
@@ -10,7 +10,7 @@
 .tui-pagination .tui-page-btn {
   width: 40px;
   height: 40px;
-  
+
   text-align: center;
   justify-content: center;
 
@@ -18,10 +18,8 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 1.3;
-  transition: transform 250ms ;
-  
+  transition: transform 250ms;
 
-  
   &:hover,
   &:focus {
     background-color: #ff6b08;
@@ -66,5 +64,5 @@
 @media (max-width: 767px) {
   .tui-page-btn:not(:last-child) {
     margin-right: 2px;
-    }
   }
+}

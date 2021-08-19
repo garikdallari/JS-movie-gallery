@@ -359,11 +359,63 @@
   border-radius: 5px;
   font-weight: bolder;
 }
+
+[data-title] {
+  position: relative;
+}
+[data-title]:after {
+  content: attr(data-title);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+  position: absolute;
+  top: -2em;
+  left: 100%;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 300;
+  text-transform: lowercase;
+  white-space: nowrap;
+  color: #444;
+  background-image: -moz-linear-gradient(top, #fff, #ddd);
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #fff),
+    color-stop(1, #ddd)
+  );
+  background-image: -webkit-linear-gradient(top, #fff, #ddd);
+  background-image: -o-linear-gradient(top, #fff, #ddd);
+  background-image: -ms-linear-gradient(top, #fff, #ddd);
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -o-border-radius: 3px;
+  -ms-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0 0 5px #ccc;
+  -webkit-box-shadow: 0 0 5px #ccc;
+  -o-box-shadow: 0 0 5px #ccc;
+  -ms-box-shadow: 0 0 5px #ccc;
+  box-shadow: 0 0 5px #ccc;
+}
+
+[data-title]:hover:after {
+  opacity: 1;
+  visibility: visible;
+  -moz-transition: all 0.2s ease-out 0.5s;
+  -webkit-transition: all 0.2s ease-out 0.5s;
+  -o-transition: all 0.2s ease-out 0.5s;
+  -ms-transition: all 0.2s ease-out 0.5s;
+  transition: all 0.2s ease-out 0.5s;
+}
+
 .svg-inline--fa.fa-w-16 {
   @include for-tablet-up {
     width: 20px;
     height: 20px;
   }
+
   @include for-desktop-up {
     width: 24px;
     height: 24px;

@@ -2,16 +2,14 @@ import MovieApiService from './movieService';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 import { loader } from './loaders';
-
+import { removeActiveButton } from './period-buttons';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
 import {
   paginContainer,
   paginOptions,
-  // activatePagination,
   onByWordPagination,
-  fetchMovieByWord,
   getTotalItemsFromStorage,
 } from './pagination';
 
@@ -31,6 +29,8 @@ searchFormRef.addEventListener('submit', event => {
   loader.on();
   getMovie();
   removePeriodBtnActiveClass();
+  removeActiveButton();
+
 });
 
 function getMovie() {
@@ -66,7 +66,7 @@ function getMovie() {
       .then(movies => {
         if (movies.length === 0) {
           messageFailure.style.display = 'block';
-          document.querySelector('.tui-pagination').style.display='none';
+          document.querySelector('.tui-pagination').style.display = 'none';
         } else {
           document.querySelector('.tui-pagination').style.display='block';
           renderMovie(movies);

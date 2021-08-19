@@ -27,8 +27,7 @@
 }
 
 .lightbox__content {
-  background: linear-gradient(to right, #ececec 42%, transparent 100%);
-  // background-color: var(--primary-font-color);
+  background-color: var(--background-color-modal);
   border-radius: 5px;
   padding: 48px 20px 41px 20px;
   width: 280px;
@@ -39,6 +38,8 @@
   position: relative;
 
   @include for-tablet-up {
+    background: linear-gradient(to right, var(--background-color-modal) 42%, transparent 100%);
+    background-color: transparent;
     position: absolute;
     width: 618px;
     max-height: 605px;
@@ -68,6 +69,7 @@
   cursor: pointer;
   outline: none;
   transition: transform var(--time) var(--time-function), fill var(--time) var(--time-function);
+  fill: var(--close-color-icon);
 }
 
 .lightbox__button:hover,

@@ -15,8 +15,8 @@
   width: 240px;
   border-radius: 5px;
   @include for-tablet-up {
-    height: 373.5px;
-    width: 264px;
+    height: 200px;
+    width: 0px;
   }
   @include for-desktop-up {
     height: 200px;
@@ -32,7 +32,7 @@
 
 .modal_movie_info {
   @include for-tablet-up {
-    margin-left: 32px;
+    margin-left: 155px;
   }
   @include for-desktop-up {
     margin-left: 155px;
@@ -156,10 +156,13 @@
   cursor: pointer;
   transition: background-color var(--time) var(--time-function),
     border var(--time) var(--time-function);
+
   @include for-tablet-up {
     height: 44px;
     width: 125px;
+    margin-left: 10px;
   }
+
   @include for-desktop-up {
     margin-top: 0;
     margin-left: 10px;
@@ -174,6 +177,7 @@
   flex-wrap: wrap;
   @include for-tablet-up {
     flex-wrap: wrap;
+    align-items: baseline;
   }
   @include for-desktop-up {
     flex-wrap: nowrap;
@@ -285,5 +289,7 @@ iframe {
   }
 }
 .modal_movie_about-film {
-  width: 396px;
+  @include for-tablet-up {
+    width: 396px;
+  }
 }

@@ -21,6 +21,10 @@ const en = {
   emptyLibrary: "You haven't added any movies yet",
   footerGoitText: 'GoIT Students',
   aboutTitle: 'About',
+  vote: 'Vote / Votes',
+  popularity: 'Popularity',
+  title: 'Original Title',
+  genre: 'Genre',
   btn: 'EnBtn',
 };
 
@@ -46,6 +50,10 @@ const ru = {
   emptyLibrary: "Вы еще не добавили ни одного фильма",
   footerGoitText: ' студентами GoIT',
   aboutTitle: 'О фильме',
+  vote: 'Рейтинг',
+  popularity: 'Популярность',
+  title: 'Название',
+  genre: 'Жанр',
   btn: 'RuBtn',
 };
 
@@ -71,6 +79,10 @@ const ua = {
   emptyLibrary: "Ви ще не додали жодного фільму",
   footerGoitText: ' студентами GoIT',
   aboutTitle: 'Про фільм',
+  vote: 'Рейтинг',
+  popularity: 'Популярність',
+  title: 'Назва',
+  genre: 'Жанр',
   btn: 'UaBtn',
 };
 
@@ -92,12 +104,17 @@ const es = {
     addToWatched: 'añadir a vistos',
     addToQueue: 'añadir a cola',
     openTrailer: 'tráiler',
-    removeFromWatched: '111111',
-    removeFromQueue: '1111111',
-    emptyLibrary: '111111',
-    footerGoitText: '1111111111',
+    removeFromWatched: 'Eliminar de visto',
+    removeFromQueue: 'eliminar de cola',
+    emptyLibrary: 'Todavía no tienes ninguna película añadida',
+    footerGoitText: 'GoIT estudiante',
     aboutTitle:'Sobre la película',
+    vote:  'Voto / Votos',
+    popularity: 'Popularidad',
+    title: 'Título',
+    genre: 'Género',
     btn: 'EsBtn',
   }
+  
 
 export { ua, en, ru, es }

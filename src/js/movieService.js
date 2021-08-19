@@ -11,7 +11,7 @@ axios.defaults.baseURL = `https://api.themoviedb.org/3/`;
 export default class MovieApiService {
   constructor() {
     this.searchQuery = '';
-    this.page = 1;
+    this.page =`${this.getCurrentClientPage()}`;
     this.lang = `${this.getCurrentClientLang()}`;
     this.SearchId = 1;
     this.time_window = 'day';
@@ -45,9 +45,9 @@ export default class MovieApiService {
   async searchMovieByWord(page = 1) {
     this.saveCurrentPageToLocalStorage(1, null, this.searchQuery, 'fetchByWord');
     const response = await axios.get(
-      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}`,
+      `${SEARCH_MOVIE}?api_key=${API_KEY}&query=${this.searchQuery}&page=${page}&language=${this.lang}`,
     );
-   
+
     return response;
   }
 
@@ -182,6 +182,18 @@ export default class MovieApiService {
       this.lang = parselocalLang.language;
     }
     return this.lang;
+
+  }
+
+  getCurrentClientPage() {
+    const currentPageSettings = localStorage.getItem('currentPageSettings');
+    const parseCurrentPageSettings = JSON.parse(currentPageSettings);
+    if (parseCurrentPageSettings === null) {
+      this.page = 1;
+    } else {
+      this.page = parseCurrentPageSettings.currentPage;
+    }
+    return this.page;
   }
 
   saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery) {

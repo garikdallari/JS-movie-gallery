@@ -169,7 +169,7 @@
 }
 
 .button_wrapper {
-  display: flex;
+  display: flex; 
   justify-content: center;
   flex-wrap: wrap;
   @include for-tablet-up {
@@ -190,6 +190,7 @@
   text-align: left;
   color: var(--cards-description-font-color);
 }
+
 .list_text {
   font-family: var(--font-family);
   font-size: 12px;
@@ -197,6 +198,9 @@
   font-weight: 500;
   line-height: 16px;
   color: var(--cards-name-font-color);
+  &::first-letter{
+    text-transform: uppercase;
+  }
 }
 
 .list_text--bigger {

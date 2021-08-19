@@ -134,7 +134,6 @@ function editMovieGenres(obj) {
 }
 
 function markupGrabbedList(listKey) {
-  movieApiService.getCurrentClientLang();
   if (listKey === null) return;
   movieApiService.clearGallery();
   movieApiService.getCurrentClientLang();

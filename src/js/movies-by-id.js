@@ -66,6 +66,7 @@ function closeModalOnEsc(e) {
 }
 
 function openTrailer(e) {
+  
   if (!e.target.classList.contains("button_open")) {
  return;
   }

@@ -2,21 +2,11 @@
 
 @import 'https://fonts.googleapis.com/css?family=Prompt:400,700';
 
-h1,
-h2 {
-  font-weight: 500;
-  margin: 0px 0px 5px 0px;
-}
-h2 {
-  font-size: 16px;
-}
-li {
-  list-style-type: none;
-}
+
 
 .modal {
   display: block;
-  width: 747px;
+  width: 707px;
   max-width: 100%;
   height: 550px;
   max-height: 100%;
@@ -26,10 +16,26 @@ li {
   top: 50%;
   overflow: hidden;
   position: fixed;
+  border-radius: 1.5%;
   transform: translate(-50%, -50%);
 
   background: var(--background-color-modal);
   box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%;  
+    opacity: .8; 
+    z-index: -1;
+    background: url('https://www.jeffstyle.com/img/work/portfolio-marvel-kids-avengers-bg.jpg');
+    background-size: cover;
+  }
+  
+  
 
   &-overlay {
     position: fixed;
@@ -49,7 +55,7 @@ li {
     width: 100%;
     height: 100%;
     overflow: auto;
-    padding: 20px 50px 20px 20px;
+    padding: 20px 20px 20px 20px;
   }
 
   & .close-button {
@@ -110,7 +116,6 @@ li {
     @include for-desktop-up {
       display: flex;
       flex-wrap: wrap;
-      margin-left: -30px;
     }
   }
 
@@ -143,6 +148,10 @@ li {
 //******************************TEAM-CARD-MARKUP***********
 
 .profile-card {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+
   width: 56px;
   height: 56px;
   left: 50%;
@@ -261,7 +270,16 @@ li {
     }
 
     & h1 {
-      color: #ff5722;
+      color: #FF5722;
+      font-weight: 500;
+      margin: 0px 0px 5px 0px;
+    }
+
+    & h2 {
+      font-size: 16px;
+    font-weight: 500;
+      margin: 0px 0px 5px 0px;
+
     }
   }
 }
@@ -325,12 +343,31 @@ li {
     border-radius: 4px;
   }
   100% {
-    width: 280px;
+    width: 250px;
     height: 440px;
     background: #ffffff;
     border-radius: 4px;
   }
 }
+  
+.profile-card header {
+    width: auto;
+    height: auto;
+    padding: 30px 20px;
+    display: block;
+    float: none;
+    border-right: none;
+  }
+  .profile-card .profile-bio {
+    width: auto;
+    height: auto;
+    padding: 15px 20px 30px 20px;
+    display: block;
+    float: none;
+
+    flex: 1 1 auto;
+  }
+
 
 .profile-card header {
   width: auto;
@@ -356,6 +393,9 @@ li {
     align-items: center;
     justify-content: center;
     opacity: 0;
+
+    margin-bottom: 15px;
+
     -webkit-animation: moveIn 1s 2.1s ease forwards;
     animation: moveIn 1s 2.1s ease forwards;
 

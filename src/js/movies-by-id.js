@@ -44,10 +44,10 @@ function closeModalOnClick() {
 
   modalRef.classList.remove('is-open');
   document.body.style.overflow = 'visible';
-  // const modalContent = content.lastElementChild;
-  // modalContent.remove();
+  const modalContent = content.lastElementChild;
+  modalContent.remove();
   modalMovie.remove();
-  modalMovieAboutFilm.remove()
+  // modalMovieAboutFilm.remove()
   removeListenerFromCloseModal();
   markupGrabbedList(pageForExport);
 }

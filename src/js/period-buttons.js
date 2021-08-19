@@ -7,6 +7,7 @@ import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
+import { saveCurrentPageToLocalStorage } from './reload-page';
 import {
   paginContainer,
   paginOptions,
@@ -55,6 +56,7 @@ function onClickBtnDay() {
   // ====== GET FIRST REQUESTED PAGE
   getMovieByPeriod('day').finally(() => loader.off());
   addsActiveButton(btnDay);
+
   // ===== INITIALISE PAGINATION
   const pagination = new Pagination(paginContainer, paginOptions);
   // ===== GET NEXT PAGES
@@ -109,9 +111,16 @@ function onClickBtnUpcoming() {
 async function getMovieByPeriod(period) {
   try {
     API.getCurrentClientLang();
-    const response = await API.fetchTrendingMovies(period).then(response =>
-      renderMovieCards(response),
-    );
+    const response = await API.fetchTrendingMovies(period)
+      .then(response => {
+        renderMovieCards(response);
+        return response;
+      })
+      .then(res => {
+        const totalItems = res.data.total_results;
+        localStorage.setItem('totalItems', totalItems);
+        // saveCurrentPageToLocalStorage(page, period, null, 'fetchByPeriod', totalItems);
+      });
     return response;
   } catch (error) {
     console.log(error);

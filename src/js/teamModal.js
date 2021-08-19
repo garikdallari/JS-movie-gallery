@@ -7,7 +7,6 @@ const overlay = document.querySelector('.modal-overlay');
 footerOpenModalBtn.addEventListener('click', openModalOnClick);
 
 buttonClose.addEventListener('click',closeModalOnClick);
-// overlay.addEventListener('click', onOverleyClick);
 
 
 

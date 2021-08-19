@@ -5,7 +5,9 @@ import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
 import { renderLocalList } from './clients-lists';
 import { onClickLib, addElementClass, removeElementClass } from './change-header';
+import {removePeriodBtnActiveClass } from './set-languages';
 import MovieApiService from './movieService';
+
 import {
   paginContainer,
   paginOptions,
@@ -42,6 +44,7 @@ function renderSavedPage(objOfSettings) {
   switch (fetchQuery) {
     case 'watched':
       onClickLib();
+      removePeriodBtnActiveClass();
       movieApiService.getCurrentClientLang();
       movieApiService.updateLocalList('watched');
       renderLocalList('watched');
@@ -49,6 +52,7 @@ function renderSavedPage(objOfSettings) {
 
     case 'queue':
       onClickLib();
+      removePeriodBtnActiveClass();
       addElementClass(queueBtn, 'header-menu-btn__item--active');
       removeElementClass(watchedBtn, 'header-menu-btn__item--active');
       movieApiService.getCurrentClientLang();

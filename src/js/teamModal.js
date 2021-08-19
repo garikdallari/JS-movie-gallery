@@ -21,14 +21,15 @@
 // }
 
 
-const galleryContainer = document.querySelector('.footer-wrapper__underline');
+const footerOpenModalBtn = document.querySelector('.footer-wrapper__underline');
 const modal = document.querySelector('.modal');
 const buttonClose = document.querySelector('.close-button');
 const overlay = document.querySelector('.modal-overlay');
 
-galleryContainer.addEventListener('click', openModalOnClick);
+footerOpenModalBtn.addEventListener('click', openModalOnClick);
 buttonClose.addEventListener('click',closeModalOnClick);
 overlay.addEventListener('click', onOverleyClick);
+
 
 
 function openModalOnClick(e) {
@@ -37,6 +38,7 @@ function openModalOnClick(e) {
   window.addEventListener('keydown', closeModalOnEsk);
   window.addEventListener('keydown', onOverleyClick);
   document.body.style.overflow = 'hidden';
+  overlay.style.pointerEvents = 'none'
 }
 
 function closeModalOnClick() {
@@ -47,10 +49,12 @@ function closeModalOnClick() {
 }
 
 function onOverleyClick(e) {
-  if (e.currentTarget===e.target) {
+  if (e.currentTarget === e.target) {  
     closeModalOnClick();
-  }
 }
+
+};
+
 function closeModalOnEsk(e) {
   if(e.code==="Escape"){
     closeModalOnClick();

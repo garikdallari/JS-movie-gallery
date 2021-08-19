@@ -26,6 +26,7 @@ const en = {
   title: 'Original Title',
   genre: 'Genre',
   btn: 'EnBtn',
+  langIcon: 'Choose language',
 };
 
 const ru = {
@@ -54,6 +55,7 @@ const ru = {
   popularity: 'Популярность',
   title: 'Название',
   genre: 'Жанр',
+  langIcon: 'Выбрать язык',
   btn: 'RuBtn',
 };
 
@@ -83,6 +85,7 @@ const ua = {
   popularity: 'Популярність',
   title: 'Назва',
   genre: 'Жанр',
+  langIcon: 'Обрати мову',
   btn: 'UaBtn',
 };
 
@@ -113,6 +116,7 @@ const es = {
     popularity: 'Popularidad',
     title: 'Título',
     genre: 'Género',
+    langIcon: 'Elige lengua',
     btn: 'EsBtn',
   }
   

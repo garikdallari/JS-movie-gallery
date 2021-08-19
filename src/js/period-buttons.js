@@ -56,6 +56,7 @@ function onClickBtnDay() {
   getMovieByPeriod('day').finally(() => loader.off());
   addsActiveButton(btnDay);
   // ===== INITIALISE PAGINATION
+  document.querySelector('.tui-pagination').style.display='block';
   const pagination = new Pagination(paginContainer, paginOptions);
   // ===== GET NEXT PAGES
   onPeriodPagination(pagination, 'day');
@@ -69,7 +70,7 @@ function onClickBtnWeek() {
   loader.on();
   getMovieByPeriod('week').finally(() => loader.off());
   addsActiveButton(btnWeek);
-
+  document.querySelector('.tui-pagination').style.display='block';
   const pagination = new Pagination(paginContainer, paginOptions);
   onPeriodPagination(pagination, 'week');
 }
@@ -83,6 +84,7 @@ function onClickBtnTop() {
   getMovieByType(API.fetchTopRatedMovies())
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
+      document.querySelector('.tui-pagination').style.display='block';
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
       onTopRatedPagination(pagination);
     })
@@ -99,6 +101,7 @@ function onClickBtnUpcoming() {
   getMovieByType(API.fetchUpcomingMovies())
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
+      document.querySelector('.tui-pagination').style.display='block';
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
       onUpcomingPagination(pagination);
     })

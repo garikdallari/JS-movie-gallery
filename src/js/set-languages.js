@@ -101,6 +101,7 @@ function setTextcontent(lang) {
   queueBtn.textContent = lang.queue;
   searchInputRef.placeholder = lang.placeholder;
   footerGoitText.textContent = lang.footerGoitText;
+  langIcon.setAttribute('data-title', `${lang.langIcon}`);
 
 }
 
@@ -214,7 +215,7 @@ function setLibraryTextContent() {
       : (emptyLibrary.textContent = parselocalLang.emptyLibrary);
   } else return;
 }
-langIcon.setAttribute(data-title, "sdgdsgdsg");
+
 function setCurrentLibCardLang(list) {
   const localList = movieAS.getLocalStoredList(list);
   if (!localList) {
@@ -233,7 +234,7 @@ function setCurrentLibCardLang(list) {
 }
 
 function changeLangInLibrary() {
-  
+  const currentActiveBtn =  document.querySelector('.header-menu-btn__item--active');
   if (!currentActiveBtn) {
     return;
   } else if (currentActiveBtn === queueBtn) {
@@ -273,5 +274,5 @@ export {
   setLibraryTextContent,
   removePeriodBtnActiveClass,
   setCurrentLibCardLang,
-};
+}
 

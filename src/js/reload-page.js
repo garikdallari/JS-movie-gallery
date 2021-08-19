@@ -44,20 +44,20 @@ function renderSavedPage(objOfSettings) {
   switch (fetchQuery) {
     case 'watched':
       onClickLib();
-      removePeriodBtnActiveClass();
       movieApiService.getCurrentClientLang();
       movieApiService.updateLocalList('watched');
       renderLocalList('watched');
+      removePeriodBtnActiveClass();
       break;
 
     case 'queue':
       onClickLib();
-      removePeriodBtnActiveClass();
       addElementClass(queueBtn, 'header-menu-btn__item--active');
       removeElementClass(watchedBtn, 'header-menu-btn__item--active');
       movieApiService.getCurrentClientLang();
       movieApiService.updateLocalList('queue');
       renderLocalList('queue');
+      removePeriodBtnActiveClass();
       break;
   }
 

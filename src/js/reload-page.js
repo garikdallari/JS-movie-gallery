@@ -17,6 +17,7 @@ import {
   onTopRatedPagination,
   onUpcomingPagination,
   onByWordPagination,
+  scrollUpOnPagination,
 } from './pagination';
 
 const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn } = refs;
@@ -36,7 +37,7 @@ function renderPageAfterReload() {
 }
 
 function renderSavedPage(objOfSettings) {
-  let { currentPage, period, query, fetchQuery } = objOfSettings;
+  let { currentPage, period, query, fetchQuery, totalItems } = objOfSettings;
 
   switch (fetchQuery) {
     case 'watched':
@@ -56,30 +57,38 @@ function renderSavedPage(objOfSettings) {
       break;
   }
 
-  const pagination = new Pagination(paginContainer, { ...paginOptions, page: currentPage });
+  const pagination = new Pagination(paginContainer, {
+    ...paginOptions,
+    page: currentPage,
+    totalItems,
+  });
 
   switch (fetchQuery) {
     case 'fetchByPeriod':
       fetchMovieByPeriod(period, currentPage);
       switchPeriod(period);
+      scrollUpOnPagination();
       break;
 
     case 'fetchTopRated':
       fetchTopRatedMovie(currentPage);
       addsActiveButton(btnTop);
       onTopRatedPagination(pagination);
+      scrollUpOnPagination();
       break;
 
     case 'fetchUpcoming':
       fetchUpcomingMovies(currentPage);
       addsActiveButton(btnUpcoming);
       onUpcomingPagination(pagination);
+      scrollUpOnPagination();
       break;
 
     case 'fetchByWord':
       fetchMovieByWord(currentPage, query);
       removeActiveButton(btnDay);
       onByWordPagination(pagination, query);
+      scrollUpOnPagination();
       break;
   }
 
@@ -97,8 +106,8 @@ function renderSavedPage(objOfSettings) {
   }
 }
 
-function saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery) {
-  const savedSettings = { currentPage, period, query, fetchQuery };
+function saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery, totalItems) {
+  const savedSettings = { currentPage, period, query, fetchQuery, totalItems };
   localStorage.setItem('currentPageSettings', JSON.stringify(savedSettings));
 }
 

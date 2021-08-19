@@ -7,7 +7,6 @@ import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-// import { saveCurrentPageToLocalStorage } from './reload-page';
 import {
   paginContainer,
   paginOptions,
@@ -59,7 +58,6 @@ function onClickBtnDay() {
   // ===== INITIALISE PAGINATION
   const pagination = new Pagination(paginContainer, paginOptions);
   // ===== GET NEXT PAGES
-  // activatePagination(pagination, 'day', null, fetchMovieByPeriod);
   onPeriodPagination(pagination, 'day');
 }
 
@@ -73,7 +71,6 @@ function onClickBtnWeek() {
   addsActiveButton(btnWeek);
 
   const pagination = new Pagination(paginContainer, paginOptions);
-  // activatePagination(pagination, 'week', null, fetchMovieByPeriod);
   onPeriodPagination(pagination, 'week');
 }
 
@@ -87,7 +84,6 @@ function onClickBtnTop() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-      // activatePagination(pagination, null, null, fetchTopRatedMovie);
       onTopRatedPagination(pagination);
     })
     .finally(() => loader.off());
@@ -95,7 +91,7 @@ function onClickBtnTop() {
 }
 
 function onClickBtnUpcoming() {
- API.getCurrentClientLang();
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();

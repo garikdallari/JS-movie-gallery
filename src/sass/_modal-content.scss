@@ -172,7 +172,7 @@
 }
 
 .button_wrapper {
-  display: flex; 
+  display: flex;
   justify-content: center;
   flex-wrap: wrap;
   @include for-tablet-up {
@@ -202,7 +202,7 @@
   font-weight: 500;
   line-height: 16px;
   color: var(--cards-name-font-color);
-  &::first-letter{
+  &::first-letter {
     text-transform: uppercase;
   }
 }
@@ -257,8 +257,7 @@
 }
 
 iframe {
-  width: 80vw;
-  max-width: 300px;
+  width: 280px;
   height: 250px;
   position: fixed;
   top: 50%;

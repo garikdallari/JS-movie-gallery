@@ -29,4 +29,5 @@ export default {
   footerText1: document.querySelector('.footer-wrapper__text--rights'),
   footerText2: document.querySelector('.footer-wrapper__text--by'),
   logoLink: document.querySelector('.nav-menu__logo-link'),
+  langIcon: document.querySelector('.nav-menu__link--icon'),
 };

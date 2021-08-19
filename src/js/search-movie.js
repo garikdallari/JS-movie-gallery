@@ -14,10 +14,8 @@ import {
 } from './pagination';
 
 import {
-  setCurrentModalLang,
-  setCurrentModalRemoveLang,
   removePeriodBtnActiveClass,
-  setCurrentLibCardLang,
+ 
 } from './set-languages';
 
 const { searchFormRef, searchInputRef, galleryRef, messageFailure, headerBackgroundImageRef } =
@@ -67,8 +65,8 @@ function getMovie() {
           messageFailure.style.display = 'block';
           document.querySelector('.tui-pagination').style.display = 'none';
         } else {
-          document.querySelector('.tui-pagination').style.display = 'block';
           renderMovie(movies);
+          document.querySelector('.tui-pagination').style.display='block';
         }
       })
       .finally(() => loader.off());

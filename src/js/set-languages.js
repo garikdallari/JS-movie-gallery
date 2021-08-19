@@ -2,7 +2,7 @@ import MovieApiService from './movieService';
 import refs from './refs';
 import {onClickBtnDay, onClickBtnWeek, onClickBtnUpcoming, onClickBtnTop, } from '../js/period-buttons';
 import { ua, en, ru, es } from './languages';
-const {  searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek, btnTop, btnUpcoming, EnBtn,
+const { langIcon, searchInputRef, messageFailure, myLibraryRef, homeRef, btnDay, btnWeek, btnTop, btnUpcoming, EnBtn,
   UaBtn, RuBtn, EsBtn, watchedBtn, queueBtn, langBtns, footerGoitText, footerText1, footerText2, } = refs;
   import {
     WATCHED_LIST,
@@ -101,6 +101,8 @@ function setTextcontent(lang) {
   queueBtn.textContent = lang.queue;
   searchInputRef.placeholder = lang.placeholder;
   footerGoitText.textContent = lang.footerGoitText;
+  langIcon.setAttribute('data-title', `${lang.langIcon}`);
+
 }
 
 function setCurrentLangBtn(langBtn) {
@@ -232,7 +234,7 @@ function setCurrentLibCardLang(list) {
 }
 
 function changeLangInLibrary() {
-  const currentActiveBtn = document.querySelector('.header-menu-btn__item--active');
+  const currentActiveBtn =  document.querySelector('.header-menu-btn__item--active');
   if (!currentActiveBtn) {
     return;
   } else if (currentActiveBtn === queueBtn) {
@@ -272,5 +274,5 @@ export {
   setLibraryTextContent,
   removePeriodBtnActiveClass,
   setCurrentLibCardLang,
-};
+}
 

@@ -4,13 +4,13 @@
 
 .tui-pagination {
   padding-bottom: 12px;
-  border: none;
 }
 
 .tui-pagination .tui-page-btn {
+  border: none;
+  color: white;
   width: 40px;
   height: 40px;
-
   text-align: center;
   justify-content: center;
 
@@ -23,9 +23,9 @@
   &:hover,
   &:focus {
     background-color: #ff6b08;
+    color: white;
     border-radius: 5px;
     transform: scale(1.1);
-    color: white;
     box-shadow: rgba(143, 125, 125, 0.8) 0px 3px 8px;
     outline: none;
   }
@@ -37,15 +37,18 @@
   border-color: #ff6b08;
   border-radius: 5px;
   cursor: pointer;
+  color: white;
 }
 
-.tui-pagination .tui-prev-is-ellip, .tui-pagination .tui-next-is-ellip {
+.tui-pagination .tui-prev-is-ellip,
+.tui-pagination .tui-next-is-ellip {
   padding: 0;
   line-height: 1;
   padding: 12px 0 6px;
 }
 
 .tui-pagination .tui-ico-ellip {
+  color: white;
   margin-top: 11px;
 }
 

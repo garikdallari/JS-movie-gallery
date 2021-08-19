@@ -7,7 +7,6 @@ import throttle from 'lodash.throttle';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
-// import { saveCurrentPageToLocalStorage } from './reload-page';
 import {
   paginContainer,
   paginOptions,
@@ -48,6 +47,7 @@ btnTop.addEventListener('click', throttle(onClickBtnTop, THROTTLE_DELAY));
 btnUpcoming.addEventListener('click', throttle(onClickBtnUpcoming, THROTTLE_DELAY));
 
 function onClickBtnDay() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -58,11 +58,11 @@ function onClickBtnDay() {
   // ===== INITIALISE PAGINATION
   const pagination = new Pagination(paginContainer, paginOptions);
   // ===== GET NEXT PAGES
-  // activatePagination(pagination, 'day', null, fetchMovieByPeriod);
   onPeriodPagination(pagination, 'day');
 }
 
 function onClickBtnWeek() {
+  API.getCurrentClientLang();
   searchInputRef.value = '';
   messageFailure.style.display = 'none';
   API.clearGallery();
@@ -71,11 +71,11 @@ function onClickBtnWeek() {
   addsActiveButton(btnWeek);
 
   const pagination = new Pagination(paginContainer, paginOptions);
-  // activatePagination(pagination, 'week', null, fetchMovieByPeriod);
   onPeriodPagination(pagination, 'week');
 }
 
 function onClickBtnTop() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -84,7 +84,6 @@ function onClickBtnTop() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-      // activatePagination(pagination, null, null, fetchTopRatedMovie);
       onTopRatedPagination(pagination);
     })
     .finally(() => loader.off());
@@ -92,6 +91,7 @@ function onClickBtnTop() {
 }
 
 function onClickBtnUpcoming() {
+  API.getCurrentClientLang();
   messageFailure.style.display = 'none';
   searchInputRef.value = '';
   API.clearGallery();
@@ -100,7 +100,6 @@ function onClickBtnUpcoming() {
     .then(res => getTotalItemsFromStorage())
     .then(totalItems => {
       const pagination = new Pagination(paginContainer, { ...paginOptions, totalItems });
-      // activatePagination(pagination, null, null, fetchUpcomingMovies);
       onUpcomingPagination(pagination);
     })
     .finally(() => loader.off());
@@ -113,7 +112,6 @@ async function getMovieByPeriod(period) {
     const response = await API.fetchTrendingMovies(period).then(response =>
       renderMovieCards(response),
     );
-    // saveCurrentPageToLocalStorage(1, period, null, 'fetchByPeriod');
     return response;
   } catch (error) {
     console.log(error);
@@ -127,7 +125,6 @@ async function getMovieByType(type) {
       localStorage.setItem('totalItems', JSON.stringify(response.data.total_results));
       renderMovieCards(response);
     });
-    // saveCurrentPageToLocalStorage(1, null, null, 'fetchTopRated');
 
     return response;
   } catch (error) {

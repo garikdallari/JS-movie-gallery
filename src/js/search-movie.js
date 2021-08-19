@@ -2,26 +2,35 @@ import MovieApiService from './movieService';
 import refs from './refs';
 import galleryCard from '../templates/gallery-card.hbs';
 import { loader } from './loaders';
-
+import { removeActiveButton } from './period-buttons';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
 import '../sass/pagination.scss';
 import {
   paginContainer,
   paginOptions,
-  // activatePagination,
   onByWordPagination,
-  fetchMovieByWord,
   getTotalItemsFromStorage,
 } from './pagination';
 
-const { searchFormRef, searchInputRef, galleryRef, messageFailure } = refs;
+import {
+  setCurrentModalLang,
+  setCurrentModalRemoveLang,
+  removePeriodBtnActiveClass,
+  setCurrentLibCardLang,
+} from './set-languages';
+
+const { searchFormRef, searchInputRef, galleryRef, messageFailure,  headerBackgroundImageRef } = refs;
 const movieApiService = new MovieApiService();
 
 searchFormRef.addEventListener('submit', event => {
   event.preventDefault();
+  movieApiService.getCurrentClientLang();
   loader.on();
   getMovie();
+  removePeriodBtnActiveClass();
+  removeActiveButton();
+
 });
 
 function getMovie() {
@@ -34,6 +43,7 @@ function getMovie() {
     return;
   } else {
     movieApiService.clearGallery();
+    movieApiService.getCurrentClientLang();
     movieApiService
       .searchMovieByWord()
       .then(res => {
@@ -56,8 +66,9 @@ function getMovie() {
       .then(movies => {
         if (movies.length === 0) {
           messageFailure.style.display = 'block';
-          document.querySelector('.tui-pagination').style.display='none';
+          document.querySelector('.tui-pagination').style.display = 'none';
         } else {
+          document.querySelector('.tui-pagination').style.display='block';
           renderMovie(movies);
         }
       })
@@ -67,6 +78,7 @@ function getMovie() {
 
 function renderMovie(movies) {
   movieApiService.markupTempl(movies, galleryRef, galleryCard);
+  movieApiService.getCurrentClientLang();
   movies.forEach(movie => {
     movieApiService.editDate(movie);
     movieApiService.editGenres(movie);

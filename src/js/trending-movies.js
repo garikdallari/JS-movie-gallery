@@ -19,7 +19,7 @@ import {
 } from './pagination';
 
 import { loader } from './loaders';
-const { galleryRef, homeRef, btnDay } = refs;
+const { galleryRef, homeRef, btnDay, logoLink } = refs;
 
 const movieApiService = new MovieApiService();
 loader.on();
@@ -27,10 +27,15 @@ let queryResult = null;
 
 homeRef.addEventListener('click', onHomeLink);
 
+logoLink.addEventListener('click', onHomeLink);
+
+
 function onHomeLink() {
 
+  movieApiService.getCurrentClientLang();
   addsActiveButton(btnDay)
   movieApiService.clearGallery()
+
 
   movieApiService
     .fetchTrendingMovies('day')

@@ -1,9 +1,22 @@
-
 import { func } from 'assert-plus';
-import refs from './refs'
+import refs from './refs';
 
-const {searchInputRef, messageFailure, searchFormRef,headerBtns,homeRef,myLibraryRef,periodBtnBox,headerBackgroundImageRef,paginationBox,watchedBtn,queueBtn} = refs;
+const {
+  searchInputRef,
+  messageFailure,
+  searchFormRef,
+  headerBtns,
+  homeRef,
+  myLibraryRef,
+  periodBtnBox,
+  headerBackgroundImageRef,
+  paginationBox,
+  watchedBtn,
+  queueBtn,
+  logoLink,
+} = refs;
 
+logoLink.addEventListener('click', onClickHome)
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
 headerBtns.addEventListener('click', onClickMenuBtns);
@@ -24,7 +37,8 @@ function onClickLib() {
 }
 
 function onClickHome() {
-  searchInputRef.value="";
+  document.querySelector('.tui-pagination').style.display='block';
+  searchInputRef.value = '';
   messageFailure.style.display = 'none';
   removeElementClass(searchFormRef, 'is-closed');
   replaceElementClass(headerBtns, 'is-open', 'is-closed');
@@ -41,29 +55,24 @@ function onClickMenuBtns(evt) {
   addActiveBtn(evt);
 }
 
-
 function replaceElementClass(element, remove, add) {
   element.classList.replace(remove, add);
-};
+}
 
 function addElementClass(element, name) {
   element.classList.add(name);
-  
 }
 
 function removeElementClass(element, name) {
   element.classList.remove(name);
-  
 }
 
 function addStyleDisplay(element, value) {
   element.style.display = value;
-  
 }
 
 function removePagination() {
   paginationBox.classList.add('tui-pagination--closed');
-
 }
 
 function addsPagination() {
@@ -71,16 +80,15 @@ function addsPagination() {
 }
 
 function addActiveBtn(evt) {
-  if (evt.target.nodeName !== "BUTTON") {
-    return
+  if (evt.target.nodeName !== 'BUTTON') {
+    return;
   }
   const currentBtn = evt.target;
   const currentActiveBtn = document.querySelector('.header-menu-btn__item--active');
-    if (currentActiveBtn) {
-        currentActiveBtn.classList.remove('header-menu-btn__item--active');
-    }
-    currentBtn.classList.add('header-menu-btn__item--active');
-  
+  if (currentActiveBtn) {
+    currentActiveBtn.classList.remove('header-menu-btn__item--active');
+  }
+  currentBtn.classList.add('header-menu-btn__item--active');
 }
 
-
+export { onClickLib, addElementClass, removeElementClass };

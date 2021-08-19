@@ -7,7 +7,7 @@ import galleryCard from '../templates/gallery-card.hbs';
 import { loader } from './loaders';
 import { saveCurrentPageToLocalStorage } from './reload-page';
 
-const { galleryRef, messageFailure } = refs;
+const { galleryRef, messageFailure, logoLink } = refs;
 const movieApiService = new MovieApiService();
 
 const paginOptions = {
@@ -38,8 +38,24 @@ const paginOptions = {
 
 const paginContainer = document.getElementById('tui-pagination-container');
 
+function scrollUpOnPagination() {
+  paginContainer.addEventListener('click', function (e) {
+    e.preventDefault();
+    if (e.target.classList.contains('tui-pagination')) return;
+    logoLink.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  });
+}
+
 function onPeriodPagination(pagination, period) {
   pagination.on('afterMove', event => {
+
+    movieApiService.getCurrentClientLang();
+
+    scrollUpOnPagination();
+
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchMovieByPeriod(period, currentPage);
@@ -47,7 +63,9 @@ function onPeriodPagination(pagination, period) {
 }
 
 function onTopRatedPagination(pagination) {
+  movieApiService.getCurrentClientLang();
   pagination.on('afterMove', event => {
+    scrollUpOnPagination();
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchTopRatedMovie(currentPage);
@@ -55,7 +73,9 @@ function onTopRatedPagination(pagination) {
 }
 
 function onUpcomingPagination(pagination) {
+  movieApiService.getCurrentClientLang();
   pagination.on('afterMove', event => {
+    scrollUpOnPagination();
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchUpcomingMovies(currentPage);
@@ -63,7 +83,9 @@ function onUpcomingPagination(pagination) {
 }
 
 function onByWordPagination(pagination, query) {
+  movieApiService.getCurrentClientLang();
   pagination.on('afterMove', event => {
+    scrollUpOnPagination();
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchMovieByWord(currentPage, query);
@@ -71,6 +93,7 @@ function onByWordPagination(pagination, query) {
 }
 
 function fetchMovieByWord(page, query) {
+  movieApiService.getCurrentClientLang();
   movieApiService.searchQuery = query;
   movieApiService
     .searchMovieByWord(page)
@@ -92,6 +115,7 @@ function fetchMovieByWord(page, query) {
 }
 
 function fetchMovieByPeriod(period, page) {
+  movieApiService.getCurrentClientLang();
   movieApiService
     .fetchTrendingMovies(period, page)
     .then(res => {
@@ -112,37 +136,45 @@ function fetchMovieByPeriod(period, page) {
 }
 
 function fetchTopRatedMovie(page) {
+  movieApiService.getCurrentClientLang();
   movieApiService
     .fetchTopRatedMovies(page)
-    .then(res => res.data.results)
-    .then(movies => {
+    .then(res => {
+      const movies = res.data.results;
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
       }
+      return res;
     })
     .then(res => {
-      saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated');
+      const totalItems = res.data.total_results;
+      console.log(totalItems);
+      saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated', totalItems);
     })
     .finally(() => loader.off());
 }
 
 function fetchUpcomingMovies(page) {
+  movieApiService.getCurrentClientLang();
   movieApiService
     .fetchUpcomingMovies(page)
-    .then(res => res.data.results)
-    .then(movies => {
+    .then(res => {
+      const movies = res.data.results;
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
       }
+      return res;
     })
     .then(res => {
-      saveCurrentPageToLocalStorage(page, null, null, 'fetchUpcoming');
+      const totalItems = res.data.total_results;
+      console.log(totalItems);
+      saveCurrentPageToLocalStorage(page, null, null, 'fetchUpcoming', totalItems);
     })
     .finally(() => loader.off());
 }
@@ -153,6 +185,7 @@ function getTotalItemsFromStorage() {
 }
 
 function editDatesAndGenres(movies) {
+  movieApiService.getCurrentClientLang();
   movies.forEach(movie => {
     movieApiService.editDate(movie);
     movieApiService.editGenres(movie);
@@ -162,7 +195,6 @@ function editDatesAndGenres(movies) {
 export {
   paginContainer,
   paginOptions,
-  //  activatePagination,
   fetchMovieByWord,
   fetchMovieByPeriod,
   fetchTopRatedMovie,
@@ -172,14 +204,5 @@ export {
   onTopRatedPagination,
   onUpcomingPagination,
   onByWordPagination,
+  scrollUpOnPagination,
 };
-
-// function activatePagination(pagination, period, query, fetchQuery) {
-//   pagination.on('afterMove', event => {
-//     const currentPage = event.page;
-//     movieApiService.clearGallery();
-//     if (query !== null) return fetchQuery(currentPage, query);
-//     if (period !== null) return fetchQuery(period, currentPage);
-//     fetchQuery(currentPage);
-//   });
-// }

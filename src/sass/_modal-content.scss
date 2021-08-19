@@ -15,12 +15,12 @@
   width: 240px;
   border-radius: 5px;
   @include for-tablet-up {
-    height: 373.5px;
-    width: 264px;
+    height: 200px;
+    width: 0px;
   }
   @include for-desktop-up {
-    height: 477.8px;
-    width: 396px;
+    height: 200px;
+    width: 0px;
   }
 }
 
@@ -32,10 +32,10 @@
 
 .modal_movie_info {
   @include for-tablet-up {
-    margin-left: 32px;
+    margin-left: 155px;
   }
   @include for-desktop-up {
-    margin-left: 30px;
+    margin-left: 155px;
     width: 396px;
   }
 }
@@ -50,7 +50,6 @@
   font-size: 30px;
   font-weight: 500;
   line-height: 35px;
-  letter-spacing: 0em;
   margin-bottom: 20px;
 }
 .list_wrapper {
@@ -68,7 +67,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-align: left;
 }
 .about_text {
@@ -78,7 +76,6 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 20px;
-  letter-spacing: 0em;
   text-align: left;
 }
 .button_watched {
@@ -90,7 +87,6 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
@@ -122,13 +118,12 @@
   padding: 0;
   height: 44px;
   width: 112.6px;
-  margin-left: 15px;
+  margin-left: 10px;
   border-radius: 5px;
   font-family: var(--font-family);
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
@@ -147,38 +142,42 @@
 
 .button_open {
   padding: 0;
-  margin-left: 15px;
+  height: 44px;
+  width: 112.6px;
+  margin-top: 5px;
   border-radius: 5px;
-  font-family: Roboto;
+  font-family: var(--font-family);
   font-size: 12px;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
   text-transform: uppercase;
   color: var(--cards-name-font-color);
   background-color: transparent;
   cursor: pointer;
   transition: background-color var(--time) var(--time-function),
     border var(--time) var(--time-function);
+
   @include for-tablet-up {
-    margin-left: 0;
-    margin-top: 5px;
     height: 44px;
     width: 125px;
+    margin-left: 10px;
   }
+
   @include for-desktop-up {
     margin-top: 0;
-    margin-left: 15px;
+    margin-left: 10px;
     height: 44px;
     width: 136px;
   }
 }
 
 .button_wrapper {
-  display: flex;
+  display: flex; 
   justify-content: center;
+  flex-wrap: wrap;
   @include for-tablet-up {
     flex-wrap: wrap;
+    align-items: baseline;
   }
   @include for-desktop-up {
     flex-wrap: nowrap;
@@ -195,15 +194,17 @@
   text-align: left;
   color: var(--cards-description-font-color);
 }
+
 .list_text {
   font-family: var(--font-family);
   font-size: 12px;
   font-style: normal;
   font-weight: 500;
   line-height: 16px;
-  letter-spacing: 0em;
-  text-align: left;
   color: var(--cards-name-font-color);
+  &::first-letter{
+    text-transform: uppercase;
+  }
 }
 
 .list_text--bigger {
@@ -256,8 +257,8 @@
 }
 
 iframe {
-  // width: 280px;
   width: 80vw;
+  max-width: 300px;
   height: 250px;
   position: fixed;
   top: 50%;
@@ -285,5 +286,10 @@ iframe {
   @include for-desktop-up {
     height: 490px;
     width: 820px;
+  }
+}
+.modal_movie_about-film {
+  @include for-tablet-up {
+    width: 396px;
   }
 }

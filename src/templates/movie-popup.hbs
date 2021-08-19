@@ -19,27 +19,21 @@
     <div class="modal_movie_info">
         <h2 class="modal_movie_title">{{data.title}}</h2>
         <div class="list">
-            <div class="list_wrapper"><span class="list_name">Vote / Votes</span><span class="list_text"><span
+            <div class="list_wrapper"><span class="list_name vote">Vote / Votes</span><span class="list_text"><span
                         class="list_text_vote">{{data.vote_average}}</span><span class="list_text_vote_count">/</span>
                     {{data.vote_count}}</span></div>
-            <div class="list_wrapper"><span class="list_name">Popularity</span><span class="list_text">
+            <div class="list_wrapper"><span class="list_name popularity">Popularity</span><span class="list_text">
                     {{data.popularity}}</span></div>
-            <div class="list_wrapper"><span class="list_name">Original Title</span><span
+            <div class="list_wrapper"><span class="list_name title">Original Title</span><span
                     class="list_text list_text--bigger">{{data.title}}</span></div>
-            <div class="list_wrapper"><span class="list_name">Genre</span>
+            <div class="list_wrapper"><span class="list_name genre">Genre</span>
         
         <span class="list_text">{{genres}}</span>
     
         </div>       
         </div>
        
-        <h3 class="title_about">ABOUT</h3>
-        <p class="about_text"> {{data.overview}}</p>
-<span class="button_wrapper" data-value="modal-btns"> 
-    <button class="button_watched watched" data-action="add-to-watched" data-id="{{data.id}}">add to watched</button>
-    <button class="button_queue queue" data-action="add-to-queue" data-id="{{data.id}}">add to queue</button>
-        <button class="button_open">watch trailer</button>
-        </span>
+
 <div class="backdrop "> 
      <div class="backdrop_overlay"></div>
 <div class="plyr__video-embed" id="player" style="display: none;">
@@ -62,5 +56,22 @@
 </div>
 
     </div>
-   
+<div class="blur_back">
+    <div class="blur_back__wrapper">
+        <img class="blur_back__img"
+            src='https://image.tmdb.org/t/p/original{{data.backdrop_path}}'
+            alt="" />
+            </div>
+    </div>
 </div>
+<div class="modal_movie_about-film">
+            <h3 class="title_about">ABOUT</h3>
+            <p class="about_text"> {{data.overview}}</p>
+            <span class="button_wrapper" data-value="modal-btns">
+                <button class="button_watched watched" data-action="add-to-watched" data-id="{{data.id}}">add to watched</button>
+                <button class="button_queue queue" data-action="add-to-queue" data-id="{{data.id}}">add to queue</button>
+                <button class="button_open">watch trailer</button>
+            </span>
+</div>
+</div>
+{{!-- width="882px" height="568px --}}

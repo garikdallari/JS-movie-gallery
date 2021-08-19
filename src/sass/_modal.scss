@@ -27,18 +27,19 @@
 }
 
 .lightbox__content {
-  background: linear-gradient(to right, #0d0d0c 50%, transparent 100%);
-  // background-color: var(--primary-font-color);
+  background-color: var(--background-color-modal);
   border-radius: 5px;
   padding: 48px 20px 41px 20px;
-  // width: 280px;
-  width: 90vw;
+  width: 280px;
+  // width: 90vw;
   height: 90vh;
   // height: 958px;
   overflow-y: auto;
   position: relative;
 
   @include for-tablet-up {
+    background: linear-gradient(to right, var(--background-color-modal) 42%, transparent 100%);
+    background-color: transparent;
     position: absolute;
     width: 618px;
     max-height: 605px;
@@ -68,6 +69,7 @@
   cursor: pointer;
   outline: none;
   transition: transform var(--time) var(--time-function), fill var(--time) var(--time-function);
+  fill: var(--close-color-icon);
 }
 
 .lightbox__button:hover,
@@ -103,6 +105,7 @@
 }
 
 .blur_back {
+  overflow: hidden;
   position: absolute;
   top: 0;
   z-index: -1;
@@ -110,10 +113,25 @@
   right: 0;
   background-size: cover;
   border-radius: 11px;
+
+  width: 78%;
+  background-position: -100% 10% !important;
+}
+
+.blur_back__wrapper {
+  width: 882px;
+  height: 568px;
+}
+
+.blur_back__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .tomb_back {
-  width: 80%;
-  background-position: -100% 10% !important;
+  // width: 80%;
+  // background-position: -100% 10% !important;
   background: url('https://fsmedia.imgix.net/cd/c9/5e/ba/4817/4d9a/93f0/c776ec32ecbc/lara-crofts-neck-looks-unnatural-in-the-new-poster-for-tomb-raider.png');
 }

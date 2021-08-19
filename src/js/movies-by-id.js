@@ -15,16 +15,17 @@ import {
 } from './clients-lists';
 
 const movieApiService = new MovieApiService();
-const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
+const { galleryRef, modalRef, overlay, buttonClose, content, modalMovie, modalMovieAboutFilm } = refs;
 
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
+  
   if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
   loader.on();
-  
+
   document.body.style.overflow = 'hidden';
   modalRef.classList.add('is-open');
   movieApiService.id = +e.target.getAttribute('data-img-id');
@@ -36,12 +37,17 @@ function openModalOnClick(e) {
   content.addEventListener('click', openTrailer);
 }
 
-
 function closeModalOnClick() {
+
+  const modalMovie = document.querySelector('.modal_movie');
+  const modalMovieAboutFilm = document.querySelector('.modal_movie_about-film');
+
   modalRef.classList.remove('is-open');
   document.body.style.overflow = 'visible';
   const modalContent = content.lastElementChild;
   modalContent.remove();
+  modalMovie.remove();
+  // modalMovieAboutFilm.remove()
   removeListenerFromCloseModal();
   markupGrabbedList(pageForExport);
 }
@@ -60,12 +66,10 @@ function closeModalOnEsc(e) {
 }
 
 function openTrailer(e) {
-  // console.log(e.target)
   if (!e.target.classList.contains("button_open")) {
-    return;
+ return;
   }
   document.querySelector('.plyr__video-embed').style.display = 'block';
-  // iframe.style.display = 'block';
   buttonClose.style.display = 'none';
   addListenerForOpentrailer();
   window.removeEventListener('keydown', closeModalOnEsc);
@@ -80,10 +84,10 @@ function openTrailer(e) {
     buttonClose.style.display = 'flex';
     backdrop.classList.remove('backdrop-is-open');
     btnOpenTrailer.disabled = true;
-    btnOpenTrailer.style.cursor = 'default'
+    btnOpenTrailer.style.cursor = 'default';
     btnOpenTrailer.style.background = 'transparent';
     btnOpenTrailer.style.color = 'gray';
-    btnOpenTrailer.style.border = '1px solid lightgray'
+    btnOpenTrailer.style.border = '1px solid lightgray';
     Notify.init({
       position: 'right-top',
       fontSize: '15px',
@@ -149,11 +153,9 @@ async function fetchMovieById() {
   if (results.length === 0) {
     key = 'W9nZ6u15yis';
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-   
   } else {
     key = results[0].key;
     movieApiService.markupTempl({ data, genres, key }, content, movieCard);
-    
   }
 
   // check for this movie if it exists in storage

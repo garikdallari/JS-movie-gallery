@@ -1,4 +1,4 @@
-import { addsActiveButton, removeActiveButton } from './period-buttons';
+import { addsActiveButton, removeActiveButton, onClickBtnDay } from './period-buttons';
 import refs from './refs';
 import Pagination from 'tui-pagination';
 import 'tui-pagination/dist/tui-pagination.css';
@@ -20,30 +20,39 @@ import {
   onUpcomingPagination,
   onByWordPagination,
   scrollUpOnPagination,
+  hidePagination,
+  getTotalItemsFromStorage,
 } from './pagination';
 
-const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn } = refs;
+const { btnDay, btnWeek, btnTop, btnUpcoming, watchedBtn, queueBtn, paginationBox } = refs;
 const movieApiService = new MovieApiService();
 
-createCurrentPageSettings();
 document.addEventListener('DOMContentLoaded', renderPageAfterReload);
 
 function createCurrentPageSettings() {
   const isStorageExists = localStorage.getItem('currentPageSettings');
-  if (!isStorageExists) saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod');
+  if (isStorageExists) return;
+  else {
+    saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod', 20000);
+    onClickBtnDay();
+    return true;
+  }
 }
 
 function renderPageAfterReload() {
+  if (createCurrentPageSettings()) return;
+
   const pageSettings = getCurrentPageFromLocalStorage();
   renderSavedPage(pageSettings);
 }
 
 function renderSavedPage(objOfSettings) {
-  let { currentPage, period, query, fetchQuery, totalItems } = objOfSettings;
+  let { currentPage, period, query, fetchQuery } = objOfSettings;
 
   switch (fetchQuery) {
     case 'watched':
       onClickLib();
+      hidePagination();
       movieApiService.getCurrentClientLang();
       movieApiService.updateLocalList('watched');
       renderLocalList('watched');
@@ -52,6 +61,7 @@ function renderSavedPage(objOfSettings) {
 
     case 'queue':
       onClickLib();
+      hidePagination();
       addElementClass(queueBtn, 'header-menu-btn__item--active');
       removeElementClass(watchedBtn, 'header-menu-btn__item--active');
       movieApiService.getCurrentClientLang();
@@ -61,22 +71,19 @@ function renderSavedPage(objOfSettings) {
       break;
   }
 
-  const pagination = new Pagination(paginContainer, {
-    ...paginOptions,
-    page: currentPage,
-    totalItems,
-  });
+  const pagination = createPagination(objOfSettings);
 
   switch (fetchQuery) {
     case 'fetchByPeriod':
       fetchMovieByPeriod(period, currentPage);
-      switchPeriod(period);
+      switchPeriod(period, pagination);
       scrollUpOnPagination();
       break;
 
     case 'fetchTopRated':
       fetchTopRatedMovie(currentPage);
       addsActiveButton(btnTop);
+      // pagination = createPagination(objOfSettings);
       onTopRatedPagination(pagination);
       scrollUpOnPagination();
       break;
@@ -84,6 +91,7 @@ function renderSavedPage(objOfSettings) {
     case 'fetchUpcoming':
       fetchUpcomingMovies(currentPage);
       addsActiveButton(btnUpcoming);
+      // pagination = createPagination(objOfSettings);
       onUpcomingPagination(pagination);
       scrollUpOnPagination();
       break;
@@ -91,12 +99,13 @@ function renderSavedPage(objOfSettings) {
     case 'fetchByWord':
       fetchMovieByWord(currentPage, query);
       removeActiveButton(btnDay);
+      // pagination = createPagination(objOfSettings);
       onByWordPagination(pagination, query);
       scrollUpOnPagination();
       break;
   }
 
-  function switchPeriod(period) {
+  function switchPeriod(period, pagination) {
     switch (period) {
       case 'day':
         addsActiveButton(btnDay);
@@ -118,6 +127,17 @@ function saveCurrentPageToLocalStorage(currentPage, period, query, fetchQuery, t
 function getCurrentPageFromLocalStorage() {
   const savedSettings = localStorage.getItem('currentPageSettings');
   return JSON.parse(savedSettings);
+}
+
+function createPagination(objOfSettings) {
+  let { currentPage, totalItems } = objOfSettings;
+  totalItems = getTotalItemsFromStorage();
+  const pagination = new Pagination(paginContainer, {
+    ...paginOptions,
+    page: currentPage,
+    totalItems,
+  });
+  return pagination;
 }
 
 export { saveCurrentPageToLocalStorage };

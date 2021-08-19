@@ -18,7 +18,8 @@ import {
  
 } from './set-languages';
 
-const { searchFormRef, searchInputRef, galleryRef, messageFailure,  headerBackgroundImageRef } = refs;
+const { searchFormRef, searchInputRef, galleryRef, messageFailure, headerBackgroundImageRef } =
+  refs;
 const movieApiService = new MovieApiService();
 
 searchFormRef.addEventListener('submit', event => {
@@ -27,8 +28,6 @@ searchFormRef.addEventListener('submit', event => {
   loader.on();
   getMovie();
   removePeriodBtnActiveClass();
-  removeActiveButton();
-
 });
 
 function getMovie() {

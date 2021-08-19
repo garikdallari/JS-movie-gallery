@@ -7,7 +7,7 @@ import galleryCard from '../templates/gallery-card.hbs';
 import { loader } from './loaders';
 import { saveCurrentPageToLocalStorage } from './reload-page';
 
-const { galleryRef, messageFailure, logoLink } = refs;
+const { galleryRef, messageFailure, logoLink, paginationBox } = refs;
 const movieApiService = new MovieApiService();
 
 const paginOptions = {
@@ -51,11 +51,8 @@ function scrollUpOnPagination() {
 
 function onPeriodPagination(pagination, period) {
   pagination.on('afterMove', event => {
-
     movieApiService.getCurrentClientLang();
-
     scrollUpOnPagination();
-
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchMovieByPeriod(period, currentPage);
@@ -119,18 +116,18 @@ function fetchMovieByPeriod(period, page) {
   movieApiService
     .fetchTrendingMovies(period, page)
     .then(res => {
-      return res.data.results;
-    })
-    .then(movies => {
+      const movies = res.data.results;
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
       }
+      return res;
     })
     .then(res => {
-      saveCurrentPageToLocalStorage(page, period, null, 'fetchByPeriod');
+      const totalItems = res.data.total_results;
+      saveCurrentPageToLocalStorage(page, period, null, 'fetchByPeriod', totalItems);
     })
     .finally(() => loader.off());
 }
@@ -151,7 +148,6 @@ function fetchTopRatedMovie(page) {
     })
     .then(res => {
       const totalItems = res.data.total_results;
-      console.log(totalItems);
       saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated', totalItems);
     })
     .finally(() => loader.off());
@@ -173,7 +169,6 @@ function fetchUpcomingMovies(page) {
     })
     .then(res => {
       const totalItems = res.data.total_results;
-      console.log(totalItems);
       saveCurrentPageToLocalStorage(page, null, null, 'fetchUpcoming', totalItems);
     })
     .finally(() => loader.off());
@@ -192,6 +187,10 @@ function editDatesAndGenres(movies) {
   });
 }
 
+function hidePagination() {
+  paginationBox.style.display = 'none';
+}
+
 export {
   paginContainer,
   paginOptions,
@@ -205,4 +204,5 @@ export {
   onUpcomingPagination,
   onByWordPagination,
   scrollUpOnPagination,
+  hidePagination,
 };

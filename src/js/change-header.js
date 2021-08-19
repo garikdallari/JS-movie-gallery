@@ -16,7 +16,7 @@ const {
   logoLink,
 } = refs;
 
-logoLink.addEventListener('click', onClickHome)
+logoLink.addEventListener('click', onClickHome);
 myLibraryRef.addEventListener('click', onClickLib);
 homeRef.addEventListener('click', onClickHome);
 headerBtns.addEventListener('click', onClickMenuBtns);
@@ -33,11 +33,11 @@ function onClickLib() {
   addStyleDisplay(periodBtnBox, 'none');
   addElementClass(watchedBtn, 'header-menu-btn__item--active');
   removeElementClass(queueBtn, 'header-menu-btn__item--active');
-  removePagination();
+  // removePagination();
 }
 
 function onClickHome() {
-  document.querySelector('.tui-pagination').style.display='block';
+  document.querySelector('.tui-pagination').style.display = 'block';
   searchInputRef.value = '';
   messageFailure.style.display = 'none';
   removeElementClass(searchFormRef, 'is-closed');
@@ -46,7 +46,7 @@ function onClickHome() {
   removeElementClass(myLibraryRef, 'nav-menu__link--current-page');
   addElementClass(homeRef, 'nav-menu__link--current-page');
   addStyleDisplay(periodBtnBox, '');
-  addsPagination();
+  // addsPagination();
   removeElementClass(queueBtn, 'header-menu-btn__item--active');
   removeElementClass(watchedBtn, 'header-menu-btn__item--active');
 }
@@ -91,4 +91,4 @@ function addActiveBtn(evt) {
   currentBtn.classList.add('header-menu-btn__item--active');
 }
 
-export { onClickLib, addElementClass, removeElementClass };
+export { onClickLib, addElementClass, removeElementClass, removePagination };

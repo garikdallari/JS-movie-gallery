@@ -15,12 +15,12 @@ import {
 } from './clients-lists';
 
 const movieApiService = new MovieApiService();
-const { galleryRef, modalRef, overlay, buttonClose, content } = refs;
+const { galleryRef, modalRef, overlay, buttonClose, content, modalMovie, modalMovieAboutFilm } = refs;
 
 galleryRef.addEventListener('click', openModalOnClick);
 
 function openModalOnClick(e) {
-  console.log(e.target);
+  
   if (!e.target.classList.contains('cards-list__img')) {
     return;
   }
@@ -38,10 +38,16 @@ function openModalOnClick(e) {
 }
 
 function closeModalOnClick() {
+
+  const modalMovie = document.querySelector('.modal_movie');
+  const modalMovieAboutFilm = document.querySelector('.modal_movie_about-film');
+
   modalRef.classList.remove('is-open');
   document.body.style.overflow = 'visible';
-  const modalContent = content.lastElementChild;
-  modalContent.remove();
+  // const modalContent = content.lastElementChild;
+  // modalContent.remove();
+  modalMovie.remove();
+  modalMovieAboutFilm.remove()
   removeListenerFromCloseModal();
   markupGrabbedList(pageForExport);
 }

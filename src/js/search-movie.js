@@ -14,10 +14,8 @@ import {
 } from './pagination';
 
 import {
-  setCurrentModalLang,
-  setCurrentModalRemoveLang,
   removePeriodBtnActiveClass,
-  setCurrentLibCardLang,
+ 
 } from './set-languages';
 
 const { searchFormRef, searchInputRef, galleryRef, messageFailure,  headerBackgroundImageRef } = refs;

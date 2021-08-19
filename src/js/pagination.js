@@ -51,11 +51,8 @@ function scrollUpOnPagination() {
 
 function onPeriodPagination(pagination, period) {
   pagination.on('afterMove', event => {
-
     movieApiService.getCurrentClientLang();
-
     scrollUpOnPagination();
-
     const currentPage = event.page;
     movieApiService.clearGallery();
     fetchMovieByPeriod(period, currentPage);
@@ -119,18 +116,18 @@ function fetchMovieByPeriod(period, page) {
   movieApiService
     .fetchTrendingMovies(period, page)
     .then(res => {
-      return res.data.results;
-    })
-    .then(movies => {
+      const movies = res.data.results;
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
       }
+      return res;
     })
     .then(res => {
-      saveCurrentPageToLocalStorage(page, period, null, 'fetchByPeriod');
+      const totalItems = res.data.total_results;
+      saveCurrentPageToLocalStorage(page, period, null, 'fetchByPeriod', totalItems);
     })
     .finally(() => loader.off());
 }
@@ -151,7 +148,6 @@ function fetchTopRatedMovie(page) {
     })
     .then(res => {
       const totalItems = res.data.total_results;
-      console.log(totalItems);
       saveCurrentPageToLocalStorage(page, null, null, 'fetchTopRated', totalItems);
     })
     .finally(() => loader.off());

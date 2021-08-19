@@ -20,7 +20,8 @@ import {
   setCurrentLibCardLang,
 } from './set-languages';
 
-const { searchFormRef, searchInputRef, galleryRef, messageFailure,  headerBackgroundImageRef } = refs;
+const { searchFormRef, searchInputRef, galleryRef, messageFailure, headerBackgroundImageRef } =
+  refs;
 const movieApiService = new MovieApiService();
 
 searchFormRef.addEventListener('submit', event => {
@@ -29,8 +30,6 @@ searchFormRef.addEventListener('submit', event => {
   loader.on();
   getMovie();
   removePeriodBtnActiveClass();
-  removeActiveButton();
-
 });
 
 function getMovie() {
@@ -68,7 +67,7 @@ function getMovie() {
           messageFailure.style.display = 'block';
           document.querySelector('.tui-pagination').style.display = 'none';
         } else {
-          document.querySelector('.tui-pagination').style.display='block';
+          document.querySelector('.tui-pagination').style.display = 'block';
           renderMovie(movies);
         }
       })

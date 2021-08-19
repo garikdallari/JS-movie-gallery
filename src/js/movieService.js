@@ -188,7 +188,7 @@ export default class MovieApiService {
   getCurrentClientPage() {
     const currentPageSettings = localStorage.getItem('currentPageSettings');
     const parseCurrentPageSettings = JSON.parse(currentPageSettings);
-    if (parseCurrentPageSettings === null) {
+     if (parseCurrentPageSettings === null) {
       this.page = 1;
     } else {
       this.page = parseCurrentPageSettings.currentPage;

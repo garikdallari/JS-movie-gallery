@@ -67,6 +67,7 @@
 }
 
 .tui-ico-ellipsis, .tui-ico-first, .tui-ico-last, .tui-ico-next, .tui-ico-prev {
+  filter: brightness(100);
 
 @media (max-width: 1199px) {
   border: none;

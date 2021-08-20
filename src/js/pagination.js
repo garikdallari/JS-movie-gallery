@@ -100,9 +100,11 @@ function fetchMovieByWord(page, query) {
     .then(movies => {
       if (movies.length === 0) {
         messageFailure.style.display = 'block';
+        document.querySelector('.tui-pagination').style.display = 'none';
       } else {
         movieApiService.markupTempl(movies, galleryRef, galleryCard);
         editDatesAndGenres(movies);
+        document.querySelector('.tui-pagination').style.display='block';
       }
     })
     .then(res => {

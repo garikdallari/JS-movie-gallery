@@ -49,7 +49,7 @@ function closeModalOnClick() {
   modalMovie.remove();
   modalMovieAboutFilm.remove()
   removeListenerFromCloseModal();
-  markupGrabbedList(pageForExport);
+  // markupGrabbedList(pageForExport);
 }
 
 function removeListenerFromCloseModal() {

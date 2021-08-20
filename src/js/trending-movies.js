@@ -43,7 +43,9 @@ function onHomeLink() {
       queryResult = res.data.results;
       movieApiService.markupTempl(queryResult, galleryRef, galleryCard);
 
-      saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod');
+      saveCurrentPageToLocalStorage(1, 'day', null, 'fetchByPeriod', 20000);
+      localStorage.setItem('totalItems', JSON.stringify(20000));
+
 
       // ====== edit date & genres
       queryResult.forEach(movie => {

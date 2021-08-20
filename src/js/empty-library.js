@@ -1,6 +1,6 @@
 import refs from './refs';
 import MovieApiService from './movieService';
-import {WATCHED_LIST,QUEUE_LIST} from './clients-lists';
+import {WATCHED_LIST,QUEUE_LIST, markupGrabbedList, pageForExport} from './clients-lists';
 import { setLibraryTextContent } from './set-languages'
 const movieApiService = new MovieApiService();
 const { myLibraryRef,homeRef,watchedBtn,queueBtn, logoLink} = refs;
@@ -47,21 +47,20 @@ function onLogoClick() {
 }
 
 function onWindowClick(e){
-
 const que = movieApiService.getLocalStoredList(QUEUE_LIST);
 const watched = movieApiService.getLocalStoredList(WATCHED_LIST);
-  
-    if (e.target.dataset.action === "add-to-watched" && watched.length === 0&&watchedBtn.classList.contains("header-menu-btn__item--active")) {
-    
-    message.style.display="block";
-      setLibraryTextContent();
-}
-
-else if(e.target.dataset.action === "add-to-queue"&&que.length===0&&queueBtn.classList.contains("header-menu-btn__item--active")){
- message.style.display="block";
-}
+  if (e.target.dataset.action === "add-to-watched" && watched.length === 0 && watchedBtn.classList.contains("header-menu-btn__item--active")) {
+    message.style.display = "block";
+    setLibraryTextContent();
+  }
+  else if (e.target.dataset.action === "add-to-queue" && que.length === 0 && queueBtn.classList.contains("header-menu-btn__item--active")) {
+    message.style.display = "block";
+  }
+  else if (e.target.dataset.action !== "add-to-queue" && myLibraryRef.classList.contains("nav-menu__link--current-page")
+    || e.target.dataset.action !== "add-to-watched" && myLibraryRef.classList.contains("nav-menu__link--current-page")) {
+     markupGrabbedList(pageForExport);
+  }
 };
-
 
 function onBtnWatchedClick() {
 

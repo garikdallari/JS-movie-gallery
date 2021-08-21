@@ -47,7 +47,7 @@ function closeModalOnClick() {
   const modalContent = content.lastElementChild;
   modalContent.remove();
   modalMovie.remove();
-  modalMovieAboutFilm.remove()
+  // modalMovieAboutFilm.remove()
   removeListenerFromCloseModal();
   // markupGrabbedList(pageForExport);
 }
